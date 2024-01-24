@@ -11,11 +11,9 @@
             "id": "04fd47b057d19d92",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "Introduction to Docker.md",
-                "mode": "source",
-                "source": false
+                "file": "Images/Pasted image 20240122112639 1.png"
               }
             }
           },
@@ -97,7 +95,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Introduction to Docker.md",
+                "file": "Images/Pasted image 20240122112639 1.png",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +112,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Introduction to Docker.md",
+                "file": "Images/Pasted image 20240122112639 1.png",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -137,7 +135,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Introduction to Docker.md"
+                "file": "Images/Pasted image 20240122112639 1.png"
               }
             }
           }
@@ -158,22 +156,22 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "04fd47b057d19d92",
+  "active": "a7bf74146a71f73d",
   "lastOpenFiles": [
-    "Images/Pasted image 20240122112639.png",
-    "container id.md",
-    "Terraform.md",
-    "Images",
     "Introduction to Docker.md",
-    "Images/Screenshot 2024-01-23 at 4.11.04 PM.png",
-    "Images/Screenshot 2024-01-23 at 3.43.35 PM.png",
-    "Images/Screenshot 2024-01-23 at 3.41.46 PM.png",
-    "Images/Screenshot 2024-01-23 at 3.40.35 PM.png",
-    "Images/Screenshot 2024-01-23 at 3.38.00 PM.png",
-    "Images/Screenshot 2024-01-23 at 3.22.06 PM.png",
-    "Images/Screenshot 2024-01-23 at 3.08.22 PM.png",
-    "Images/Screenshot 2024-01-23 at 2.37.58 PM.png",
-    "Images/Screenshot 2024-01-23 at 2.37.30 PM.png",
-    "Zoomcamp Overview.md"
+    "Terraform.md",
+    "Zoomcamp Overview.md",
+    "Images/Pasted image 20240122112639 1.png",
+    "container id.md",
+    "Images",
+    "Images/Screenshot 2024-01-23 at 4.11.04 PM 1.png",
+    "Images/Screenshot 2024-01-23 at 3.43.35 PM 1.png",
+    "Images/Screenshot 2024-01-23 at 3.41.46 PM 1.png",
+    "Images/Screenshot 2024-01-23 at 3.40.35 PM 1.png",
+    "Images/Screenshot 2024-01-23 at 3.38.00 PM 1.png",
+    "Images/Screenshot 2024-01-23 at 3.22.06 PM 1.png",
+    "Images/Screenshot 2024-01-23 at 3.08.22 PM 1.png",
+    "Images/Screenshot 2024-01-23 at 2.37.58 PM 1.png",
+    "Images/Screenshot 2024-01-23 at 2.37.30 PM 1.png"
   ]
 }

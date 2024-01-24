@@ -1,5 +1,7 @@
 # **Data Engineering Zoomcamp 2024**
+
 Video: https://www.youtube.com/watch?v=AtRhA-NfS24
+
 Slides: https://www.slideshare.net/AlexeyGrigorev/data-engineering-zoomcamp-introduction
 
 **Course Team**
