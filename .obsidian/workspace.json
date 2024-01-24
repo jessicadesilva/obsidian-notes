@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Terraform.md",
+                "file": "Introduction to Docker.md",
                 "mode": "source",
                 "source": false
               }
@@ -97,7 +97,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Terraform.md",
+                "file": "Introduction to Docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +114,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Terraform.md",
+                "file": "Introduction to Docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -137,7 +137,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Terraform.md"
+                "file": "Introduction to Docker.md"
               }
             }
           }
@@ -160,19 +160,20 @@
   },
   "active": "04fd47b057d19d92",
   "lastOpenFiles": [
-    "Introduction to Docker.md",
-    "Terraform.md",
-    "Screenshot 2024-01-23 at 4.11.04 PM.png",
-    "Screenshot 2024-01-23 at 3.43.35 PM.png",
-    "Screenshot 2024-01-23 at 3.41.46 PM.png",
-    "Screenshot 2024-01-23 at 3.40.35 PM.png",
-    "Screenshot 2024-01-23 at 3.38.00 PM.png",
-    "Screenshot 2024-01-23 at 3.22.06 PM.png",
-    "Screenshot 2024-01-23 at 3.08.22 PM.png",
-    "Screenshot 2024-01-23 at 2.37.58 PM.png",
-    "Screenshot 2024-01-23 at 2.37.30 PM.png",
+    "Images/Pasted image 20240122112639.png",
     "container id.md",
-    "Screenshot 2024-01-23 at 12.26.40 PM.png",
+    "Terraform.md",
+    "Images",
+    "Introduction to Docker.md",
+    "Images/Screenshot 2024-01-23 at 4.11.04 PM.png",
+    "Images/Screenshot 2024-01-23 at 3.43.35 PM.png",
+    "Images/Screenshot 2024-01-23 at 3.41.46 PM.png",
+    "Images/Screenshot 2024-01-23 at 3.40.35 PM.png",
+    "Images/Screenshot 2024-01-23 at 3.38.00 PM.png",
+    "Images/Screenshot 2024-01-23 at 3.22.06 PM.png",
+    "Images/Screenshot 2024-01-23 at 3.08.22 PM.png",
+    "Images/Screenshot 2024-01-23 at 2.37.58 PM.png",
+    "Images/Screenshot 2024-01-23 at 2.37.30 PM.png",
     "Zoomcamp Overview.md"
   ]
 }
