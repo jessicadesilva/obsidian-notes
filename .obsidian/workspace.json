@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Introduction to Docker.md",
+                "file": "Terraform.md",
                 "mode": "source",
                 "source": false
               }
@@ -25,14 +25,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Terraform.md",
+                "file": "Introduction to Docker.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -82,8 +81,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "0b4de2c0a9bc39db",
@@ -160,8 +158,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "bbc26775bb09c03a",
+  "active": "04fd47b057d19d92",
   "lastOpenFiles": [
+    "Introduction to Docker.md",
+    "Terraform.md",
     "Screenshot 2024-01-23 at 4.11.04 PM.png",
     "Screenshot 2024-01-23 at 3.43.35 PM.png",
     "Screenshot 2024-01-23 at 3.41.46 PM.png",
@@ -171,11 +171,8 @@
     "Screenshot 2024-01-23 at 3.08.22 PM.png",
     "Screenshot 2024-01-23 at 2.37.58 PM.png",
     "Screenshot 2024-01-23 at 2.37.30 PM.png",
-    "Terraform.md",
-    "Introduction to Docker.md",
     "container id.md",
     "Screenshot 2024-01-23 at 12.26.40 PM.png",
-    "Screenshot 2024-01-22 at 4.05.34 PM.png",
     "Zoomcamp Overview.md"
   ]
 }
