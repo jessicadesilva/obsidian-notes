@@ -23,7 +23,7 @@ docker run hello-world
 
 If you get a message asking "Is the docker daemon running?" be sure to spin up Docker Desktop before running the line of code. If you see the following text somewhere in the output, Docker ran properly:
 
-![[Screenshot 2024-01-22 at 11.52.31 AM.png]]
+![[attachments/Screenshot 2024-01-22 at 11.52.31 AM.png]]
 
 The following line of code spins up an instance of a container with image name image-name. 
 
@@ -44,7 +44,7 @@ docker run -it ubuntu
 ```
 
 gives this as the last line of output:
-![[Screenshot 2024-01-22 at 11.56.16 AM.png]]
+![[attachments/Screenshot 2024-01-22 at 11.56.16 AM.png]]
 which means it is ready to run terminal commands in the root directory of the Ubuntu instance. You can exit the container using the keyword **exit** if running it in interactive mode. Otherwise, you'll need to (in a separate terminal) run the command **docker ps** to see all running containers, identify the container you want to kill and then use the command **docker kill "container id"**. Note that instances of an image are temporary and once exited (using the command **exit** if the "it" flag is used) spinning up another instance of the Docker image will have a completely fresh start. Also, what you do in the instance of the image (like delete all files) will not affect your host computer/machine in any way.
 
 If you want to have a specific version of something in your container, such as Python 3.9, you can use the following syntax:
@@ -77,7 +77,8 @@ docker build -t test:pandas .
 Here the image name will be test with the tag pandas and the image file will be created in the current directory as indicated by the ".".
 
 Now if I go to Docker Desktop and click the section "Images" I should see the following:
-![[Screenshot 2024-01-22 at 12.12.45 PM.png]]
+
+![[attachments/Screenshot 2024-01-22 at 12.12.45 PM.png]]
 
 So now that we have built the image, we can run the image using the syntax from before:
 
@@ -159,7 +160,7 @@ docker run -it test:pandas 2024-01-22
 
 and we will see the following output:
 
-![[Screenshot 2024-01-22 at 12.31.53 PM.png]]
+![[attachments/Screenshot 2024-01-22 at 12.31.53 PM.png]]
 
 Remember that if you make changes to the .py file that you are copying into your container instance, you will need to rebuild the image before spinning up the instance.
 
@@ -241,7 +242,7 @@ docker run -it \
 Notice that -e is the abbreviation for environment (variable), -v abbreviates volumes, and -p is the flag for port. The name of the image is postgres with the tag 13 (version number here).
 
 We should see this as the last line of the output when we run the above in the terminal:
-![[Screenshot 2024-01-22 at 1.47.43 PM.png]]
+![[attachments/Screenshot 2024-01-22 at 1.47.43 PM.png]]
 
 Notice that you now have a folder in the current directing of your host machine that is called "ny_taxi_postgres_data" with all of the files that are used to store information related to the postgres database "ny_taxi".
 
@@ -258,10 +259,10 @@ pgcli -h localhost -p 5432 -U root -d ny_taxi
 * -d is the database name that we are trying to access from the docker run command.
 
 Assuming you used root as the username, you should see the following:
-![[Screenshot 2024-01-22 at 2.00.58 PM.png]]
+![[attachments/Screenshot 2024-01-22 at 2.00.58 PM.png]]
 You should type the password given in the docker-run command and then enter. When you type characters for the password, the cursor will not move. If successful, you should see the following:
 
-![[Screenshot 2024-01-22 at 2.01.45 PM.png]]
+![[attachments/Screenshot 2024-01-22 at 2.01.45 PM.png]]
 Since we don't have any data in our ny_taxi database, there is nothing to query. We can make sure the connection is working by typing the following command:
 
 ```console
@@ -269,7 +270,7 @@ Since we don't have any data in our ny_taxi database, there is nothing to query.
 ```
 
 And we will get the following output to show that we have no tables in our database:
-![[Screenshot 2024-01-22 at 2.03.38 PM.png]]
+![[attachments/Screenshot 2024-01-22 at 2.03.38 PM.png]]
 # **Ingesting NY taxi data into Postgres with Python**
 
 To download the data csv file into our local working directory, we can run the following two commands in a new terminal (navigated to the working directory):
@@ -290,7 +291,7 @@ less yellow_trip_data_2021-01.csv
 
 This will output the following and many other rows:
 
-![[Screenshot 2024-01-22 at 2.13.10 PM.png]]
+![[attachments/Screenshot 2024-01-22 at 2.13.10 PM.png]]
 
 The file provided at this link gives us an idea of what the columns mean in the table:
  [https://www1.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf](https://www1.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf)
@@ -329,7 +330,7 @@ print(pd.io.sql.get_schema(df, name='yellow_taxi_data'))
 ```
 
 We should see the following output:
-![[Screenshot 2024-01-22 at 2.31.41 PM.png]]
+![[attachments/Screenshot 2024-01-22 at 2.31.41 PM.png]]
 
 To run SQL queries against our postgres database, we will want to create a query engine with a connection to our postgres database using SQLalchemy:
 
@@ -353,7 +354,8 @@ print(pd.io.sql.get_schema(df, name='yellow_taxi_data', con=engine))
 ```
 
 We see the output differs only slightly from what we had above:
-![[Images/Screenshot 2024-01-22 at 2.52.26 PM.png]]
+
+![[attachments/Screenshot 2024-01-22 at 2.52.26 PM.png]]
 
 Now we know that if we were to ingest the dataframe df into postgres, the above is the schema the table would have. Note that the line above did not actually create a table in our database.
 
@@ -381,7 +383,7 @@ df.to_sql(name='yellow_taxi_data',
 ```
 
 If you run this and go back to the terminal where you are running pgcli, you should be able to run the \dt command and see the table in the database.
-![[Screenshot 2024-01-22 at 3.07.39 PM.png]]
+![[attachments/Screenshot 2024-01-22 at 3.07.39 PM.png]]
 
 In order to ingest the rest of the table into postgres, we will loop through the iterator. For funzies, we will time it and print out a little message but that is not necessary. Further, the checking of count == 0 is to ensure we don't re-insert the first chunk:
 
@@ -468,7 +470,7 @@ docker run -it \
 ```
 
 The PGADMIN_DEFAULT_EMAIL and PGADMIN_DEFAULT_PASSWORD is used to login to the pgAdmin interface. When you run this in the terminal (make sure Docker Desktop is running) then you can go to pgAdmin through your browser by typing in localhost:8080 as you would a url to a website. There you will see a login page where you use the credentials you specified above.
-![[Screenshot 2024-01-22 at 3.41.59 PM.png]]
+![[attachments/Screenshot 2024-01-22 at 3.41.59 PM.png]]
 
 
 To create our connection to our existing postgres database, we need to host the two containers in the same network so that they can talk to each other. We can do this by specifying the network when we spin up the Docker containers. Let's start with the postgres container:
@@ -501,17 +503,17 @@ docker run -it \
 
 We won't really need to refer to pgAdmin by its name pg-admin, but we include it here anyway. Now to go pgAdmin on your localhost:8080 port within a browser. Login using the credentials above and then click Add New Server.
 
-![[Screenshot 2024-01-22 at 3.55.17 PM.png]]
+![[attachments/Screenshot 2024-01-22 at 3.55.17 PM.png]]
 
 Create a name for the server, here we will use Docker localhost.
-![[Screenshot 2024-01-22 at 3.56.40 PM.png]]
+![[attachments/Screenshot 2024-01-22 at 3.56.40 PM.png]]
 
 In the Connection tab, the Host name/address is the name of our postgres database (pg-database) that we gave it when we created the container instance. The port is the port on the container that has the database (5432). For Maintenance database, we will use the name postgres. Then the Username and Password is that which we specified when creating the postgres container instance.
-![[Screenshot 2024-01-22 at 4.01.49 PM.png]]
+![[attachments/Screenshot 2024-01-22 at 4.01.49 PM.png]]
 
 To take a quick look at our data, click Docker localhost on the left, then Databases (2), then Schemas (1), Tables (1), right click yellow_taxi_data, View/Edit Data, First 100 Rows and we should see the following:
 
-![[Screenshot 2024-01-22 at 4.05.34 PM.png]]
+![[attachments/Screenshot 2024-01-22 at 4.05.34 PM.png]]
 ## Homework
 **Question 3. Count records**
 How many taxi trips were totally made on September 18th 2019?
@@ -754,7 +756,7 @@ This will search for the file with the exact name docker-compose.yaml and spin u
 docker compose up -d
 ```
 
-![[Screenshot 2024-01-23 at 12.26.40 PM.png]]
+![[attachments/Screenshot 2024-01-23 at 12.26.40 PM.png]]
 In order to stop the containers, we can run the command:
 
 ```console

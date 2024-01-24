@@ -44,7 +44,7 @@ Slides: https://www.slideshare.net/AlexeyGrigorev/data-engineering-zoomcamp-intr
 https://github.com/DataTalksClub/data-engineering-zoomcamp
 
 **Course Overview**
-![[Pasted image 20240122112648.png]]
+![[attachments/Pasted image 20240122112648.png]]
 1. Introduction (Docker & Terraform)
 	* 2 weeks
 	* Setting up the environment
