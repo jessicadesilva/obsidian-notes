@@ -353,7 +353,7 @@ print(pd.io.sql.get_schema(df, name='yellow_taxi_data', con=engine))
 ```
 
 We see the output differs only slightly from what we had above:
-![[Screenshot 2024-01-22 at 2.52.26 PM.png]]
+![[Images/Screenshot 2024-01-22 at 2.52.26 PM.png]]
 
 Now we know that if we were to ingest the dataframe df into postgres, the above is the schema the table would have. Note that the line above did not actually create a table in our database.
 
