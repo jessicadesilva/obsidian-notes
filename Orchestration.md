@@ -106,4 +106,21 @@ docker compose up
 ```
 6. In your browser, navigate to localhost:6789 to get to your Mage instance.
 
+## Docker compose inspection
+
+We see that there are two services in our Docker compose file:
+1. Magic (our Mage instance)
+	* This service is built off the Docker file included in the repo.
+	* The Docker file also installs Python packages listed in the requirements.txt file.
+	* We will be able to access our Mage instance using port 6789.
+1. Postgres
+	* The .env file contains credentials for logging into Postgres as well as which port we want it to use on our host machine.
+
+As mentioned previously, for both services we specify that our environment variables (which often include credentials) are stored in the .env file with 
+```YAML
+env_file:
+	- .env
+```
+
+
 
