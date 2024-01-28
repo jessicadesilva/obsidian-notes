@@ -100,7 +100,7 @@ To get an updated version of the Docker image, you can use the command:
 ```console
 docker pull mageai/mageai:latest
 ```
-5. Initialize an instance of the Docker image:
+5. Initialize a container using the Docker image:
 ```console
 docker compose up
 ```
