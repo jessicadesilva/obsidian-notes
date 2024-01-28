@@ -17,7 +17,7 @@ and have Docker running.
 
 The **Docker image** will be a file called Dockerfile (no extension) in your working directory. You should see a little whale icon to the left of the file name if you are using VSCode. You can test that Docker is functioning properly by running the follow line of code in your terminal (for MacOS):
 
-```console
+```bash
 docker run hello-world
 ```
 
@@ -27,19 +27,19 @@ If you get a message asking "Is the docker daemon running?" be sure to spin up D
 
 The following line of code spins up an instance of a container with image name image-name. 
 
-```console
+```bash
 docker run image-name
 ```
 
 If you want to interact with the instance through the terminal once it has been spun up, you can use interactive mode with this command instead:
 
-```console
+```bash
 docker run -it image-name
 ```
 
 For example, running
 
-```console
+```bash
 docker run -it ubuntu
 ```
 
@@ -49,12 +49,12 @@ which means it is ready to run terminal commands in the root directory of the Ub
 
 If you want to have a specific version of something in your container, such as Python 3.9, you can use the following syntax:
 
-```console
+```bash
 docker run -it python:3.9
 ```
 
 If you want to have certain Python libraries in the container, we must enter the python:3.9 container instance through bash. To do this, we can use the following syntax:
-```console
+```bash
 docker run -it --entrypoint=bash python:3.9
 ```
 
@@ -70,7 +70,7 @@ ENTRYPOINT [ "bash" ]
 
 To run a Dockerfile, we first need to build the Docker image from the Dockerfile and create a name for the image.
 
-```console
+```bash
 docker build -t test:pandas .
 ```
 
@@ -82,7 +82,7 @@ Now if I go to Docker Desktop and click the section "Images" I should see the fo
 
 So now that we have built the image, we can run the image using the syntax from before:
 
-```console
+```bash
 docker run -it test:pandas
 ```
 
@@ -117,7 +117,7 @@ ENTRYPOINT [ "bash" ]
 Remember that every time you change the Dockerfile, you need to build the image before spinning up an instance of the container. We see that when we spin up an instance of the container with the revised Dockerfile, the pipeline.py file is copied into the app directory of our Docker container instance.
 
 We can run the file that we have copied via the command in bash:
-```console
+```bash
 python pipeline.py
 ```
 
@@ -154,7 +154,7 @@ print(f"Job finished successfully for day = {day}")
 
 you can feed in the arguments with the docker run command:
 
-```console
+```bash
 docker run -it test:pandas 2024-01-22
 ```
 
@@ -166,19 +166,19 @@ Remember that if you make changes to the .py file that you are copying into your
 
 ## Homework question
 Run the command to get information on Docker
-```console
+```bash
 docker --help
 ```
 
 Now run the command to get help on the "docker build" command:
 
-```console
+```bash
 docker build --help
 ```
 
 Do the same for "docker run".
 
-```console
+```bash
 docker run --help"
 ```
 
@@ -230,7 +230,7 @@ services:
 
 To create an instance of this Docker image, we need to specify all of the parameters if they are not the same as default in the following way:
 
-```console
+```bash
 docker run -it \
 	-e POSTGRES_USER="root" \
 	-e POSTGRES_PASSWORD="root_password" \
@@ -249,7 +249,7 @@ Notice that you now have a folder in the current directing of your host machine 
 In order to access the postgres database, we need some sort of GUI or command line interface to see/interact with it. To do that on the command line, you can use the python package pgcli which stands for postgres command line interface. Note that this is all going to happen on your local/host machine because we have mapped the postgres port from the container to a port on our local machine which allows us to communicate with it.
 
 In a new terminal window, pip install pgcli. Then run the following:
-```console
+```bash
 pgcli -h localhost -p 5432 -U root -d ny_taxi
 ```
 
@@ -265,7 +265,7 @@ You should type the password given in the docker-run command and then enter. Whe
 ![[attachments/Screenshot 2024-01-22 at 2.01.45 PM.png]]
 Since we don't have any data in our ny_taxi database, there is nothing to query. We can make sure the connection is working by typing the following command:
 
-```console
+```bash
 \dt
 ```
 
@@ -275,17 +275,17 @@ And we will get the following output to show that we have no tables in our datab
 
 To download the data csv file into our local working directory, we can run the following two commands in a new terminal (navigated to the working directory):
 
-```console
+```bash
 wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz
 ```
 The above downloads the zipped file, then we unzip:
-```console
+```bash
 gunzip yellow_trip_data_2021-01.csv.gz
 ```
 
 We can take a peak at our file using ```less```
 
-```console
+```bash
 less yellow_trip_data_2021-01.csv
 ```
 
@@ -409,11 +409,11 @@ Now we have successfully ingested the entire table into postgres! Awesome.
 
 ## Homework
 Run Postgres and load data as shown in the videos. We'll use the green taxi trips from September 2019:
-```console
+```bash
 wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz
 ```
 You will also need the dataset with zones:
-```console
+```bash
 wget https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv
 ```
 
@@ -421,7 +421,7 @@ Download this data and put it into Postgres (with jupyter notebooks or with a pi
 
 Step 1: Run the two commands above in the terminal inside our working directory.
 Step 2: Run the following in the terminal to unzip the file:
-```console
+```bash
 gunzip green_tripdata_2019-09.csv.gz
 ```
 Step 3: Run the scripts below in Jupyter notebook:
@@ -461,7 +461,7 @@ df.to_sql('taxi_zone_lookup',
 
 pgAdmin is a web-based GUI tool used to interact with the Postgres database sessions. Our goal from here on out is to be able to run SQL queries in pgAdmin on our postgres database using Docker. We can spin up an instance of a pgAdmin container using the image name dpage/pgadmin4. Since there are several environment variables we need to specify, let's write them here:
 
-```console
+```bash
 docker run -it \
 	-e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
 	-e PGADMIN_DEFAULT_PASSWORD="pgadmin_password" \
@@ -475,7 +475,7 @@ The PGADMIN_DEFAULT_EMAIL and PGADMIN_DEFAULT_PASSWORD is used to login to the p
 
 To create our connection to our existing postgres database, we need to host the two containers in the same network so that they can talk to each other. We can do this by specifying the network when we spin up the Docker containers. Let's start with the postgres container:
 
-```console
+```bash
 docker run -it \
 	-e POSTGRES_USER="root" \
 	-e POSTGRES_PASSWORD="root_password" \
@@ -491,7 +491,7 @@ So the network that our Docker container of postgres is living in is called pg-n
 
 Now we will spin up our instance of pgAdmin within the same network:
 
-```console
+```bash
 docker run -it \
 	-e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
 	-e PGADMIN_DEFAULT_PASSWORD="pgadmin_password" \
@@ -697,13 +697,13 @@ ENTRYPOINT [ "python", "ingest_data.py" ]
 
 Now when we create our container image in Docker, will will run:
 
-```console
+```bash
 docker build -t taxi_ingest:v001 .
 ```
 
 The image is now called taxi_ingest with tag v001. Now we can spin up an instance of the container, but be sure to specify the network as we have done before:
 
-```console
+```bash
 docker run -it \
 	--network=pg-network \
 	taxi_ingest:v001 \
@@ -746,20 +746,20 @@ The awesome part is when we use Compose, these services will automatically run w
 
 When using Compose, we do not need a two-step build/run process. Instead, to spin up instances of the containers in the Docker Compose file, just run the following command in the directory where the docker-compose.yaml file lives:
 
-```console
+```bash
 docker compose up
 ```
 
 This will search for the file with the exact name docker-compose.yaml and spin up the containers specified in the configuration file. You can use the d flag (d for detach) in order to return to the terminal once the containers are finished starting up.
 
-```console
+```bash
 docker compose up -d
 ```
 
 ![[attachments/Screenshot 2024-01-23 at 12.26.40 PM.png]]
 In order to stop the containers, we can run the command:
 
-```console
+```bash
 docker compose down
 ```
 # Port mapping and networks in Docker

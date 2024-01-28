@@ -142,13 +142,13 @@ provider "google" {
 
 Instead of hardcoding the location of the credentials, we can export an environment variable called GOOGLE_CREDENTIALS with that filepath and Terraform will know to use the value of that variable when looking for the credentials file. For example, we would do:
 
-```console
+```bash
 export GOOGLE_CREDENTIALS='~/Documents/dataengineering_zoomcamp/week_1/terrademo/keys/my-creds.json'
 ```
 
 We can check that it was saved using 
 
-```console
+```bash
 echo $GOOGLE_CREDENTIALS
 ```
 
@@ -156,7 +156,7 @@ Then in our main.tf file, for the "google" provider we can leave off the credent
 
 If you ever want to unset this environment variable, you can use the command:
 
-```console
+```bash
 unset GOOGLE_CREDENTIALS
 ```
 
@@ -164,7 +164,7 @@ The analogy used to describe the functions of the provider/key is to think of th
 
 To start up Terraform, we use the **init** command we previously mentioned in the terminal navigated to the directory where our main.tf file is:
 
-```console
+```bash
 terraform init
 ```
 
@@ -225,7 +225,7 @@ resource "google_storage_bucket" "demo-bucket" {
 
 Now we have everything in our main.tf file for this demo. We will run the following command to get an idea of what Terraform is going to create as a result of our Terraform file:
 
-```console
+```bash
 terraform plan
 ```
 
@@ -233,7 +233,7 @@ terraform plan
 
 Once you have checked the plan and confirmed that it is going to do what you want, you can create the infrastructure with the following command:
 
-```console
+```bash
 terraform apply
 ```
 
@@ -247,7 +247,7 @@ Now when we go to Google Cloud Platform and navigate to our Buckets in Cloud Sto
 
 Now let's say we want to get rid of the resources after we are done with them. We can use the command
 
-```console
+```bash
 terraform destroy
 ```
 

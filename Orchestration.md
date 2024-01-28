@@ -84,25 +84,26 @@ An open-source pipeline tool for orchestrating, transforming, and integrating da
 	* The only thing that is getting returned when running the block is the returned dataframe from the function; which will be passed on downstream.
 # Configuring Mage
 1. Clone the GitHub repo at this URL:
-```console
+```bash
 https://github.com/mage-ai/mage-zoomcamp
 ```
 2. In your terminal, navigate to the cloned repo directory.
 3. Change the name of the file dev.env to just .env so that it is not committed to your repo.
-```console
+```bash
 cp dev.env .env
 ```
 4. Build the Docker image using the included Docker Compose file.
-```console
+```bash
 docker compose build
 ```
 To get an updated version of the Docker image, you can use the command:
-```console
+```bash
 docker pull mageai/mageai:latest
 ```
 5. Initialize a container using the Docker image:
-```console
+```bash
 docker compose up
 ```
+6. In your browser, navigate to localhost:6789 to get to your Mage instance.
 
 
