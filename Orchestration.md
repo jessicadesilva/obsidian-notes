@@ -76,5 +76,13 @@ An open-source pipeline tool for orchestrating, transforming, and integrating da
 	* Blocks are reusable, atomic pieces of code that perform certain actions.
 	* Changing one block will change it everywhere it's used, but **don't worry**, it's easy to detach blocks to separate instances if necessary.
 	* Blocks can be used to perform a variety of actions, from simple data transformations to complex machine learning models.
+	* Structure of a block:
+		* Imports
+		* Decorator
+		* Definition of a function that **returns a dataframe** (this is required)
+		* Test / assertion that is ran on the output dataframe of the block
+	* The only thing that is getting returned when running the block is the returned dataframe from the function; which will be passed on downstream.
+# Configuring Mage
+	
 	
 
