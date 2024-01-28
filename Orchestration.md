@@ -36,6 +36,8 @@
 		* Flow state: not constantly switching between numerous tools and services
 		* Feedback loops: getting immediate feedback while testing
 		* Cognitive load: how complicated is it to use the tool?
-* A good  orchestration tool accomplishes all of the data engineering tasks with rapid and seamless data pipelines
+* A good orchestration tool accomplishes all of the data engineering tasks with rapid and seamless data pipelines
+# What is Mage?
+An open-source pipeline tool for orchestrating, transforming, and integrating data. 
 
 
