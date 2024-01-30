@@ -96,6 +96,16 @@ cp dev.env .env
 ```bash
 docker compose build
 ```
+Note that if you some of the environment variables defined in the .env file were also set previously via the shell, Docker Compose uses environment variable values according to the following precedent list:
+	1. Set using ```docker compose run -e``` in the command line interface (CLI).
+	2. Substituted from your shell.
+	3. Set using the environment attribute in the Compose file.
+	4. Use of the ```--env-file``` argument in the CLI.
+	5. Use of the ```env_file``` attribute in the Compose file.
+	6. Set using an ```.env``` file placed at the base of your project directory.
+	7. Set in a container image in the ENV directive.
+So, as you can see, the .env file is pretty low on the precedent list and so if changing values in the .env file does not correspond to changes when you use docker compose build/up then it is likely because those variables are defined using a method earlier in this precedent list.
+
 To get an updated version of the Docker image, you can use the command:
 ```bash
 docker pull mageai/mageai:latest
