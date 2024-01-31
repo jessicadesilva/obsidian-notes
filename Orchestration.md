@@ -161,11 +161,11 @@ The play button in the upper right corner of each code block will only run that 
 
 The code templates offered typically have the function definition (preceded by a decorator such as ```@data_loader```) as well as a test function. The test function is not required and can be deleted.
 
-While in the Edit Pipeline section, you can change the dependences by moving/deleting/adding lines connecting blocks on the right panel. If there is a line which is connected to the bottom of Block_A, for example, and the top of Block_B, that implies that the dataframe returned from Block_A is fed in as an input to Block_B.
+While in the Edit Pipeline section, you can change the dependences by deleting/adding connections between blocks on the right panel. If there is a line which is connected to the bottom of Block_A, for example, and the top of Block_B, that implies that the dataframe returned from Block_A is fed in as an input to Block_B.
 ![[Screenshot 2024-01-30 at 7.29.39 PM.png]]
 The image above shows that the load_titanic code must run before fill_in_missing_values and as the dataframe output from load_titanic is fed in as the input to fill_in_missing_values.
 
-If we change the connection to be that the line connects the top of load_titanic to the bottom of fill_in_missing_values then the relationship would be reversed.
+If we remove that connection, we can add a new one that connects the top of load_titanic to the bottom of fill_in_missing_values, reversing the relationship described above:
 
 
 
