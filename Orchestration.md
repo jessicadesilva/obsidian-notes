@@ -166,6 +166,8 @@ While in the Edit Pipeline section, you can change the dependences by deleting/a
 The image above shows that the load_titanic code must run before fill_in_missing_values and as the dataframe output from load_titanic is fed in as the input to fill_in_missing_values.
 
 If we remove that connection, we can add a new one that connects the top of load_titanic to the bottom of fill_in_missing_values, reversing the relationship described above:
+![[Screenshot 2024-01-30 at 7.36.05 PM.png]]
+By reversing the relationship, we can see in the diagram above that the output of fill_in_missing_values is going to be fed into two blocks now: load_titanic and export_titanic_clean.
 
 
 
