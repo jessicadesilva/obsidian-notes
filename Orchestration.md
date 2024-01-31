@@ -307,10 +307,35 @@ def test_output(output, *args) -> None:
 	assert output is not None, 'The output is undefined'
 ```
 
-Now that we have loaded the data, let's go ahead and apply a transformer. This transformer will drop all rows that have 0 passengers, as well as rename columns to use the snake case naming convention. That is, spaces will be replaced with underscores and all letters will be converted to lowercase.
-
-First, let's create a transformer block called transform_taxi_data in Python without a template.
+Now that we have loaded the data, let's go ahead and apply a transformer. This transformer will drop all rows that have 0 passengers. First, let's create a transformer block called transform_taxi_data in Python without a template.
 ![[Screenshot 2024-01-30 at 8.41.48 PM.png]]
 
-We will skip the details related to the code in this block as we will simply use basic pandas operations.
+We will skip the details related to the code in this block as we will simply use basic pandas operations. Also note the test function at the bottom, the output will not be given to the next code block unless the test is passed.
 
+```python
+if 'transformer' not in globals():
+	from mage_ai.data_preparation.decorators import transformer
+
+if 'test' not in globals():
+	from mage_ai.data_preparation.decorators import test
+
+  
+  
+
+@transformer
+def transform(data, *args, **kwargs):
+	print(f"Preprocessing: rows with zero passengers: { (data['passenger_count'] == 0).sum() }")
+	return data[data["passenger_count"] > 0]
+
+@test
+def test_output(output, *args) -> None:
+	assert (output["passenger_count"] > 0).sum() == 0, 'There are rides with zero passengers.'
+```
+
+Finally, we will export our data to Postgres. Let's create a Data Exporter block called taxi_data_to_postgres in Python with the PostgreSQL template.
+![[Screenshot 2024-01-30 at 8.54.06 PM.png]]
+
+In the template, we need to specify the following:
+* ```schema_name```
+* ```table_name```
+* 
