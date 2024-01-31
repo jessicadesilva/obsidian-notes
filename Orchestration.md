@@ -147,3 +147,16 @@ When we click on ```example_pipeline``` we are taken to the Triggers section of 
   * The fill_in_missing_values block is a "transformer" block also written as a python (PY) file
   * The export_titanic_clean block is a "data exporter" block also written as a python (PY) file
 ![[Screenshot 2024-01-30 at 7.07.47 PM.png]]
+
+When you navigate to the Edit Pipeline section in the left navigation, on the left panel you will see a file tree of all the files in the project:
+![[Screenshot 2024-01-30 at 7.13.40 PM.png]]
+If you switch over to the Current Blocks tab, you will see a list of the code files for the blocks that are within the specific pipeline we are inspecting.
+![[Screenshot 2024-01-30 at 7.18.37 PM.png]]
+In the middle panel, you will see the code for the blocks in the specific pipeline we are looking at. For example, the file at the top is the code for the "data loader" block in our pipeline:
+![[Screenshot 2024-01-30 at 7.15.44 PM.png]]
+It is very important to remember that code for blocks are reused throughout the entire project, so changes in the code for this block will affect any other pipelines that use this block. There are ways around that, but it is important to remember that this is how it works by default.
+
+The play button in the upper right corner of each code block will only run that single block. If that block depends on another which has not yet been ran, you will get an error when you try to run the block. Instead, you can select the three dots within the circle to show more options and select the ```Execute with all upstream blocks``` option to run any blocks this one depends on (and others which those depend on, and so on) in order and then finally run this block.
+
+The code templates offered typically have the function definition (preceded by a decorator such as ```@data_loader```) as well as a test function. The test function is not required and can be deleted.
+
