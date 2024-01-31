@@ -307,4 +307,8 @@ def test_output(output, *args) -> None:
 	assert output is not None, 'The output is undefined'
 ```
 
-Now that we have loaded the data, let's go ahead and apply a transformer. This transformer will drop all rows that have 0 passengers, as well as rename columns to use the underscore and lowercase naming convention. That is, spaces will be replaced with underscores and all letters will be converted to lowercase.
+Now that we have loaded the data, let's go ahead and apply a transformer. This transformer will drop all rows that have 0 passengers, as well as rename columns to use the snake case naming convention. That is, spaces will be replaced with underscores and all letters will be converted to lowercase.
+
+First, let's create a transformer block called transform_taxi_data in Python without a template.
+![[Screenshot 2024-01-30 at 8.41.48 PM.png]]
+
