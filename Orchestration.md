@@ -192,6 +192,9 @@ dev:
 	POSTGRES_PORT: "{{ env_var('POSTGRES_PORT') }}"
 ```
 
+# Question
+Perhaps there is a misuse of environment variables here. My understanding is POSTGRES_PORT is the port on the host machine, but I believe Mage is looking for the port on the container?
+
 Let's create a (batch) pipeline from scratch by going to File --> New standard pipeline.
 
 ![[Screenshot 2024-01-30 at 7.54.10 PM.png]]
