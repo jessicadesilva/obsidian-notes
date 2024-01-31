@@ -151,6 +151,8 @@ When we click on ```example_pipeline``` we are taken to the Triggers section of 
 
 When you navigate to the Edit Pipeline section in the left navigation, on the left panel you will see a file tree of all the files in the project:
 ![[Screenshot 2024-01-30 at 7.13.40 PM.png]]
+Notice that all of these files also exist in VSCode (because we mapped folders to each other in Docker compose via volumes) and so if you want to make changes to, for instance, code for certain blocks you can do that either in the Mage GUI or just in VSCode.
+
 If you switch over to the Current Blocks tab, you will see a list of the code files for the blocks that are within the specific pipeline we are inspecting.
 ![[Screenshot 2024-01-30 at 7.18.37 PM.png]]
 In the middle panel, you will see the code for the blocks in the specific pipeline we are looking at. For example, the file at the top is the code for the "data loader" block in our pipeline:
@@ -170,3 +172,14 @@ The image above shows that the load_titanic code must run before fill_in_missing
 If we remove that connection, we can add a new one that reverses the relationship described by choosing fill_in_missing_values as the first endpoint of the connection and then choosing load_titanic as the second endpoint. Mage will automatically vertically order/group the blocks once you select the endpoints of the connection.
 ![[Screenshot 2024-01-30 at 7.36.05 PM.png]]
 By reversing the relationship, we can see in the diagram above that the output of fill_in_missing_values is going to be fed into two blocks now: load_titanic and export_titanic_clean.
+
+# Configuring Postgres
+
+If you inspect the io_config.yaml file in our project directory, you will see that we can configure **profiles** and there already exists a **default** profile:
+![[Screenshot 2024-01-30 at 7.49.08 PM.png]]
+
+We can create a developer profile (dev) to separate developer and production credentials within this file:
+
+```YAML
+
+```
