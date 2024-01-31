@@ -216,3 +216,12 @@ Set our Profile to dev.
 Then finally we will remove the Mage templating by selecting the Use raw SQL option.
 ![[Screenshot 2024-01-30 at 8.01.40 PM.png]]
 
+Because we are just checking the connection, let's use the command 
+```SQL
+SELECT 1;
+```
+and ensure that the connection is made and 1 is returned.
+
+# Writing an ETL pipeline
+
+
