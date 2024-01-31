@@ -224,4 +224,8 @@ and ensure that the connection is made and 1 is returned.
 
 # Writing an ETL pipeline
 
+We can delete the previous test_config pipeline and start fresh with a new (batch) standard pipeline called api_to_postgres.
+
+Let's create a Data Loader block called load_api_data written in Python with an API template:
+![[Screenshot 2024-01-30 at 8.13.29 PM.png]]
 
