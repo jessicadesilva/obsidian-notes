@@ -143,6 +143,7 @@ When we click on ```example_pipeline``` we are taken to the Triggers section of 
 * Our pipeline has three blocks: load_titanic, fill_in_missing_values, export_titanic_clean
 * The dependencies of the blocks are that load_titanic must run successfully before fill_in_missing_values and fill_in_missing_values must run successfully before export_titanic_clean. Using airflow syntax this would be:
   load_titanic << fill_in_missing_values << export_titanic_clean
+  * The dependencies also imply that the dataframe output of load_titanic gets fed in as an input to fill_in_missing_values, and the dataframe output of fill_in_missing_values gets fed in as an input to export_titanic_clean.
   * The load_titanic block is a "data loader" block written as a python (PY) file 
   * The fill_in_missing_values block is a "transformer" block also written as a python (PY) file
   * The export_titanic_clean block is a "data exporter" block also written as a python (PY) file
@@ -160,3 +161,12 @@ The play button in the upper right corner of each code block will only run that 
 
 The code templates offered typically have the function definition (preceded by a decorator such as ```@data_loader```) as well as a test function. The test function is not required and can be deleted.
 
+While in the Edit Pipeline section, you can change the dependences by moving/deleting/adding lines connecting blocks on the right panel. If there is a line which is connected to the bottom of Block_A, for example, and the top of Block_B, that implies that the dataframe returned from Block_A is fed in as an input to Block_B.
+![[Screenshot 2024-01-30 at 7.29.39 PM.png]]
+The image above shows that the load_titanic code must run before fill_in_missing_values and as the dataframe output from load_titanic is fed in as the input to fill_in_missing_values.
+
+If we change the connection to be that the line connects the top of load_titanic to the bottom of fill_in_missing_values then the relationship would be reversed.
+
+
+
+Not that a single line cannot be  attached to the top of two blocks, and same with the bottom.
