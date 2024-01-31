@@ -115,7 +115,7 @@ and then rebuild the image.
 ```bash
 docker compose up
 ```
-6. In your browser, navigate to localhost:6789 to get to your Mage instance.
+6. In your browser, navigate to localhost:6789 to get to your Mage instance. If you inspect the port matching in the Docker compose file under the magic service you will see we are mapping the port for this service (6789) to our host computer's port (6789).
 
 ## Docker compose inspection
 
