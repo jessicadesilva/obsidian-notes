@@ -312,3 +312,5 @@ Now that we have loaded the data, let's go ahead and apply a transformer. This t
 First, let's create a transformer block called transform_taxi_data in Python without a template.
 ![[Screenshot 2024-01-30 at 8.41.48 PM.png]]
 
+We will skip the details related to the code in this block as we will simply use basic pandas operations.
+
