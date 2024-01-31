@@ -110,6 +110,7 @@ To get an updated version of the Docker image, you can use the command:
 ```bash
 docker pull mageai/mageai:latest
 ```
+and then rebuild the image.
 5. Initialize a container using the Docker image:
 ```bash
 docker compose up
