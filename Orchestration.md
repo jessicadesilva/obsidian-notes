@@ -229,3 +229,29 @@ We can delete the previous test_config pipeline and start fresh with a new (batc
 Let's create a Data Loader block called load_api_data written in Python with an API template:
 ![[Screenshot 2024-01-30 at 8.13.29 PM.png]]
 
+We will define the url variable to be the following:
+```python
+url = 'https//github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_traip_data_2021-01.csv'
+```
+We will also tell pandas the datatypes to expect to (1) save on memory used to process the dataset, (2) if the datatypes are different from what is expected then an error will occur and the pipeline owner will be notified.
+
+```python
+taxi_dtypes = {
+			   'VendorID' : pd.Int64Dtype(),
+			   'passenger_count' : pd.Int64Dtype(),
+			   'trip_distance' : float,
+			   'RatecodeID' : pd.Int64Dtype(),
+			   'store_and_fwd_flag' : str,
+			   'PULocationID' : pd.Int64Dtype(),
+			   'DOLocationID' : pd.Int64Dtype(),
+			   'payment_type' : pd.Int64Dtype(),
+			   'fare_amount' : float,
+			   'extra' : float,
+			   'mta_tax' : float,
+			   'tip_amount' : float,
+			   'tolls_amount' : float,
+			   'improvement_surcharge' : float,
+			   'total_amount' : float,
+			   'congestion_surcharge' : float
+			}
+```
