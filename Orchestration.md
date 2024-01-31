@@ -338,4 +338,5 @@ Finally, we will export our data to Postgres. Let's create a Data Exporter block
 In the template, we need to specify the following:
 * ```schema_name```
 * ```table_name```
+* ```config_profile```
 * 
