@@ -133,5 +133,17 @@ env_file:
 	- .env
 ```
 
+# Navigating Mage
 
+In the upper left corner we can see the name of our project ```magic-zoomcamp``` and by default we are taken to the list of pipelines within this project.
 
+![[Screenshot 2024-01-30 at 7.05.30 PM.png]]
+
+When we click on ```example_pipeline``` we are taken to the Triggers section of our pipeline. While in Triggers (as well as the Edit Pipeline section) we can see the basic structure of the pipeline:
+* Our pipeline has three blocks: load_titanic, fill_in_missing_values, export_titanic_clean
+* The dependencies of the blocks are that load_titanic must run successfully before fill_in_missing_values and fill_in_missing_values must run successfully before export_titanic_clean. Using airflow syntax this would be:
+  load_titanic << fill_in_missing_values << export_titanic_clean
+  * The load_titanic block is a "data loader" block written as a python (PY) file 
+  * The fill_in_missing_values block is a "transformer" block also written as a python (PY) file
+  * The export_titanic_clean block is a "data exporter" block also written as a python (PY) file
+![[Screenshot 2024-01-30 at 7.07.47 PM.png]]
