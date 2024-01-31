@@ -339,4 +339,16 @@ In the template, we need to specify the following:
 * ```schema_name```
 * ```table_name```
 * ```config_profile```
-* 
+So the only things that changed from the template was the following:
+```python
+schema_name = 'ny_taxi' # Specify the name of the schema to export data to
+table_name = 'yellow_taxi_data' # Specify the name of the table to export data to
+config_path = path.join(get_repo_path(), 'io_config.yaml')
+config_profile = 'dev'
+```
+
+To check that the exporter worked, we can use a SQL Data Loader block called load_taxi_data. Don't forget to specify the Connection as PostgreSQL and the Profile to Dev and Raw SQL:
+
+```SQL
+SELECT * FROM ny_taxi.yellow_taxi_data LIMIT 10;
+```
