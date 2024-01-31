@@ -352,3 +352,7 @@ To check that the exporter worked, we can use a SQL Data Loader block called loa
 ```SQL
 SELECT * FROM ny_taxi.yellow_taxi_data LIMIT 10;
 ```
+
+It is interesting to note that dependencies are assumed based on the order in which blocks were created in the pipeline (Load -> Transform -> Export):
+
+![[Screenshot 2024-01-30 at 9.04.22 PM.png]]
