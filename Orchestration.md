@@ -306,3 +306,5 @@ def load_data_from_api(*args, **kwargs):
 def test_output(output, *args) -> None:
 	assert output is not None, 'The output is undefined'
 ```
+
+Now that we have loaded the data, let's go ahead and apply a transformer. This transformer will drop all rows that have 0 passengers, as well as rename columns to use the underscore and lowercase naming convention. That is, spaces will be replaced with underscores and all letters will be converted to lowercase.
