@@ -178,8 +178,38 @@ By reversing the relationship, we can see in the diagram above that the output o
 If you inspect the io_config.yaml file in our project directory, you will see that we can configure **profiles** and there already exists a **default** profile:
 ![[Screenshot 2024-01-30 at 7.49.08 PM.png]]
 
-We can create a developer profile (dev) to separate developer and production credentials within this file:
+We can create a developer profile (dev) to separate developer and production credentials within this file. The developer profile will use the credentials specified in the .env file that Docker is aware of. This file uses Jinja templating which you will see whenever there is use of the double curly braces to fill in variable values:
 
 ```YAML
-
+dev:
+	# PostgresSQL
+	POSTGRES_CONNECT_TIMEOUT: 10
+	POSTGRES_DBNAME: "{{ env_var('POSTGRES_DBNAME') }}"
+	POSTGRES_SCHEMA: "{{ env_var('POSTGRES_SCHEMA') }}" # Optional
+	POSTGRES_USER: "{{ env_var('POSTGRES_USER') }}"
+	POSTGRES_PASSWORD: "{{ env_var('POSTGRES_PASSWORD') }}"
+	POSTGRES_HOST: "{{ env_var('POSTGRES_HOST') }}"
+	POSTGRES_PORT: "{{ env_var('POSTGRES_PORT') }}"
 ```
+
+Let's create a (batch) pipeline from scratch by going to File --> New standard pipeline.
+
+![[Screenshot 2024-01-30 at 7.54.10 PM.png]]
+
+Let's start by changing the name of our pipeline to ```test_config``` within the pipeline settings via Edit --> Pipeline settings:
+![[Screenshot 2024-01-30 at 7.55.49 PM.png]]
+![[Screenshot 2024-01-30 at 7.57.22 PM.png]]
+Click Save pipeline settings and head over to Edit pipeline.
+
+To test that we have a connection to Postgres, let's create a **Data loader** block that is written in SQL.
+![[Screenshot 2024-01-30 at 7.59.22 PM.png]]
+
+Let's set the Connection to PostgreSQL.
+![[Screenshot 2024-01-30 at 8.00.21 PM.png]]
+
+Set our Profile to dev.
+![[Screenshot 2024-01-30 at 8.00.50 PM.png]]
+
+Then finally we will remove the Mage templating by selecting the Use raw SQL option.
+![[Screenshot 2024-01-30 at 8.01.40 PM.png]]
+
