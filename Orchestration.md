@@ -271,7 +271,7 @@ if 'test' not in globals():
 
 @data_loader
 def load_data_from_api(*args, **kwargs):
-	url = 'https//github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz'
+	url = 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz'
 
 	taxi_dtypes = {
 
