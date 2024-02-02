@@ -329,7 +329,7 @@ def transform(data, *args, **kwargs):
 
 @test
 def test_output(output, *args) -> None:
-	assert (output["passenger_count"] > 0).sum() == 0, 'There are rides with zero passengers.'
+	assert (output["passenger_count"] == 0).sum() == 0, 'There are rides with zero passengers.'
 ```
 
 Finally, we will export our data to Postgres. Let's create a Data Exporter block called taxi_data_to_postgres in Python with the PostgreSQL template.
