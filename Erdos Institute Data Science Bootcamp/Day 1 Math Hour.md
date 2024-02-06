@@ -8,3 +8,22 @@ Two common loss functions:
 2. Maximum a priori estimation (MAP)
 
 # Maximum likelihood estimation
+Example: Let's say we have a weighted coin where the probability of heads is some parameter $\theta$ which we are trying to estimate. If we flip the coin three times and the outcomes are HHT, then we may estimate $\theta=2/3$. However, if we weren't told the coin was weighted and we had the same outcomes we would still say our $\theta=1/2$, this is getting to the idea of the difference between MLE and MAP.
+
+Now in general, the likelihood of a coin weighted $\theta$ producing HHT is $L(\theta)=\theta^2(1-\theta)$. The maximum value of this function over $[0,1]$ can be found using differential Calculus:
+$$\frac{dL}{d\theta} = -\theta^2 + 2\theta(1-\theta)=\theta(2-3\theta)=0$$
+
+We are getting a minimum at $\theta=0$ and a maximum at $\theta=2/3$.
+
+Now in general if we have $m$ heads and $n-m$ tails, instead of maximizing the likelihood we will maximize the log likelihood:
+
+$$L(\theta)=\theta^m(1-\theta)^{n-m}$$
+
+The log likelihood is as follows:
+
+$$\log(L)=m\log(\theta) + (n-m)\log(1-\theta)$$
+
+and thus the derivative is easier to compute:
+
+$$\frac{d\log(L)}{d\theta}=\frac{m}{\theta}-\frac{n-m}{1-\theta}.$$
+
