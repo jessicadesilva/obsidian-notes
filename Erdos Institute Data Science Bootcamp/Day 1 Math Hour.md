@@ -29,4 +29,4 @@ $$\frac{d\log(L)}{d\theta}=\frac{m}{\theta}-\frac{n-m}{1-\theta}.$$
 
 # Maximum a posteriori estimation
 Real world coins have $\theta\approx1/2$, if we flip the coin five times and get 4 heads and 1 tails what would you .
-In Bayesian statistics we have some prior information (e.g., most coins are not biased). 
+In Bayesian statistics we have some prior information (e.g., most coins are not biased). You can think of MLE as MAP where the prior distribution is uniform.
