@@ -1,4 +1,10 @@
 Framework for parametric supervised machine learning.
 Data is $n$ points in $\mathbb{R}^p$, so it is represented as an $n\times p$ matrix $X$. The framework for parametric supervised machine learning is though of as a map $f:\mathbb{R}^p\to\mathbb{R}^k$ so the output is called $Y$ which is $n\times k$. We are trying to find the "true function" $f\in\mathcal{F}$ where $\mathcal{F}$ is a family of functions (such as linear functions, logistic function, or neural networks). The *parametric* part comes form the fact that this class of function $\mathcal{F}$ should be specified by some set of parameters.
 
-For example, $f_\theta(\mathbb{x}) = \theta_0 + \mathbf{\theta}_{1,\ldots,n}\cdot \mathbf{x}$ would be in the class of linear models. We will specify a "loss function" which quantifies how well a given $f_\theta$ represents the data.
+For example, $f_\theta(\mathbb{x}) = \theta_0 + \mathbf{\theta}_{1,\ldots,n}\cdot \mathbf{x}$ would be in the class of linear models since there is **linearity in the parameters**. We will specify a "loss function" which quantifies how well a given $f_\theta$ represents the data.
+
+Two common loss functions:
+1. Maximum likelihood estimation (MLE)
+2. Maximum a priori estimation (MAP)
+
+# Maximum likelihood estimation

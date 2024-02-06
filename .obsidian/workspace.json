@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Erdos Institute Data Science Bootcamp/Day 1 Orientation.md",
+                "file": "Erdos Institute Data Science Bootcamp/Day 1 Math Hour.md",
                 "mode": "source",
                 "source": false
               }
@@ -98,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Erdos Institute Data Science Bootcamp/Day 1 Orientation.md",
+                "file": "Erdos Institute Data Science Bootcamp/Day 1 Math Hour.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Erdos Institute Data Science Bootcamp/Day 1 Orientation.md",
+                "file": "Erdos Institute Data Science Bootcamp/Day 1 Math Hour.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Erdos Institute Data Science Bootcamp/Day 1 Orientation.md"
+                "file": "Erdos Institute Data Science Bootcamp/Day 1 Math Hour.md"
               }
             }
           }
@@ -162,7 +162,7 @@
   "active": "4975d7b1a23946d0",
   "lastOpenFiles": [
     "Orchestration.md",
-    "Erdos Institute Data Science Bootcamp/Day 1 Orientation.md",
+    "Erdos Institute Data Science Bootcamp/Day 1 Math Hour.md",
     "Erdos Institute Data Science Bootcamp",
     "attachments/Screenshot 2024-01-30 at 9.04.22 PM.png",
     "attachments/Screenshot 2024-01-30 at 8.54.06 PM.png",
