@@ -5,7 +5,7 @@ For example, $f_\theta(\mathbb{x}) = \theta_0 + \mathbf{\theta}_{1,\ldots,n}\cdo
 
 Two common loss functions:
 1. Maximum likelihood estimation (MLE)
-2. Maximum a priori estimation (MAP)
+2. Maximum a posteriori estimation (MAP)
 
 # Maximum likelihood estimation
 Example: Let's say we have a weighted coin where the probability of heads is some parameter $\theta$ which we are trying to estimate. If we flip the coin three times and the outcomes are HHT, then we may estimate $\theta=2/3$. However, if we weren't told the coin was weighted and we had the same outcomes we would still say our $\theta=1/2$, this is getting to the idea of the difference between MLE and MAP.
@@ -27,5 +27,6 @@ and thus the derivative is easier to compute:
 
 $$\frac{d\log(L)}{d\theta}=\frac{m}{\theta}-\frac{n-m}{1-\theta}.$$
 
-# Maximum a priori estimation
-Real world coins have $\theta\approx1/2$, if we flip the coin five times and get 4 heads and 1 tails what would you 
+# Maximum a posteriori estimation
+Real world coins have $\theta\approx1/2$, if we flip the coin five times and get 4 heads and 1 tails what would you .
+In Bayesian statistics we have some prior information (e.g., most coins are not biased). 
