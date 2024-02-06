@@ -27,3 +27,5 @@ and thus the derivative is easier to compute:
 
 $$\frac{d\log(L)}{d\theta}=\frac{m}{\theta}-\frac{n-m}{1-\theta}.$$
 
+# Maximum a priori estimation
+Real world coins have $\theta\approx1/2$, if we flip the coin five times and get 4 heads and 1 tails what would you 
