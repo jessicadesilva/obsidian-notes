@@ -363,14 +363,14 @@ Our goal here is to export the taxi data to a bucket in Google Cloud Storage usi
 
 Note that our docker-compose.yml file has a volumes section which mounts our host computer directory to /home/src in the Docker container for Mage. This means that since our GCP json key lives in the host computer directory containing the docker-compose file, it can be accessed in the Mage project.
 
-In the file directory on Mage, you should see a file called ```io_config.yaml``` which gives you two options for authenticating your Google service accounts (1) pasting the key information directly in the yaml file, or (2) providing the file path to the key. We'll only use the second option by defining the path (in the container) to our key json file:
+In the file directory on Mage, you should see a file called ```io_config.yaml``` the same file where we created the dev profile. In the default profile, it gives you two options for authenticating your Google service accounts (1) pasting the key information directly in the yaml file, or (2) providing the file path to the key. We'll only use the second option by defining the path (in the container) to our key json file:
 
 ```yaml
 # Google
 GOOGLE_SERVICE_ACC_KEY_FILEPATH: "/home/src/iron-cycle-412122-077e564b3924.json"
 ```
 
-In our test_config pipeline, we can change the settings to test our connection to BigQuery (which means our Google credentials worked). Update the connection in the Data Loader to BigQuery and change the profile to default:
+In our test_config pipeline, we can change the settings to test our connection to BigQuery (which means our Google credentials worked). Update the connection in the Data Loader to BigQuery and change the profile to default since that is the profile that has our GOOGLE_SERVICE_ACC_KEY_FILEPATH environment variable defined:
 
 ![[Screenshot 2024-02-07 at 2.36.51 PM.png]]
 
@@ -393,4 +393,16 @@ We see based on the output that our connection to GCS was a success:
 
 Now we will load the data from an API into Google Cloud Storage (as opposed to PostgreSQL). The benefits of using a cloud storage file system over a DBMS like Postgres is that it is cheaper and can handle semi-structured data. To start, we'll create a new batch pipeline called api_to_gcs and start with the load_api_data.py and clean_taxi_data.py blocks we already created by pulling it into the pipeline from the Mage project file explorer. Be sure to connect the two blocks using the Tree menu option in the navigation on the right.
 
-Now we will create a Data exporter block using the Python -> Google Cloud Storage template called taxi_to_gcs_parquet. Update the bucket_name to mage-zoomcamp-jessica-desilva and the object_key will be the name of the file we are exporting to GCS: ny_taxi_data.parquet. Note that the file type will be inferred by the file name given in object_key.
+Now we will create a Data exporter block using the Python -> Google Cloud Storage template called taxi_to_gcs_parquet. Update the bucket_name to mage-zoomcamp-jessica-desilva and the object_key will be the name of the file we are exporting to GCS: nyc_taxi_data.parquet. Note that the file type will be inferred by the file name given in object_key.
+
+```python
+bucket_name = 'mage-zoomcamp-jessica-desilva'
+object_key = 'nyc_taxi_data.parquet'
+```
+
+Everything else can remain the same. Be sure to use the Execute with all upstream blocks option. Once it's done writing, we should see the following in Mage:
+
+
+
+And the file appears in our GCS bucket:
+
