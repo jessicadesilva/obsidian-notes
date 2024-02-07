@@ -519,3 +519,5 @@ Folder nyc_taxi_data contains subfolders:
 Each containing a parquet file:
 ![[Screenshot 2024-02-07 at 3.43.51 PM.png]]
 
+# GCS to BigQuery
+
