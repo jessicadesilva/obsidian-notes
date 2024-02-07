@@ -391,4 +391,6 @@ We see based on the output that our connection to GCS was a success:
 
 # API to GCS
 
-Now we will load the data from an API into Google Cloud Storage (as opposed to PostgreSQL). The benefits of using a cloud storage file system over a DBMS like Postgres is that it is cheaper and can handle semi-structured data. To start, we'll create a new batch pipeline called api_to_gcs and start with the load_api_data.py and clean_taxi_data.py blocks we already created by pulling it into the pipeline from the Mage project file explorer.
+Now we will load the data from an API into Google Cloud Storage (as opposed to PostgreSQL). The benefits of using a cloud storage file system over a DBMS like Postgres is that it is cheaper and can handle semi-structured data. To start, we'll create a new batch pipeline called api_to_gcs and start with the load_api_data.py and clean_taxi_data.py blocks we already created by pulling it into the pipeline from the Mage project file explorer. Be sure to connect the two blocks using the Tree menu option in the navigation on the right.
+
+Now we will create a Data exporter block using the Python -> Google Cloud Storage template called taxi_to_gcs_parquet. Update the bucket_name to mage-zoomcamp-jessica-desilva and the object_key will be the name of the file we are exporting to GCS: ny_taxi_data.parquet. Note that the file type will be inferred by the file name given in object_key.
