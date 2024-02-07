@@ -463,7 +463,7 @@ And now we will define our pyarrow Google Cloud Storage file system object gcs:
 Finally, we will export our table as a parquet file to the gcs filesystem partitioned by the column ```tpep_pickup_date```:
 
 ```python
-	pq.write_dataset(
+	pq.write_to_dataset(
 	table,
 	root_path=root_path,
 	partition_cols=['tpep_pickup_date'],
@@ -473,7 +473,49 @@ Finally, we will export our table as a parquet file to the gcs filesystem partit
 
 Ultimately, our block should look like this:
 
+```python
+import pyarrow as pa
+import pyarrow.parquet as pq
+import os
 
+if 'data_exporter' not in globals():
+	from mage_ai.data_preparation.decorators import data_exporter
+
+  
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/home/src/iron-cycle-412122-077e564b3924.json'
+
+project_id = 'iron-cycle-412122'
+
+bucket_name = 'mage-zoomcamp-jessica-desilva'
+
+table_name = 'nyc_taxi_data'
+
+root_path = f'{bucket_name}/{table_name}'
+
+@data_exporter
+def export_data(data, *args, **kwargs):
+	
+	data['tpep_pickup_date'] = data['tpep_pickup_datetime'].dt.date
+	
+	table = pa.Table.from_pandas(data)
+	
+	gcs = pa.fs.GcsFileSystem()
+	
+	pq.write_to_dataset(
+		table,
+		root_path=root_path,
+		partition_cols=['tpep_pickup_date'],
+		filesystem=gcs
+	)
+```
 
 When we run this block with all upstream blocks, we should see a nyc_taxi_data folder containing folders named by a particular date from the ```tpep_pickup_date``` and those folders contain a parquet file with the data from the table filtered according to the folder name's pickup date:
+![[Screenshot 2024-02-07 at 3.41.55 PM.png]]
+
+Folder nyc_taxi_data contains subfolders:
+
+![[Screenshot 2024-02-07 at 3.42.10 PM.png]]
+
+Each containing a parquet file:
+![[Screenshot 2024-02-07 at 3.43.51 PM.png]]
 
