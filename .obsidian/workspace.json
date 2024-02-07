@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Data Engineering Zoomcamp/Introduction to Docker.md",
+                "file": "Data Engineering Zoomcamp/Orchestration.md",
                 "mode": "source",
                 "source": false
               }
@@ -98,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Data Engineering Zoomcamp/Introduction to Docker.md",
+                "file": "Data Engineering Zoomcamp/Orchestration.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Data Engineering Zoomcamp/Introduction to Docker.md",
+                "file": "Data Engineering Zoomcamp/Orchestration.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Data Engineering Zoomcamp/Introduction to Docker.md"
+                "file": "Data Engineering Zoomcamp/Orchestration.md"
               }
             }
           }
@@ -159,11 +159,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "a7bf74146a71f73d",
+  "active": "4975d7b1a23946d0",
   "lastOpenFiles": [
+    "Data Engineering Zoomcamp/Terraform.md",
+    "Data Engineering Zoomcamp/Orchestration.md",
     "Erdos Institute Data Science Bootcamp/Day 1 Math Hour.md",
     "Data Engineering Zoomcamp",
-    "Data Engineering Zoomcamp/Orchestration.md",
     "Erdos Institute Data Science Bootcamp",
     "attachments/Screenshot 2024-01-30 at 9.04.22 PM.png",
     "attachments/Screenshot 2024-01-30 at 8.54.06 PM.png",
@@ -177,7 +178,6 @@
     "attachments/Screenshot 2024-01-30 at 7.55.49 PM.png",
     "Data Engineering Zoomcamp/Introduction to Docker.md",
     "Data Engineering Zoomcamp/Zoomcamp Overview.md",
-    "Data Engineering Zoomcamp/Terraform.md",
     "conflict-files-obsidian-git.md",
     "attachments",
     "container id.md",

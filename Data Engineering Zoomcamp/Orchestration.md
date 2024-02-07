@@ -231,7 +231,7 @@ Let's create a Data Loader block called load_api_data written in Python with an 
 
 We will define the url variable to be the following:
 ```python
-url = 'https//github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_traip_data_2021-01.csv'
+url = 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz'
 ```
 We will also tell pandas the datatypes to expect to (1) save on memory used to process the dataset, (2) if the datatypes are different from what is expected then an error will occur and the pipeline owner will be notified.
 
