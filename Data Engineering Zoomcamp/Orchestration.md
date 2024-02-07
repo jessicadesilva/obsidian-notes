@@ -374,4 +374,4 @@ In our test_config pipeline, we can change the settings to test our connection t
 
 ![[Screenshot 2024-02-07 at 2.36.51 PM.png]]
 
-We can test our connection to GCS specifically using the example_pipeline.r
+We can test our connection to GCS specifically using the example_pipeline provided. This pipeline loads the data from a URL, fills in missing values, and exports it to a file in GCS. We can run this pipeline by selecting Execute with all upstream blocks on the Data Exporter block.
