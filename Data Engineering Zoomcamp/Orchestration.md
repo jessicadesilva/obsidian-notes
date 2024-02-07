@@ -402,7 +402,10 @@ object_key = 'nyc_taxi_data.parquet'
 
 Everything else can remain the same. Be sure to use the Execute with all upstream blocks option. Once it's done writing, we should see the following in Mage:
 
-
+![[Screenshot 2024-02-07 at 3.14.39 PM.png]]
 
 And the file appears in our GCS bucket:
 
+![[Screenshot 2024-02-07 at 3.14.51 PM.png]]
+
+Since this file is quite large, we are going to upload a partitioned version of it again to GCS. Partitioning the data separates it into multiple files based on the value of some column of the dataset. Let's start with a Python Data exporter block without a template (Generic (no template)) and call it taxi_to_gcs_partitioned_parquet.
