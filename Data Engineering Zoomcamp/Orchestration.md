@@ -359,3 +359,19 @@ It is interesting to note that dependencies are assumed based on the order in wh
 
 # Configuring GCP
 
+Our goal here is to export the taxi data to a bucket in Google Cloud Storage using Mage. You can think of buckets in GCS as a cloud storage file system for us to interact with. We'll start by creating a bucket in GCS where the data will be stored. Let's name it mage-zoomcamp-jessica-desilva and we can keep the default settings on the bucket. In order for Mage to connect to GCP, it uses a service account. In IAM & Admin, create a service account with "Owner" privileges and then create key for that service account. Upload the json key to the Mage project and we're ready to go! You may want to double check that the key does not get committed to Github, so long as you have the gitignore file provided by Mage that won't happen.
+
+Note that our docker-compose.yml file has a volumes section which mounts our host computer directory to /home/src in the Docker container for Mage. This means that since our GCP json key lives in the host computer directory containing the docker-compose file, it can be accessed in the Mage project.
+
+In the file directory on Mage, you should see a file called ```io_config.yaml``` which gives you two options for authenticating your Google service accounts (1) pasting the key information directly in the yaml file, or (2) providing the file path to the key. We'll only use the second option by defining the path (in the container) to our key json file:
+
+```yaml
+# Google
+GOOGLE_SERVICE_ACC_KEY_FILEPATH: "/home/src/iron-cycle-412122-077e564b3924.json"
+```
+
+In our test_config pipeline, we can change the settings to test our connection to BigQuery (which means our Google credentials worked). Update the connection in the Data Loader to BigQuery and change the profile to default:
+
+![[Screenshot 2024-02-07 at 2.36.51 PM.png]]
+
+We can test our connection to GCS specifically using the example_pipeline.r
