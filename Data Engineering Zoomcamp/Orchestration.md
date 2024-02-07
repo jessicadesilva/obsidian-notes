@@ -410,3 +410,70 @@ And the file appears in our GCS bucket:
 
 Since this file is quite large, we are going to upload a partitioned version of it again to GCS. Partitioning the data separates it into multiple files based on the value of some column of the dataset. Let's start with a Python Data exporter block without a template (Generic (no template)) and call it taxi_to_gcs_partitioned_parquet. We need to connect this block to our transformer block in the Tree view so that this block receives as input the titanic data.
 
+We will start by defining our Google service account credentials manually, then use the pyarrow Python library to partition the dataset. Let's import the following packages to start:
+
+```python
+import pyarrow as pa
+import pyarrow.parquet as pq
+import os # to get environment variables
+```
+
+First we will tell pyarrow where our credentials are and the name of our project in GCP:
+
+```python
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/home/src/iron-cycle-412122-077e564b3924.json'
+
+project_id = 'iron-cycle-412122'
+```
+
+Then we will define our bucket name as usual and the name of the table as we want it to appear in the bucket:
+
+```python
+bucket_name = 'mage-zoomcamp-jessica-desilva'
+
+table_name = 'nyc_taxi_data'
+```
+
+Note that the table name will actually be the name of a folder which contains all the files forming the partition of the original dataset. We will tell it this is how we want to structure our files using the root_path variable:
+
+```python
+root_path = f'{bucket_name}/{table_name}'
+```
+
+Note that all of the code we have discussed should be *above* the function which defines our block. Now in our export_data function we will start by creating a new column which is the date of our ```tpep_pickup_datetime``` and that date is what we will partition by.
+
+```python
+@data_exporter
+def export_data(data, *args, **kwargs):
+	data['tpep_pickup_date'] = data['tpep_pickup_datetime'].dt.date
+```
+
+Now, still within our export_data function, we will define our pyarrow table from the input data:
+
+```python
+	table = pa.Table.from_pandas(data)
+```
+
+And now we will define our pyarrow Google Cloud Storage file system object gcs:
+
+```python
+	gcs = pa.fs.GcsFileSystem()
+```
+
+Finally, we will export our table as a parquet file to the gcs filesystem partitioned by the column ```tpep_pickup_date```:
+
+```python
+	pq.write_dataset(
+	table,
+	root_path=root_path,
+	partition_cols=['tpep_pickup_date'],
+	filesystem=gcs
+	)
+```
+
+Ultimately, our block should look like this:
+
+
+
+When we run this block with all upstream blocks, we should see a nyc_taxi_data folder containing folders named by a particular date from the ```tpep_pickup_date``` and those folders contain a parquet file with the data from the table filtered according to the folder name's pickup date:
+
