@@ -521,3 +521,24 @@ Each containing a parquet file:
 
 # GCS to BigQuery
 
+Now we will take the data in GCS, process it, and write it to Google BigQuery. Let's start with a new standard pipeline named gcs_to_bigquery. For our Data loader block, let's us the Python -> Google Cloud Storage template and name it load_taxi_gcs. As we did with the titanic_clean.csv file, we just need to update the bucket_name to magic-zoomcamp-jessica-desilva and the object_key is the name of the nyc_taxi_data.parquet file. You may remove the test if you'd like. Our data loader function looks like this now:
+
+```python
+@data_loader
+def load_from_google_cloud_storage(*args, **kwargs):
+	config_path = path.join(get_repo_path(), 'io_config.yaml')
+	config_profile = 'default'
+	bucket_name = 'magic-zoomcamp-jessica-desilva'
+	object_key = 'nyc_taxi_data.parquet'
+
+	return GoogleCloudStorage.with_config(ConfigFileLoader(config_path, config_profile)).load(
+		bucket_name,
+		object_key,
+	)
+```
+
+For our transformer block, let's call it transform_staged_data and have it rename our columns so that they all use snake_case.
+
+```python
+
+```
