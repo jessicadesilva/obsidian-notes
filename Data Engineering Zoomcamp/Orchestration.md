@@ -357,3 +357,5 @@ It is interesting to note that dependencies are assumed based on the order in wh
 
 ![[Screenshot 2024-01-30 at 9.04.22 PM.png]]
 
+# Configuring GCP
+
