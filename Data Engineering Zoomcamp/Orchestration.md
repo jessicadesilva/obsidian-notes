@@ -389,3 +389,6 @@ We see based on the output that our connection to GCS was a success:
 
 ![[Screenshot 2024-02-07 at 2.56.10 PM.png]]
 
+# API to GCS
+
+Now we will load the data from an API into Google Cloud Storage (as opposed to PostgreSQL). The benefits of using a cloud storage file system over a DBMS like Postgres is that it is cheaper and can handle semi-structured data. To start, we'll create a new batch pipeline called api_to_gcs and start with the load_api_data.py and clean_taxi_data.py blocks we already created by pulling it into the pipeline from the Mage project file explorer.
