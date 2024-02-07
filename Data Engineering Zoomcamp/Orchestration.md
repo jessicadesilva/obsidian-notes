@@ -408,4 +408,5 @@ And the file appears in our GCS bucket:
 
 ![[Screenshot 2024-02-07 at 3.14.51 PM.png]]
 
-Since this file is quite large, we are going to upload a partitioned version of it again to GCS. Partitioning the data separates it into multiple files based on the value of some column of the dataset. Let's start with a Python Data exporter block without a template (Generic (no template)) and call it taxi_to_gcs_partitioned_parquet.
+Since this file is quite large, we are going to upload a partitioned version of it again to GCS. Partitioning the data separates it into multiple files based on the value of some column of the dataset. Let's start with a Python Data exporter block without a template (Generic (no template)) and call it taxi_to_gcs_partitioned_parquet. We need to connect this block to our transformer block in the Tree view so that this block receives as input the titanic data.
+
