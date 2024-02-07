@@ -39,11 +39,11 @@ We start by creating a **service account** in the platform we want Terraform to 
 
 In GCP (Google Cloud Platform), we will create a project named **terraform-demo**. To create the service account, click the **IAM & Admin** button.
 
-![[attachments/Screenshot 2024-01-23 at 2.37.30 PM.png]]
+![[Screenshot 2024-01-23 at 2.37.30 PM.png]]
 
 Then using the left menu navigate to Service Accounts and click + CREATE SERVICE ACCOUNT in the upper middle.
 
-![[attachments/Screenshot 2024-01-23 at 2.37.58 PM.png]]
+![[Screenshot 2024-01-23 at 2.37.58 PM.png]]
 
 Give the Service account name **terraform-runner** and select the **create and continue** button.
 
@@ -102,7 +102,7 @@ As an aside, Terraform can nicely format your .tf document using the command ter
 
 Now let's fill in the two pieces of information requested in the configuration options. Our project id is not the friendly name terraform-demo, instead you can find it in GCP by navigating to the Dashboard (click the menu icon to the left of the Google Cloud logo, then Cloud overview and Dashboard). Then you will see your Project ID in the Project info card. For me, the Project ID is iron-cycle-412122.
 
-![[attachments/Screenshot 2024-01-23 at 3.08.22 PM.png]]
+![[Screenshot 2024-01-23 at 3.08.22 PM.png]]
 So now my main.tf file looks like this:
 
 ```terraform
@@ -170,7 +170,7 @@ terraform init
 
 
 This command gives the following friendly message.
-![[attachments/Screenshot 2024-01-23 at 3.22.06 PM.png]]
+![[Screenshot 2024-01-23 at 3.22.06 PM.png]]
 
 Before we use the terraform plan command, let's include the creation of a bucket in our Google Cloud Storage account. This bucket is referred to as a **resource** in Terraform, and we can look up what the code is for this type of resource on Google by searching "terraform google cloud storage button" and finding an example usage such as:
 
@@ -229,7 +229,7 @@ Now we have everything in our main.tf file for this demo. We will run the follow
 terraform plan
 ```
 
-![[attachments/Screenshot 2024-01-23 at 3.38.00 PM.png]]
+![[Screenshot 2024-01-23 at 3.38.00 PM.png]]
 
 Once you have checked the plan and confirmed that it is going to do what you want, you can create the infrastructure with the following command:
 
@@ -239,11 +239,11 @@ terraform apply
 
 You can then type yes if you want to confirm the actions Terraform will take.
 
-![[attachments/Screenshot 2024-01-23 at 3.40.35 PM.png]]
+![[Screenshot 2024-01-23 at 3.40.35 PM.png]]
 
 Now when we go to Google Cloud Platform and navigate to our Buckets in Cloud Storage, we will see the bucket we just created through Terraform:
 
-![[attachments/Screenshot 2024-01-23 at 3.41.46 PM.png]]
+![[Screenshot 2024-01-23 at 3.41.46 PM.png]]
 
 Now let's say we want to get rid of the resources after we are done with them. We can use the command
 
@@ -253,7 +253,7 @@ terraform destroy
 
 It will tell us the changes that will be made if we execute this. We confirm it by typing yes and we get the following confirmation message:
 
-![[attachments/Screenshot 2024-01-23 at 3.43.35 PM.png]]
+![[Screenshot 2024-01-23 at 3.43.35 PM.png]]
 
 We will also see in our Cloud Storage on GCP that the bucket is no longer there.
 
@@ -272,7 +272,7 @@ When we use the **plan** command, we will see the dataset will be housed in the 
 
 When we use the **apply** command, we can see both the bucket in Cloud Storage and the dataset BigQuery:
 
-![[attachments/Screenshot 2024-01-23 at 4.11.04 PM.png]]
+![[Screenshot 2024-01-23 at 4.11.04 PM.png]]
 
 ## Variables
 
