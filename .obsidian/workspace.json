@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Orchestration.md",
+                "file": "Data Engineering Zoomcamp/Orchestration.md",
                 "mode": "source",
                 "source": false
               }
@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Erdos Institute Data Science Bootcamp/Day 1 Math Hour.md",
+                "file": "Data Engineering Zoomcamp/Introduction to Docker.md",
                 "mode": "source",
                 "source": false
               }
@@ -98,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Erdos Institute Data Science Bootcamp/Day 1 Math Hour.md",
+                "file": "Data Engineering Zoomcamp/Introduction to Docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Erdos Institute Data Science Bootcamp/Day 1 Math Hour.md",
+                "file": "Data Engineering Zoomcamp/Introduction to Docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Erdos Institute Data Science Bootcamp/Day 1 Math Hour.md"
+                "file": "Data Engineering Zoomcamp/Introduction to Docker.md"
               }
             }
           }
@@ -159,10 +159,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "4975d7b1a23946d0",
+  "active": "a7bf74146a71f73d",
   "lastOpenFiles": [
-    "Orchestration.md",
     "Erdos Institute Data Science Bootcamp/Day 1 Math Hour.md",
+    "Data Engineering Zoomcamp",
+    "Data Engineering Zoomcamp/Orchestration.md",
     "Erdos Institute Data Science Bootcamp",
     "attachments/Screenshot 2024-01-30 at 9.04.22 PM.png",
     "attachments/Screenshot 2024-01-30 at 8.54.06 PM.png",
@@ -174,9 +175,9 @@
     "attachments/Screenshot 2024-01-30 at 7.59.22 PM.png",
     "attachments/Screenshot 2024-01-30 at 7.57.22 PM.png",
     "attachments/Screenshot 2024-01-30 at 7.55.49 PM.png",
-    "Introduction to Docker.md",
-    "Zoomcamp Overview.md",
-    "Terraform.md",
+    "Data Engineering Zoomcamp/Introduction to Docker.md",
+    "Data Engineering Zoomcamp/Zoomcamp Overview.md",
+    "Data Engineering Zoomcamp/Terraform.md",
     "conflict-files-obsidian-git.md",
     "attachments",
     "container id.md",
