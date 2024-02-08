@@ -551,3 +551,13 @@ def transform(data, *args, **kwargs):
 
 Finally, for our Data exporter block let's use a SQL exporter block since we haven't done that before. We will call it write_taxi_to_bigquery, set our Connection to BigQuery, our profile to default since that is what contains our Google service key credentials. We also need to define our schema, which we will call ny_taxi, and the name of the table, let's call it yellow_cab_data.
 
+![[Screenshot 2024-02-07 at 4.03.35 PM.png]]
+The template gives us some information, for example that the transformed_staged_data block is returning a dataframe called df_1. So we can refer to that using Jinja templating syntax in our SQL query.
+
+![[Screenshot 2024-02-07 at 4.04.45 PM.png]]
+
+Here is our SQL query:
+
+```SQL
+SELECT * FROM {{ df_1 }};
+```
