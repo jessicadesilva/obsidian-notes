@@ -71,3 +71,17 @@ LIMIT 100
 Using the RUN button.
 ![[Screenshot 2024-02-07 at 7.50.54 PM.png]]
 
+We see the query results at the bottom with options to export the data or explore it with Sheets, Looker Studio, etc.
+
+![[Screenshot 2024-02-07 at 7.52.55 PM.png]]
+
+## BigQuery cost
+
+Two pricing models
+* On demand pricing (based on the amount of data you scan)
+	* 1 TB of data processed is $5
+* Flat rate pricing
+	* Based on number of pre-requested slots
+	* 100 slots -> $2,000/month = 400 TB data processed on demand pricing
+Generally, it doesn't make sense to use flat rate pricing unless you are using more than 400 TB of data per month. Also with regard to flat rate pricing, you have to worry about queries competing with each other since only 100 slots are available, that is, only 100 queries can run at one time (and the others would need to wait).
+
