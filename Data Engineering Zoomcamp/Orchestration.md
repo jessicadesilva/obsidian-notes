@@ -672,4 +672,7 @@ Here we will discuss how to deploy Mage into Google Cloud using Terraform. We ne
 * Mage Terraform templates
 
 ## Google Cloud Permissions
-Here we will make sure we have all the Google Cloud permissions needed for this project. 
+Here we will make sure we have all the Google Cloud permissions needed for this project. In IAM & Admin in GCP, we can use the service account created previously with Owner level permissions.
+
+
+
