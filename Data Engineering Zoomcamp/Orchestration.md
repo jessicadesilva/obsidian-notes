@@ -600,6 +600,27 @@ We should see our workflow active on the left panel:
 
 Go ahead and delete the partitioned parquet data exporter block. Note that this just deletes the block from this pipeline, but references to this block in other pipelines will not be affected.
 
-Now the code from the other Data exporter block that we didn't delete will be copied and pasted into a new Python Data exporter block with no template called export_taxi_to_gcs_parameter. Delete the old exporter block, and connect the new one to the transformer block.
+Now the code from the other Data exporter block that we didn't delete will be copied and pasted into a new Python Data exporter block with no template called export_taxi_to_gcs_parameter. Delete the old exporter block (possibly delete connections first), and connect the new one to the transformer block.
 
+![[Screenshot 2024-02-07 at 4.35.17 PM.png]]
+Let's rename the pipeline so the copy is replaced with parameterized.
 
+Now notice that each Mage block has a set of parameters passed to it through the **kwargs** input. We can access some of these parameters by default, such as execution_date. Here's how we can do it within a Python block
+
+```python
+now = kwargs.get('execution_date')
+
+print(now)
+print(now.day)
+print(now.strftime('%Y/%m/%d'))
+```
+
+Then if we want to upload incremental data (by having our pipeline run on a schedule) we can define our filepath according to the value of this variable within our object_key name.
+
+```python
+now_fpath = now.strftime('%Y/%m/%d')
+```
+
+```python
+object_key = f'{now_fpath}/daily-trips.parquet'
+```
