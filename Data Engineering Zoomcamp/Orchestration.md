@@ -647,4 +647,4 @@ def export_data_to_google_cloud_storage(df: DataFrame, **kwargs) -> None:
 	)
 ```
 
-This is a built-in way to parameterize execution, but there are also ways to customize this. For example, you can define pipeline variables via the right navigation in the Variables menu option. 
+This is a built-in way to parameterize execution, but there are also ways to customize this. For example, you can define pipeline variables via the right navigation in the Variables menu option. ![[Screenshot 2024-02-07 at 4.59.05 PM.png]]
