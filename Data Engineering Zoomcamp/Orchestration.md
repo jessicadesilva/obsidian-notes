@@ -598,4 +598,8 @@ We should see our workflow active on the left panel:
 
 ![[Screenshot 2024-02-07 at 4.26.50 PM.png]]
 
+Go ahead and delete the partitioned parquet data exporter block. Note that this just deletes the block from this pipeline, but references to this block in other pipelines will not be affected.
+
+Now the code from the other Data exporter block that we didn't delete will be copied and pasted into a new Python Data exporter block with no template called export_taxi_to_gcs_parameter.
+
 
