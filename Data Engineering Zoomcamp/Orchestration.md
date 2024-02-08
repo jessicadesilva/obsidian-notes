@@ -665,6 +665,8 @@ This backfill will run the pipeline (7 times here) and change the kwargs so that
 
 # Deployment with Terraform
 
+This section didn't work for me since the video didn't have details on how to configure terraform. Here's as far as I got...
+
 Here we will discuss how to deploy Mage into Google Cloud using Terraform. We need the following:
 * Terraform installed on our machine
 * gcloud cli (command line interface)
@@ -709,5 +711,4 @@ default = "magepassword"
 }
 ```
 
-That ended up being enough to make it work.
-
+I thought that was enough to make it work, but my terraform apply was stuck creating a database instance for over 10 minutes...so I figured something was wrong. Anyway, on to next week's module! :)
