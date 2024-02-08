@@ -672,7 +672,42 @@ Here we will discuss how to deploy Mage into Google Cloud using Terraform. We ne
 * Mage Terraform templates
 
 ## Google Cloud Permissions
-Here we will make sure we have all the Google Cloud permissions needed for this project. In IAM & Admin in GCP, we can use the service account created previously with Owner level permissions.
+Here we will make sure we have all the Google Cloud permissions needed for this project. In IAM & Admin in GCP, we can use the service account created previously with Owner level permissions. The key json file should still be in our project. Let's configure gcloud cli with the following:
 
+```bash
+gcloud init
+```
 
+Login to your GCP account in the browser that pops up.
+
+```bash
+gcloud auth activate-service-account SERVICE_ACCOUNT@DOMAIN.COM --key-file=/path/key.json --project=PROJECT_ID
+```
+
+For me this is 
+
+```bash
+gcloud auth activate-service-account [EMAIL IN JSON FILE] --key-file=../../iron-cycle-4122122--077e564b3924.json --project=iron-cycle-412122
+```
+
+Then in the variables.tf file we need to update the following:
+
+```terraform
+variable "project_id" {
+type = string
+description = "The name of the project"
+default = "iron-cycle-412122"
+}
+```
+as well as
+```terraform
+variable "database_password" {
+type = string
+description = "The password of the Postgres database."
+sensitive = true
+default = "magepassword"
+}
+```
+
+That ended up being enough to make it work.
 
