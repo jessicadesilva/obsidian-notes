@@ -542,9 +542,10 @@ For our transformer block, let's call it transform_staged_data and have it stand
 ```python
 @transformer
 def transform(data, *args, **kwargs):
-	data.columns = data.columns()
+	data.columns = (data.columns
 		.str.replace(' ', '_')
 		.str.lower()
+	)
 
 	return data
 ```
@@ -561,4 +562,33 @@ Here is our SQL query:
 ```SQL
 SELECT * FROM {{ df_1 }};
 ```
+
+We see on the Mage side the data was exported successfully:
+
+![[Screenshot 2024-02-07 at 4.11.10 PM.png]]
+
+and we see it again in our Google BigQuery:
+
+![[Screenshot 2024-02-07 at 4.12.04 PM.png]]
+
+## Triggers
+
+In our pipeline, we can define **triggers** which schedule our workflow. We can access our triggers via the left navigation in our Mage project.
+
+![[Screenshot 2024-02-07 at 4.13.20 PM.png]]
+
+The **Run@Once** button in this Triggers section will just run the pipeline once. If we create a new trigger, we can select the type of trigger. For now, let's select **Schedule**.
+
+![[Screenshot 2024-02-07 at 4.14.02 PM.png]]
+
+We can call it gcs_to_bigquery_schedule and under Frequency let's select Daily. You can select the first date it should run, along with the time. In you enable a landing time, that means it should have it fully complete by the time given (say T1) and so it will determine how long it should take to run (say T2) and then have the pipeline set to run at time T1-T2.
+
+![[Screenshot 2024-02-07 at 4.18.37 PM.png]]
+
+Save your changes and then select Enable trigger.
+![[Screenshot 2024-02-07 at 4.18.58 PM.png]]
+
+We should see our workflow active on the left panel:
+
+![[Screenshot 2024-02-07 at 4.19.51 PM.png]]
 
