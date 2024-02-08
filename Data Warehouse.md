@@ -1,0 +1,73 @@
+# OLTP vs. OLAP
+
+OLTP: Online transaction processing
+* Used in back-end services
+* Group SQL queries together and fall/roll-back if one fails
+* Updates are fast, but small
+OLAP: Online analytical processing
+* Used for discovering hidden insights in a lot of data
+* Analytical purposes for data analysts and scientists
+* Data is periodically refreshed and data size is larger in comparison to OLTP
+
+|  | **OLTP** | **OLAP** |
+| ---- | ---- | ---- |
+| **Purpose** | Control and run essential business operations in real time | Plan, solve problems, support decisions, discover hidden insights |
+| **Data updates** | Short, fast updates initiated by user | Data periodically refreshed with scheduled, long-running batch jobs |
+| **Database design** | Normalized databases for efficiency | Denormalized databases for analysis |
+| **Space requirements** | Generally small if historical data is archived | Generally large due to aggregating large datasets |
+| **Backup and recovery** | Regular backups required to ensure business continuity and meet legal and governance requirements | Lost data can be reloaded from OLTP database as needed in lieu of regular backups |
+| **Productivity** | Increases productivity of end users | Increases productivity of business managers, data analysts, and executives |
+| **Data view** | Lists day-to-day business transactions | Multi-dimensional view of enterprise data |
+| **User examples** | Customer-facing personnel, clerks, online shoppers | Knowledge workers such as data analysts, business analysts, and executives |
+
+# What is a data warehouse
+
+A data warehouse is an **OLAP** solution used for reporting and data analysis. It generally consists of raw data, meta data, and summary data. Data warehouses have many sources, such as operating systems, flat files systems, OLTP databases, which report to a staging area that then writes to a data warehouse. Data warehouses can be transformed into a data mart (such as one for purchasing, another for sales) and the data marts are accessed by end-users (analysts, data scientists, etc.). However, it may make sense in some situations for end-users to pull data directly from the data warehouse.
+
+![[Screenshot 2024-02-07 at 7.35.04 PM.png]]
+
+# BigQuery
+
+* Serverless data warehouse
+	* There are no servers to manage or database software to install
+* Software as well as infrastructure with these two things in mind:
+	* scalability
+	* high availability
+* Built-in features like
+	* machine learning
+	* geospatial analysis
+	* business intelligence
+* BigQuery maximizes flexibility by separating the compute engine that analyzes your data from your storage
+
+## BigQuery interface
+On the left side, you can see your project which contains a folder for the schema/data and within that folder, tables.
+![[Screenshot 2024-02-07 at 7.42.51 PM.png]]
+
+By default, BigQuery caches queries and so it may be good to turn caching off for consistent results. You can do that in a SQL query by going to MORE then Query Settings and uncheck Use cached results.
+
+BigQuery provides open-source public datasets. If you search for a public dataset be sure to click SEARCH ALL PROJECTS for them to appear.
+
+![[Screenshot 2024-02-07 at 7.46.05 PM.png]]
+
+When you view a table, the SCHEMA tab shows us the columns, data types, and description if provided.
+
+![[Screenshot 2024-02-07 at 7.47.29 PM.png]]
+
+If you query the table via the QUERY tab, it will prepopulate the SQL query with the reference to the corresponding table.
+![[Screenshot 2024-02-07 at 7.48.20 PM.png]]
+
+In the query:
+
+![[Screenshot 2024-02-07 at 7.49.30 PM.png]]
+
+Let's run the following query on this table:
+
+```sql
+SELECT station_id, name
+FROM `bigquery-public-data.new_york_citibike.citibike_stations`
+LIMIT 100
+```
+
+Using the RUN button.
+![[Screenshot 2024-02-07 at 7.50.54 PM.png]]
+
