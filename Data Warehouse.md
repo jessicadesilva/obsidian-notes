@@ -77,6 +77,14 @@ We see the query results at the bottom with options to export the data or explor
 
 ## BigQuery cost
 
+For this section, we will start by (manually) uploading the following files from https://github.com/DataTalksClub/nyc-tlc-data/releases/tag/yellow/download to our GCS mage-zoomcamp-jessica-desilva bucket:
+* yellow_tripdata_2019-01.csv
+* yellow_tripdata_2019-02.csv
+* yellow_tripdata_2019-03.csv
+* yellow_tripdata_2020-01.csv
+* yellow_tripdata_2020-02.csv
+* yellow_tripdata_2020-03.csv
+
 Two pricing models
 * On demand pricing (based on the amount of data you scan)
 	* 1 TB of data processed is $5
