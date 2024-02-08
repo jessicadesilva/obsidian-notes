@@ -549,5 +549,5 @@ def transform(data, *args, **kwargs):
 	return data
 ```
 
-Finally, for our Data exporter block we will use a Python -> Google BigQuery template and call it write_taxi_to_bigquery.
+Finally, for our Data exporter block let's use a SQL exporter block since we haven't done that before. We will call it write_taxi_to_bigquery, set our Connection to BigQuery, our profile to default since that is what contains our Google service key credentials. We also need to define our schema, which we will call ny_taxi, and the name of the table, let's call it yellow_cab_data.
 
