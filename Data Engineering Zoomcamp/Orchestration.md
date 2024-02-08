@@ -662,3 +662,14 @@ If you have a parameterized pipeline with missing or loss data, you may need to 
 When you create a new backfill, you can name it, specify the date, as well as the time window. ![[Screenshot 2024-02-07 at 5.07.30 PM.png]]
 
 This backfill will run the pipeline (7 times here) and change the kwargs so that they align with the execution days indicated here.
+
+# Deployment with Terraform
+
+Here we will discuss how to deploy Mage into Google Cloud using Terraform. We need the following:
+* Terraform installed on our machine
+* gcloud cli (command line interface)
+* Google Cloud Permissions
+* Mage Terraform templates
+
+## Google Cloud Permissions
+Here we will make sure we have all the Google Cloud permissions needed for this project. 
