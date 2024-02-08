@@ -646,5 +646,19 @@ def export_data_to_google_cloud_storage(df: DataFrame, **kwargs) -> None:
 		object_key,
 	)
 ```
+In GCS we can see the folder system created with our first run. You can imagine this particular example makes the most sense when paired with a daily trigger.
+
+![[Screenshot 2024-02-07 at 5.02.21 PM.png]]
+
 
 This is a built-in way to parameterize execution, but there are also ways to customize this. For example, you can define pipeline variables via the right navigation in the Variables menu option. ![[Screenshot 2024-02-07 at 4.59.05 PM.png]]
+
+## Backfilling
+
+If you have a parameterized pipeline with missing or loss data, you may need to backfill the pipeline for the days (for example) that are missed. Mage has a Backfills feature in each pipeline, found on the left navigation. 
+
+![[Screenshot 2024-02-07 at 5.04.59 PM.png]]
+
+When you create a new backfill, you can name it, specify the date, as well as the time window. ![[Screenshot 2024-02-07 at 5.07.30 PM.png]]
+
+This backfill will run the pipeline (7 times here) and change the kwargs so that they align with the execution days indicated here.
