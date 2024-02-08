@@ -592,3 +592,10 @@ We should see our workflow active on the left panel:
 
 ![[Screenshot 2024-02-07 at 4.19.51 PM.png]]
 
+# Parameterized Execution
+
+**Parameterized execution** is loading datasets that depend on some parameter or variable that we are supplying to the pipeline. Specifically here we will refer to runtime variables. Let's go back to our api_to_gcs pipeline and clone it via right clicking on the name of the pipeline:
+
+![[Screenshot 2024-02-07 at 4.26.50 PM.png]]
+
+
