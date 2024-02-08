@@ -93,3 +93,14 @@ Two pricing models
 	* 100 slots -> $2,000/month = 400 TB data processed on demand pricing
 Generally, it doesn't make sense to use flat rate pricing unless you are using more than 400 TB of data per month. Also with regard to flat rate pricing, you have to worry about queries competing with each other since only 100 slots are available, that is, only 100 queries can run at one time (and the others would need to wait).
 
+In BigQuery, we can create an external data from data stored in GCS by running the following SQL query:
+
+```SQL
+CREATE OR REPLACE EXTERNAL TABLE `taxi-rides-ny.nytaxi.external_yellow_tripdata`
+OPTIONS (
+	format = 'CSV',
+	uris = ['gs://mage-zoomcamp-jessica-desilva/nyc_taxi/yellow_tripdata_2020-*.csv', 'gs://mage-zoomcamp-jessica-desilva/nyc_taxi/yellow_tripdata_2029-*.csv']
+);
+```
+
+
