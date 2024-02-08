@@ -537,8 +537,17 @@ def load_from_google_cloud_storage(*args, **kwargs):
 	)
 ```
 
-For our transformer block, let's call it transform_staged_data and have it rename our columns so that they all use snake_case.
+For our transformer block, let's call it transform_staged_data and have it standardize our column names so that they all use snake_case.
 
 ```python
+@transformer
+def transform(data, *args, **kwargs):
+	data.columns = data.columns()
+		.str.replace(' ', '_')
+		.str.lower()
 
+	return data
 ```
+
+Finally, for our Data exporter block we will use a Python -> Google BigQuery template and call it write_taxi_to_bigquery.
+
