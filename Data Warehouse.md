@@ -103,4 +103,7 @@ OPTIONS (
 );
 ```
 
+Notice that when we do this, external_yellow_tripdata will show up as a table in our ny_taxi schema and it has inferred the data types of the columns automatically:
+
+![[Screenshot 2024-02-08 at 3.58.39 PM.png]]
 
