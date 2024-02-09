@@ -118,5 +118,7 @@ CREATE OR REPLACE TABLE `iron-cycle-412122.ny_taxi.yellow_tripdata_non_partition
 SELECT * FROM `iron-cycle-412122.ny_taxi.external_yellow_tripdata`
 ```
 
-You can convert raw data into a partitioned table by 
+We see this ran successfully as yellow_tripdata_non_partitioned shows up in our ny_taxi schema on the left. Now let's take this raw data and convert it into a partitioned table. As we have seen before, partitioning takes as an argument a column and then splits up the raw data into smaller tables according to the value of that column.
+
 ![[Screenshot 2024-02-08 at 4.06.58 PM.png]]
+
