@@ -192,8 +192,10 @@ WHERE DATE(tpep_pickup_datetime) BETWEEN '2019-01-01' AND '2019-01-31'
 AND VendorID=1;
 ```
 
-Here is the query execution details:
+Partitioned query:
+![[Screenshot 2024-02-08 at 4.54.17 PM.png]]
 
+Partitioned execution details:
 ![[Screenshot 2024-02-08 at 4.48.58 PM.png]]
 And now let's do this again with the partitioned + clustered table:
 
@@ -204,4 +206,8 @@ WHERE DATE(tpep_pickup_datetime) BETWEEN '2019-01-01' AND '2019-01-31'
 AND VendorID=1;
 ```
 
+Partitioned + clustered query:
+![[Screenshot 2024-02-08 at 4.52.37 PM.png]]
+
+Partitioned + clustered execution details:
 ![[Screenshot 2024-02-08 at 4.50.24 PM.png]]
