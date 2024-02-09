@@ -75,7 +75,7 @@ We see the query results at the bottom with options to export the data or explor
 
 ![[Screenshot 2024-02-07 at 7.52.55 PM.png]]
 
-## BigQuery cost
+## BigQuery Costs
 
 For this section, we will start by (manually) uploading the following files from https://github.com/DataTalksClub/nyc-tlc-data/releases/tag/yellow/download to our GCS mage-zoomcamp-jessica-desilva bucket:
 * yellow_tripdata_2019-01.csv
@@ -106,4 +106,8 @@ OPTIONS (
 Notice that when we do this, external_yellow_tripdata will show up as a table in our ny_taxi schema and it has inferred the data types of the columns automatically:
 
 ![[Screenshot 2024-02-08 at 3.58.39 PM.png]]
+
+However, BigQuery doesn't have full information about this table because the table is external to BigQuery (that is it only lives in GCS).
+
+### Partitioning
 
