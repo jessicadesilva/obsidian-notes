@@ -130,3 +130,10 @@ PARTITION BY
 	DATE(tpep_pickup_datetime) AS
 SELECT * FROM `iron-cycle-412122.ny_taxi.yellow_tripdata_non_partitioned`
 ```
+
+Now let's inspect our partitioned table:
+
+![[Screenshot 2024-02-08 at 4.21.13 PM.png]]
+
+There is also a different icon representing the partitioned table versus the non-partitioned table on the left explorer panel:
+
