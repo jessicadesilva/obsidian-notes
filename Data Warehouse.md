@@ -182,3 +182,26 @@ PARTITION BY DATE(tpep_pickup_datetime)
 CLUSTER BY VendorID AS
 SELECT * FROM `iron-cycle-412122.ny_taxi.external_yellow_tripdata`
 ```
+
+Now we can compare performance on the partitioned table and the partitioned + clustered table when we filter by both the tpep_pickup_datetime column and the VendorID.
+
+```SQL
+SELECT count(*)
+FROM `iron-cycle-412122.ny_taxi.yellow_tripdata_partitioned`
+WHERE DATE(tpep_pickup_datetime) BETWEEN '2019-01-01' AND '2019-01-31'
+AND VendorID=1;
+```
+
+Here is the query execution details:
+
+![[Screenshot 2024-02-08 at 4.48.58 PM.png]]
+And now let's do this again with the partitioned + clustered table:
+
+```SQL
+SELECT count(*)
+FROM `iron-cycle-412122.ny_taxi.yellow_tripdata_partitioned_clustered`
+WHERE DATE(tpep_pickup_datetime) BETWEEN '2019-01-01' AND '2019-01-31'
+AND VendorID=1;
+```
+
+![[Screenshot 2024-02-08 at 4.50.24 PM.png]]
