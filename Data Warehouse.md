@@ -135,5 +135,11 @@ Now let's inspect our partitioned table:
 
 ![[Screenshot 2024-02-08 at 4.21.13 PM.png]]
 
-There is also a different icon representing the partitioned table versus the non-partitioned table on the left explorer panel:
+Let's see the impact of the partitioned table when we query with a filter on the date:
+
+```SQL
+SELECT DISTINCT(VendorID)
+FROM `iron-cycle-412122.ny_taxi.yellow_tripdata_non_partitioned`
+WHERE DATE(tpep_pickup_datetime) BETWEEN '2019-01-01' AND '2019-01-31'
+```
 
