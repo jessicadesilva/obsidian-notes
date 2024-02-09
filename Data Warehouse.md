@@ -159,7 +159,7 @@ We see significant improvement with 1/10th the number of records read, 1/3 the n
 
 ![[Screenshot 2024-02-08 at 4.27.43 PM.png]]
 
-We can take a look at the parts of the partition:
+We can take a look at the parts of the partition by looking into the INFORMATION_SCHEMA table of the dataset/schema (which for us is ny_taxi).
 
 ```SQL
 SELECT table_name, partition_id, total_rows
@@ -167,3 +167,10 @@ FROM ny_taxi.INFORMATION_SCHEMA.PARTITIONS
 WHERE table_name = 'yellow_tripdata_partitioned'
 ORDER BY total_rows DESC;
 ```
+
+We see that each of the parts of our partition are approximately the same size (i.e., same number of rows).
+
+![[Screenshot 2024-02-08 at 4.38.13 PM.png]]
+
+### Clustering
+
