@@ -248,7 +248,7 @@ Partitioned + clustered query:
 Partitioned + clustered execution details:
 ![[Screenshot 2024-02-08 at 4.50.24 PM.png]]
 
-What should you consider when choosing one over the other?
+Here is a comparison of clustering and partitioning:
 
 | **Clustering** | **Partitioning** |
 | ---- | ---- |
@@ -256,4 +256,10 @@ What should you consider when choosing one over the other?
 | You need more granularity than partitioning alone allows | You need partition-level management |
 | Your queries commonly use filters or aggregation against multiple particular columns | Filter or aggregate on a single column |
 | The cardinality of the number of values in a column or group of columns is large |  |
-So if it is really important for you to keep your costs known, you can specify in a partitioned table that if the costs will be more than a certain amount then don't run the query (this isn't possible just with clustering).
+Regarding the first line, if it is really important for you to keep your costs known, you can specify in a partitioned table that if the costs will be more than a certain amount then don't run the query (this isn't possible just with clustering).
+
+**When would you choose clustering over partitioning?**
+* Partitioning results in a small amount of data per partition (approximately less than 1 GB)
+* Partitioning results in a large number of partitions beyond the limits on partitioned tables
+* Partitioning results in your mutation operations modifying the majority of partitions in the table frequently (for example, every few minutes)
+
