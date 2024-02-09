@@ -158,3 +158,12 @@ WHERE DATE(tpep_pickup_datetime) BETWEEN '2019-01-01' AND '2019-01-31'
 We see significant improvement with 1/10th the number of records read, 1/3 the number of bytes shuffled, and much less slot time consumed.
 
 ![[Screenshot 2024-02-08 at 4.27.43 PM.png]]
+
+We can take a look at the parts of the partition:
+
+```SQL
+SELECT table_name, partition_id, total_rows
+FROM ny_taxi.INFORMATION_SCHEMA.PARTITIONS
+WHERE table_name = 'yellow_tripdata_partitioned'
+ORDER BY total_rows DESC;
+```
