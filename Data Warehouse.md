@@ -143,3 +143,18 @@ FROM `iron-cycle-412122.ny_taxi.yellow_tripdata_non_partitioned`
 WHERE DATE(tpep_pickup_datetime) BETWEEN '2019-01-01' AND '2019-01-31'
 ```
 
+When we run this query and go to the execution details, we see the following:
+
+![[Screenshot 2024-02-08 at 4.26.49 PM.png]]
+
+Compared to when we do this same query on the partitioned table:
+
+```SQL
+SELECT DISTINCT(VendorID)
+FROM `iron-cycle-412122.ny_taxi.yellow_tripdata_partitioned`
+WHERE DATE(tpep_pickup_datetime) BETWEEN '2019-01-01' AND '2019-01-31'
+```
+
+We see significant improvement with 1/10th the number of records read, 1/3 the number of bytes shuffled, and much less slot time consumed.
+
+![[Screenshot 2024-02-08 at 4.27.43 PM.png]]
