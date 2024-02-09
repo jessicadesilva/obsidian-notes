@@ -201,6 +201,17 @@ If you typically filter your data according to two columns, you can **cluster** 
 * Table with data size < 1GB, don't show significant improvement with partitioning and clustering
 * You can specify up to four clustering columns
 
+Clustering columns must be top-level, non-repeated columns whose values can be ordered:
+* DATE
+* BOOL
+* GEOGRAPHY
+* INT64
+* NUMERIC
+* BIGNUMERIC
+* STRING
+* TIMESTAMP
+* DATETIME
+
 ```SQL
 CREATE OR REPLACE TABLE `iron-cycle-412122.ny_taxi.yellow_tripdata_partitioned_clustered`
 PARTITION BY DATE(tpep_pickup_datetime)
@@ -236,3 +247,13 @@ Partitioned + clustered query:
 
 Partitioned + clustered execution details:
 ![[Screenshot 2024-02-08 at 4.50.24 PM.png]]
+
+What should you consider when choosing one over the other?
+
+| **Clustering** | **Partitioning** |
+| ---- | ---- |
+| Cost benefit unknown | Cost known upfront |
+| You need more granularity than partitioning alone allows | You need partition-level management |
+| Your queries commonly use filters or aggregation against multiple particular columns | Filter or aggregate on a single column |
+| The cardinality of the number of values in a column or group of columns is large |  |
+So if it is really important for you to keep your costs known, you can specify in a partitioned table that if the costs will be more than a certain amount then don't run the query (this isn't possible just with clustering).
