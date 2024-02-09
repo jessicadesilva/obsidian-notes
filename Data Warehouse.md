@@ -122,6 +122,22 @@ We see this ran successfully as yellow_tripdata_non_partitioned shows up in our 
 
 ![[Screenshot 2024-02-08 at 4.06.58 PM.png]]
 
+In BigQuery, you can partition in many ways:
+* Partition by a time-unit column
+* Partition by ingestion time (_PARTITIONTIME)
+* Integer range partitioning
+
+When you're using a time unit or ingestion time, you can do:
+* Daily (default)
+	* Good to use with medium-sized data that is distributed evenly across different days
+* Hourly
+	* Good when you have a huge amount of data coming in and you want to process data according to the hour
+	* Need to be weary of the limit on the number of parts in the partition
+	* May want to have an expiration for parts
+* Monthly or yearly
+	* Smaller volume data
+However you are limited to 400 parts in your partition.
+
 To create a partitioned table, use the ```PARTITION BY``` command:
 
 ```SQL
@@ -175,6 +191,15 @@ We see that each of the parts of our partition are approximately the same size (
 ### Clustering
 
 If you typically filter your data according to two columns, you can **cluster** a partitioned table. What this will do is it will take a partitioned table and then each of the parts of the partition will be clustered (sort of like partitions of the partition) according to the secondary column.
+
+* Columns you specify are used to colocate related data
+* Order of the column is important
+* The order of the specified columns determines the sort order of the data
+* Clustering improves
+	* Filter queries
+	* Aggregate queries
+* Table with data size < 1GB, don't show significant improvement with partitioning and clustering
+* You can specify up to four clustering columns
 
 ```SQL
 CREATE OR REPLACE TABLE `iron-cycle-412122.ny_taxi.yellow_tripdata_partitioned_clustered`
