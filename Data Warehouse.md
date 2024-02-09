@@ -122,3 +122,11 @@ We see this ran successfully as yellow_tripdata_non_partitioned shows up in our 
 
 ![[Screenshot 2024-02-08 at 4.06.58 PM.png]]
 
+To create a partitioned table, use the ```PARTITION BY``` command:
+
+```SQL
+CREATE OR REPLACE TABLE `iron-cycle-412122.ny_taxi.yellow_tripdata_partitioned`
+PARTITION BY
+	DATE(tpep_pickup_datetime) AS
+SELECT * FROM `iron-cycle-412122.ny_taxi.yellow_tripdata_non_partitioned`
+```
