@@ -264,12 +264,47 @@ Regarding the first line, if it is really important for you to keep your costs k
 * Partitioning results in your mutation operations modifying the majority of partitions in the table frequently (for example, every few minutes)
 	* For example, if you write data every hour and that modifies all of your partitions, then partitioning wouldn't be a good idea.
 
-#### Automatic reclustering
+#### Automatic re-clustering
 
 As data is added to a clustered table
 * the newly inserted data can be written to blocks that contain key ranges that overlap with the key ranges in previously written blocks
-* these overlapping keys weaken the sort property of the table
+* these overlapping keys weaken the sort property of the table thereby increasing query time
 
 To maintain the performance characteristics of a clustered table
 * BigQuery performs automatic re-clustering in the background to restore the sort property of the table
 * for partitioned tables, clustering is maintained for data within the scope of each partition
+
+Automatic re-clustering has no costs to the user.
+
+# BigQuery Best Practices
+
+Best practices typically involve cost reduction or improvement of query performance.
+
+* Cost reduction
+	* Avoid ```SELECT *```
+		* When you want to select from a table, you should specify the particular columns
+		* This is because BigQuery uses column-based storage
+		* If you use ```SELECT*``` , BigQuery will have to read all the data
+	* Price your queries before running them
+	* Use clustered or partitioned tables
+	* Use streaming inserts with caution
+	* Materialize query results in stages
+		* In case you are using a CDE in multiple locations, then materialize them
+* Query performance
+	* Filter on partitioned columns
+	* Denormalize data
+	* Complicated structure: Use nested or repeated columns to denormalize it
+	* Use external data sources appropriately
+		* Don't do this too much
+		* Ready from GCS may incur more cost
+	* Reduce data before using a JOIN
+	* Do not treat WITH clauses as prepared statements
+	* Avoid oversharding tables
+		* **sharding** is separating different rows of information from the table and storing them on different machines
+	* Avoid using JavaScript user-defined functions
+	* Use approximate aggregate functions instead of complete ones (like HyperLogLog++)
+	* Order Last, for query operations to maximize performance
+	* Optimize your join patterns
+	* Place the table with the largest number of rows first, followed by the table with the fewest rows, and then place the remaining tables by decreasing size.
+		* The first table will get distributed evenly and then the second one will get broadcasted. More of this in the next section...
+
