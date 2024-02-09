@@ -174,3 +174,11 @@ We see that each of the parts of our partition are approximately the same size (
 
 ### Clustering
 
+If you typically filter your data according to two columns, you can **cluster** a partitioned table. What this will do is it will take a partitioned table and then each of the parts of the partition will be clustered (sort of like partitions of the partition) according to the secondary column.
+
+```SQL
+CREATE OR REPLACE TABLE `iron-cycle-412122.ny_taxi.yellow_tripdata_partitioned_clustered`
+PARTITION BY DATE(tpep_pickup_datetime)
+CLUSTER BY VendorID AS
+SELECT * FROM `iron-cycle-412122.ny_taxi.external_yellow_tripdata`
+```
