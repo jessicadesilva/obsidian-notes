@@ -114,8 +114,8 @@ However, BigQuery doesn't have full information about this table because the tab
 Here we will compare query performance and costs with tables and partitioned tables. First, let's create a table in BigQuery for the external_yellow_tripdata table:
 
 ```SQL
-CREATE OR REPLACE TABLE iron-cycle-412122.ny_taxi.yellow_tripdata_non_partitioned AS
-SELECT * FROM iron_cycle_412122.ny_taxi.external_yellow_tripdata
+CREATE OR REPLACE TABLE `iron-cycle-412122.ny_taxi.yellow_tripdata_non_partitioned` AS
+SELECT * FROM `iron-cycle-412122.ny_taxi.external_yellow_tripdata`
 ```
 
 You can convert raw data into a partitioned table by 
