@@ -190,7 +190,7 @@ We see that each of the parts of our partition are approximately the same size (
 
 ### Clustering
 
-If you typically filter your data according to two columns, you can **cluster** a partitioned table. What this will do is it will take a partitioned table and then each of the parts of the partition will be clustered (sort of like partitions of the partition) according to the secondary column.
+If you typically filter your data according to two columns, you can **cluster** a partitioned table. What this will do is it will take a partitioned table and then each of the parts of the partition will be ordered/clustered according to the secondary column.
 
 * Columns you specify are used to colocate related data
 * Order of the column is important
