@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Data Warehouse.md",
+                "file": "Data Engineering Zoomcamp/Data Warehouse.md",
                 "mode": "source",
                 "source": false
               }
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Data Warehouse.md",
+                "file": "Data Engineering Zoomcamp/Data Warehouse.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Data Warehouse.md",
+                "file": "Data Engineering Zoomcamp/Data Warehouse.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Data Warehouse.md"
+                "file": "Data Engineering Zoomcamp/Data Warehouse.md"
               }
             }
           }
@@ -171,7 +171,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "378ff8450640c0f4",
+  "active": "a7bf74146a71f73d",
   "lastOpenFiles": [
     "attachments/Screenshot 2024-02-08 at 4.54.17 PM.png",
     "attachments/Screenshot 2024-02-08 at 4.52.37 PM.png",
@@ -185,7 +185,7 @@
     "attachments/Screenshot 2024-02-08 at 3.58.39 PM.png",
     "attachments/Screenshot 2024-02-07 at 7.52.55 PM.png",
     "Data Engineering Zoomcamp/Orchestration.md",
-    "Data Warehouse.md",
+    "Data Engineering Zoomcamp/Data Warehouse.md",
     "Data Engineering Zoomcamp/attachments",
     "Data Engineering Zoomcamp/Introduction to Docker.md",
     "attachments",
