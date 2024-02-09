@@ -136,7 +136,7 @@ When you're using a time unit or ingestion time, you can do:
 	* May want to have an expiration for parts
 * Monthly or yearly
 	* Smaller volume data
-However you are limited to 400 parts in your partition.
+However you are limited to 4000 parts in your partition.
 
 To create a partitioned table, use the ```PARTITION BY``` command:
 
@@ -262,4 +262,14 @@ Regarding the first line, if it is really important for you to keep your costs k
 * Partitioning results in a small amount of data per partition (approximately less than 1 GB)
 * Partitioning results in a large number of partitions beyond the limits on partitioned tables
 * Partitioning results in your mutation operations modifying the majority of partitions in the table frequently (for example, every few minutes)
+	* For example, if you write data every hour and that modifies all of your partitions, then partitioning wouldn't be a good idea.
 
+#### Automatic reclustering
+
+As data is added to a clustered table
+* the newly inserted data can be written to blocks that contain key ranges that overlap with the key ranges in previously written blocks
+* these overlapping keys weaken the sort property of the table
+
+To maintain the performance characteristics of a clustered table
+* BigQuery performs automatic re-clustering in the background to restore the sort property of the table
+* for partitioned tables, clustering is maintained for data within the scope of each partition
