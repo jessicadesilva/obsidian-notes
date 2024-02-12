@@ -64,3 +64,5 @@ These developments highlighted caps in the data team.
 **Presentation area**
 * Final presentation of the data
 * Exposure to business stakeholder
+
+## What is dbt?
