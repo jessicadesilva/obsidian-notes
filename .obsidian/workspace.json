@@ -42,9 +42,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "b38da00e1515fe24",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Data Engineering Zoomcamp/Analytics Engineering.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -110,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Data Engineering Zoomcamp/Data Warehouse.md",
+                "file": "Data Engineering Zoomcamp/Analytics Engineering.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Data Engineering Zoomcamp/Data Warehouse.md",
+                "file": "Data Engineering Zoomcamp/Analytics Engineering.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Data Engineering Zoomcamp/Data Warehouse.md"
+                "file": "Data Engineering Zoomcamp/Analytics Engineering.md"
               }
             }
           }
@@ -173,6 +185,8 @@
   },
   "active": "a7bf74146a71f73d",
   "lastOpenFiles": [
+    "Data Engineering Zoomcamp/Data Warehouse.md",
+    "Data Engineering Zoomcamp/Analytics Engineering.md",
     "attachments/Screenshot 2024-02-08 at 4.54.17 PM.png",
     "attachments/Screenshot 2024-02-08 at 4.52.37 PM.png",
     "attachments/Screenshot 2024-02-08 at 4.50.24 PM.png",
@@ -183,9 +197,7 @@
     "attachments/Screenshot 2024-02-08 at 4.21.13 PM.png",
     "attachments/Screenshot 2024-02-08 at 4.06.58 PM.png",
     "attachments/Screenshot 2024-02-08 at 3.58.39 PM.png",
-    "attachments/Screenshot 2024-02-07 at 7.52.55 PM.png",
     "Data Engineering Zoomcamp/Orchestration.md",
-    "Data Engineering Zoomcamp/Data Warehouse.md",
     "Data Engineering Zoomcamp/attachments",
     "Data Engineering Zoomcamp/Introduction to Docker.md",
     "attachments",
