@@ -42,3 +42,25 @@ These developments highlighted caps in the data team.
 **Other Approaches**
 * Bill Inmon
 * Data vault
+
+## Elements of dimensional modeling (star schema)
+**Fact tables**
+* Measurements, metrics or facts
+* Corresponds to a business *process*
+* "Verbs"
+**Dimension tables**
+* Corresponds to a business *entity*
+* Provides context to a business process
+* "Nouns"
+
+## Architecture of dimensional modeling
+**Stage Area**
+* Contains the raw data
+* Not meant to be exposed to everyone
+**Processing area**
+* From raw data to data models
+* Focuses on efficiency
+* Ensuring standards
+**Presentation area**
+* Final presentation of the data
+* Exposure to business stakeholder
