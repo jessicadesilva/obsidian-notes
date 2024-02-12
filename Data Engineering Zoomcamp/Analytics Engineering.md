@@ -66,4 +66,46 @@ These developments highlighted caps in the data team.
 * Exposure to business stakeholder
 
 ## What is dbt?
-dbt is a transformation workflow that allows anyone that knows SQL to deploy analytics code following software engineering best practices like modularity, portability, CI/CD, and documentation.
+* dbt is a transformation workflow that allows anyone that knows SQL to deploy analytics code
+* allows the user to follow software engineering best practices like modularity, portability, CI/CD, and documentation
+	* Developing SQL code in something like a sandbox where each developer has their own separate environment
+	* Testing and documentation
+	* Deployment using version control and CI/CD
+* sits on top of data warehouse to take raw data and transform it (using data modeling)
+
+### How does dbt work?
+**Each dbt model is:**
+* a \*.sql file
+* Select statement
+	* No DDL, that is data definition language (like CREATE TABLE, ALTER TABLE, DROP TABLE)
+	* No DML, that is data manipulation language (like INSERT, UPDATE, DELETE)
+* A file that dbt will compile and run in our data warehouse.
+
+### How to use dbt?
+Choose between dbt Core and dbt Cloud.
+**dbt Core**
+* Open-source project that allows the data transformation
+* Builds and runs a dbt project (.sql and .yml files)
+* Includes SQL compilation logic, macros and database adapters
+* Includes a CLI interface to run dbt commands locally
+* Open source and free to use
+**dbt Cloud**
+SaaS application to develop and manage dbt projects.
+* Web-based IDE and cloud CLI to develop, run and test a dbt project
+* Managed environments
+* Jobs orchestration
+* Logging and alterting
+* Integrated documentation
+* Admin and metadata API
+* Semantic layer
+
+We will use dbt in two ways: Version A is dbt Cloud for BigQuery and Version B is dbt Core for Postgres.
+
+**BigQuery**
+* Development using cloud IDE
+* No local installation of dbt core
+**Postgres**
+* Development using a local IDE of your choice
+* Local installation of dbt core connecting to the Postgres database
+* Running dbt models through the CLI
+
