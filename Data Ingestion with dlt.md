@@ -241,3 +241,32 @@ Cons: **Difficult to do for columnar file formats**, as entire blocks need to be
 
 Here's what the code looks like - in a jsonl file each line is a json document, or a "row" of data, so we yield them as they get downloaded. This allows us to download one row and process it before getting the next row.
 
+```python
+import json
+
+url = "https://storage.googleapis.com/dtc_zoomcamp_api/yellow_tripdata_2009-06.jsonl"
+
+def stream_download_json(url):
+	response = requests.get(url, stream=True)
+	response.raise_for_status() # Raise an HTTPError for bad responses
+	for line in response.iter_lines():
+		if line:
+			yield json.loads(line)
+
+# time the download
+import time
+start = time.time()
+
+# Use the generator to iterate over rows with minimal memory usage
+row_counter = 0
+for row in stream_download_json(url):
+	print(row)
+	row_counter += 1
+	if row_counter >= 5:
+		break
+
+# time the download
+end = time.time()
+print(end - start)
+```
+
