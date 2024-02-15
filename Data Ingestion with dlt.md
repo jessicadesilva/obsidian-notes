@@ -207,3 +207,37 @@ In this example, we grab exactly the same data as we did in the API example abov
 
 This is how the code could look. As you can see in this case our data and parsed_Data variables hold the entire file data in memory before returning it. Not great.
 
+```python
+import requests
+import json
+
+url = "https://storage.googleapis.com/dtc_zoomcamp_api/yellow_tripdata_2009_06.jsonl"
+
+def download_and_read_jsonl(url):
+	response = requests.get(url)
+	response.raise_for_Status() # Raise an HTTPError for bad responses
+	data = response.text.splitlines()
+	parsed_data = [json.loads(line) for line in data]
+	return parsed_data
+
+downloaded_data = download_and_read_jsonl(url)
+
+if downloaded_data:
+	# process of print the downloaded data as needed
+	print(downloaded_data[:5]) #print the first 5 entries as an example
+```
+
+**Example 3: Same file, streaming download**
+* This is the bread and butter of data engineer pulling data, so follow along in the colab.
+Okay, downloading files is simple, but what if we want to do a stream download.
+
+That's possible too - in effect giving us the best of both worlds. In this case, we prepared a jsonl file which is already split into lines making our code simple. But json (not jsonl) files could also be downloaded in this fashion, for example using the ijson library.
+
+What are the pros and cons of this method of grabbing data?
+
+Pros: **High throughput, easy memory management** because we are downloading a file
+
+Cons: **Difficult to do for columnar file formats**, as entire blocks need to be downloaded before they can be deserialized to rows. Sometimes, the code is complex too.
+
+Here's what the code looks like - in a jsonl file each line is a json document, or a "row" of data, so we yield them as they get downloaded. This allows us to download one row and process it before getting the next row.
+
