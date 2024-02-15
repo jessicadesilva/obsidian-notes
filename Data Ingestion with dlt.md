@@ -74,8 +74,22 @@ Let's look at some classic examples of streaming where data is transferred chunk
 * Between a server and a local video player
 * Between a smart home device or IoT device and your phone
 * Between Google Maps and your navigation app
-* Between Instgram Live and your followers
+* Between Instagram Live and your followers
 What do data engineers do? We usually stream the data between buffers, such as
 * from API to local file
-* from webhooks to event queus
+* from webhooks to event queues
 * from event queue (Kafka, SQS) to Bucket
+
+**Streaming in python via generators**
+Let's focus on how we build most data pipelines:
+* To process data in a stream in python, we use generators, which are functions that can return multiple times - by allowing multiple returns, the data can be released as it's produced, as stream, instead of returning it all at once as a batch.
+Take the following theoretical example:
+* We search twitter for "cat pictures". We do not know how many pictures will be returned - maybe 10, maybe 10,000,000. Will they fit in memory? Who knows.
+* So to grab this data without running out of memory, we would use a python generator.
+* What's a generator? In simple words, it's a function that can return multiple times. Here's an example of a regular function, and how that function looks if written as a generator.
+
+**Generator examples:**
+Let's look at a regular returning function, and how we can rewrite it as a generator.
+
+Regular function collects data in memory. Here you can see how data is collected row by row in a list called data before it is returned. This will break if we have more data than memory.
+
