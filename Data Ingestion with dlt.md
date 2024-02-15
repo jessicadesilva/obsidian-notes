@@ -91,7 +91,7 @@ Take the following theoretical example:
 **Generator examples:**
 Let's look at a regular returning function, and how we can rewrite it as a generator.
 
-Regular function collects data in memory. Here you can see how data is collected row by row in a list called data before it is returned. This will break if we have more data than memory.
+**Regular function** collects data in memory. Here you can see how data is collected row by row in a list called data before it is returned. This will break if we have more data than memory.
 
 ```python
 def search_twitter(query):
@@ -105,4 +105,16 @@ for row in search_twitter("cat pictures");
 	# Once collected,
 	# print row by row
 	print(row)
+```
+
+When calling for row in search_twitter("cat pictures): all the data must first be downloaded before the first record is returned.
+
+Let's see how we could rewrite this as a generator.
+
+**Generator for streaming the data.** The memory usage here is minimal. 
+
+As you can see, in the modified function, we field each row as we get the data, without collecting it into memory. We can then run this generator and handle the data item by item.
+
+```python
+def search_twitter(query):
 ```
