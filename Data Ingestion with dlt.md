@@ -16,3 +16,15 @@ Due to its simplicity of use, dlt enables beginners to
 
 Data ingestion is the process of extracting data from a producer, transporting it to a convenient environment, and preparing it for usage by normalizing it, sometimes cleaning, and adding metadata.
 
+In many data science teams, data magically appears - because the engineer loads it.
+* Sometimes the format in which it appears is structured, and with explicit schema
+	* In that case, they can go straight to using it; Examples: parquet, avro, or table in a database,
+* Sometimes the format is weakly typed and without explicit schema, such as csv, json
+	* in which case some extra normalization or cleaning might be needed before usage
+	
+*What is a schema?* The schema specifies the expected format and structure of data within a document or data store, defining the allowed keys, their dat types, and any constraints or relationships.
+
+As a data engineer, you will be the one making datasets magically appear. Here's what you need to learn to build pipelines:
+* Extracting data
+* Normalizing, cleaning, adding metadata such as schema and types
+* and incremental loading, which is vital for fast, cost effective data refreshes.
