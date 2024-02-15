@@ -144,7 +144,7 @@ The api documentation is as follows:
 * If we request a page with no data, we will get a successful response with no data. This means that when we get an empty page, we know there is no more data and we can stop requesting pages - this is a common way to paginate but not the only one - each api may be different.
 * details:
 	* method: get
-	* url: https://us-central1-dlthub-analytics.cloudfunctinos.net/data_engineering_zoomcamp_api
+	* url: https://us-central1-dlthub-analytics.cloudfunctions.net/data_engineering_zoomcamp_api
 	* parameters: page integer. Represents the page number you are requesting. Defaults to 1.
 So how do we design our requestor?
 * We need to request page by page until we get no more data. At this point, we do not know how much data is behind the api
