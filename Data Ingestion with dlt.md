@@ -152,3 +152,44 @@ So how do we design our requestor?
 In this approach in grabbing data from apis, we have pros and cons:
 * Pros: **Easy memory management** thanks to api returning events/pages
 * Cons: **Low throughput**, due to the data transfer being constrained by the api.
+
+```python
+import requests
+
+BASE_API_URL = "https://us-central1-dlthub-analytics.cloudfunctions.net/data_engineering_zoomcamp_api"
+
+  
+
+# I call this a paginated getter
+# as it's a function that gets data
+# and also paginates until there is no more data
+# by yielding pages, we "microbatch", which speeds up downstream processing
+
+def paginated_getter():
+	page_number = 1
+	
+	while True:
+		# Set the query parameters
+		params = {'page': page_number}
+
+		# Make the GET request to the API
+		response = requests.get(BASE_API_URL, params=params)
+		response.raise_for_status() # Raise an HTTPError for bad response
+		page_json = response.json()
+		print(f'got page number {page_number} with {len(page_json)} records')
+
+		# if the page has no records, stop iterating
+		if page_json:
+			yield page_json
+			page_number += 1
+		else:
+			# no more data, break the loop
+			break
+
+if __name__ == '__main__':
+	# use the generator to iterate over pages
+	for page_data in paginated_getter():
+		# process each page as needed
+		print(page_data)
+```
+
