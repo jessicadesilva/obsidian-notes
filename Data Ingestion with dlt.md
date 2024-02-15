@@ -215,7 +215,7 @@ url = "https://storage.googleapis.com/dtc_zoomcamp_api/yellow_tripdata_2009-06.j
 
 def download_and_read_jsonl(url):
 	response = requests.get(url)
-	response.raise_for_Status() # Raise an HTTPError for bad responses
+	response.raise_for_status() # Raise an HTTPError for bad responses
 	data = response.text.splitlines()
 	parsed_data = [json.loads(line) for line in data]
 	return parsed_data
