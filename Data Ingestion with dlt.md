@@ -148,4 +148,7 @@ The api documentation is as follows:
 	* parameters: page integer. Represents the page number you are requesting. Defaults to 1.
 So how do we design our requestor?
 * We need to request page by page until we get no more data. At this point, we do not know how much data is behind the api
-* 
+* It could be 1000 records or it could be 10GB of records. So let's grab the data with a generator to avoid having to fit an undetermined amount of data into ram.
+In this approach in grabbing data from apis, we have pros and cons:
+* Pros: **Easy memory management** thanks to api returning events/pages
+* Cons: **Low throughput**, due to the data transfer being constrained by the api.
