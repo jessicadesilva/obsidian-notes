@@ -193,3 +193,17 @@ if __name__ == '__main__':
 		print(page_data)
 ```
 
+**Example 2: Grabbing the same data from file - simple download**
+* This part is demonstrative, so you do not need to follow along, just pay attention.
+Why am I showing you this? So when you do this in the future, you will remember there is a best practice you can apply for scalability.
+
+Some apis respond with files instead of pages of data. The reason for this is simple: throughput and cost. A restful api that returns data has to read the data from storage and process and return it to you by some logic - if this data is large, this costs time, money, and creates a bottleneck.
+
+A better way is to offer the data as files that someone can download from storage directly, without going through the restful api layer. This is common for apis that offer large volumes of data, such as ad impressions data.
+
+In this example, we grab exactly the same data as we did in the API example above, but now we get it from the underlying file instead of going through the API.
+* Pros: **High throughput**
+* Cons: **Memory** is used to hold all the data
+
+This is how the code could look. As you can see in this case our data and parsed_Data variables hold the entire file data in memory before returning it. Not great.
+
