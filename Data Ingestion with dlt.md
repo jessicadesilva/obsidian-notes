@@ -28,3 +28,18 @@ As a data engineer, you will be the one making datasets magically appear. Here's
 * Extracting data
 * Normalizing, cleaning, adding metadata such as schema and types
 * and incremental loading, which is vital for fast, cost effective data refreshes.
+
+### What else does a data engineer do?
+* It might seem simplistic, but in fact a data engineer's main goal is to ensure data flows from source systems to analytical destinations
+* So besides building pipelines, running pipelines and fixing pipelines, a data engineer may also focus on optimizing data storage, ensuring data quality and integrity, cost management, implementing effective data governance practices, and continuously refining data architecture to meet the evolving needs of the organization.
+* Ultimately, a data engineer's role extends beyond the mechanical aspects of pipeline development, encompassing the strategic management and enhancement of the entire data lifecycle.
+* This workshop focuses on building robust, scalable, self-maintaining pipelines with built-in governance - in other words, best practices applied.
+
+## Extracting data
+### Considerations when extracting data
+In this section, we will learn about extracting data from source systems, and what to care about when doing so.
+
+Most data is stored behind an API
+* Sometimes that's a RESTful API for some business application, returning records of data
+* Sometimes the API returns a secure file path to something like a json or parquet file in a bucket that enables you to grab the data in bulk
+* Sometimes the API is something else (mongo, sql, other databases or applications) and will generally return records as JSON - the most common interchange format.
