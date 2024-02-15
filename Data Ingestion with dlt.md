@@ -132,3 +132,20 @@ for row in search_twitter("cat pictures"):
 When calling for row in search_twitter("cat pictures"): the functino only runs until the first data item is yielded, before printing - so we do not need to wait long for the first value. It will then continue until there is no more data to get.
 
 If we wanted to get all the values at once from a generator instead of one by one, we would need to first "run" the generator and collect the data. For example, if we wanted to get all the data in memory we could do data-list(search_twitter("cat pictures")) which would run the generator and collect all the data in a list before continuing.
+
+### 3 Extraction examples
+**Example 1: Grabbing data from an api**
+* This is the bread and butter of how data engineers are pulling data, so follow along in the colab or in your local setup.
+For these purposes, we created an api that can serve the data you are already familiar with, the NYC taxi dataset.
+
+The api documentation is as follows:
+* There are a limited number of records behind the api
+* The data can be requested page by page, each page containing 1000 records
+* If we request a page with no data, we will get a successful response with no data. This means that when we get an empty page, we know there is no more data and we can stop requesting pages - this is a common way to paginate but not the only one - each api may be different.
+* details:
+	* method: get
+	* url: https://us-central1-dlthub-analytics.cloudfunctinos.net/data_engineering_zoomcamp_api
+	* parameters: page integer. Represents the page number you are requesting. Defaults to 1.
+So how do we design our requestor?
+* We need to request page by page until we get no more data. At this point, we do not know how much data is behind the api
+* 
