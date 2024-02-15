@@ -128,3 +128,7 @@ for row in search_twitter("cat pictures"):
 	# writing it to a bucket
 	# continue requesting and printing data
 ```
+
+When calling for row in search_twitter("cat pictures"): the functino only runs until the first data item is yielded, before printing - so we do not need to wait long for the first value. It will then continue until there is no more data to get.
+
+If we wanted to get all the values at once from a generator instead of one by one, we would need to first "run" the generator and collect the data. For example, if we wanted to get all the data in memory we could do data-list(search_twitter("cat pictures")) which would run the generator and collect all the data in a list before continuing.
