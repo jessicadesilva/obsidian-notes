@@ -117,4 +117,14 @@ As you can see, in the modified function, we field each row as we get the data, 
 
 ```python
 def search_twitter(query):
+	for row in paginated_get(query):
+		yield row
+
+# Get one row at a time
+for row in search_twitter("cat pictures"):
+	# print the row
+	print(row)
+	# do something with the row such as cleaning it and
+	# writing it to a bucket
+	# continue requesting and printing data
 ```
