@@ -93,3 +93,16 @@ Let's look at a regular returning function, and how we can rewrite it as a gener
 
 Regular function collects data in memory. Here you can see how data is collected row by row in a list called data before it is returned. This will break if we have more data than memory.
 
+```python
+def search_twitter(query):
+	data = []
+	for row in paginated_get(query):
+		data.append(row)
+	return data
+
+# Collect all the cat picture data
+for row in search_twitter("cat pictures");
+	# Once collected,
+	# print row by row
+	print(row)
+```
