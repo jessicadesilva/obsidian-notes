@@ -211,7 +211,7 @@ This is how the code could look. As you can see in this case our data and parsed
 import requests
 import json
 
-url = "https://storage.googleapis.com/dtc_zoomcamp_api/yellow_tripdata_2009_06.jsonl"
+url = "https://storage.googleapis.com/dtc_zoomcamp_api/yellow_tripdata_2009-06.jsonl"
 
 def download_and_read_jsonl(url):
 	response = requests.get(url)
