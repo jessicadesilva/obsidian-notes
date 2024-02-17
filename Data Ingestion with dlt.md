@@ -276,7 +276,7 @@ We have 3 ways to download the same data. Let's use the fast and reliable way to
 
 We will discuss more details about dlt or "data load tool" later.
 
-Here we will use DuckDB. DuckDB is an in-memory analytical database (like SQLite). It is not a persistent database like PostgreSQL (persistent meaning if systems are down, processes or objects can continue on). When we load data to DuckDB, we create some files underneath with data and DuckDB, in this Python process, is able to read the data. So we can use it in a notebook, which is why dlt likes to use it. You can also think of it as development mode, we can iterate on it quickly since it is right here and then push it to production in BigQuery once it's ready. dlt is database agnostic, so if it works on DuckDB it will work on any other database. 
+Here we will use DuckDB. DuckDB is an in-memory analytical database (like SQLite). It is not a persistent database like PostgreSQL (persistent meaning if systems are down, processes or objects can continue on). When we load data to DuckDB, we create some files underneath with data and DuckDB, in this Python process, is able to read the data. So we can use it in a notebook, which is why dlt likes to use it. You can also think of it as development mode, we can iterate on it quickly since it is right here and then push it to production in BigQuery once it's ready. dlt is database agnostic, so if it works on DuckDB it will work on any other database. The usual flow is to use DuckDB for testing locally with dlt, then to production we say instead of writing to DuckDB write it to BigQuery (the only thing that changes is the destination).
 
 ```python
 import dlt # make sure to pip install dlt(duckdb)
@@ -325,3 +325,28 @@ display(passengers)
 
 # As you can see, the same data was loaded in both cases
 ```
+
+In the colab notebook, you can also find a code snippet to load the data - but we will load some data later in the course and you can explore the colab on your own after the course.
+
+What is worth keeping in mind at this point is that our loader library that we will use later, dlt or data load tool, will respect the streaming concept of the generator and will process it in an efficient way keeping memory usage low and using parallelism where possible.
+
+Let's move over to the colab notebook and run examples 2 and 3, compare them, and finally load examples 1 and 3 to DuckDB.
+
+## Normalizing data
+
+You often heat that data people spend most of their time "cleaning" data. What does this mean?
+
+Let's look granularly into what people consider data cleaning.
+
+Usually we have 2 parts:
+* Normalizing data without changing its meaning,
+* and filtering data (like taking out outliers) for a use case, which changes its meaning.
+
+**Part of what we can often call data cleaning is just metadata work:**
+* Add types (string to number, string to timestamp, etc.)
+* Rename columns: Ensure column names follow a supported standard downstream 0 such as no strange characters in the names.
+* Flatten nested dictionaries: Bring nested dictionary values into the top dictionary row
+* Unnest lists or arrays into child tables: Arrays or lists cannot be flattened into their parent record, so if we want flat data we need to break them out into separate tables.
+* We will look at a practical example next, as these concepts can be difficult to visualize from text.
+
+**Why prepare data? Why not just use json as is?**
