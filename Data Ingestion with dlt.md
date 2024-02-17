@@ -276,7 +276,7 @@ We have 3 ways to download the same data. Let's use the fast and reliable way to
 
 We will discuss more details about dlt or "data load tool" later.
 
-Here we will use DuckDB. DuckDB is an in-memory analytical database (like SQLite). It is not a persistent database like PostgreSQL (persistent meaning if systems are down, processes or objects can continue on). When we load data to DuckDB, we create some files underneath with data and DuckDB, in this Python process, is able to read the data. So we can use it in a notebook, which is why dlt likes to use it. 
+Here we will use DuckDB. DuckDB is an in-memory analytical database (like SQLite). It is not a persistent database like PostgreSQL (persistent meaning if systems are down, processes or objects can continue on). When we load data to DuckDB, we create some files underneath with data and DuckDB, in this Python process, is able to read the data. So we can use it in a notebook, which is why dlt likes to use it. You can also think of it as development mode, we can iterate on it quickly since it is right here and then push it to production in BigQuery once it's ready. dlt is database agnostic, so if it works on DuckDB it will work on any other database. 
 
 ```python
 import dlt # make sure to pip install dlt(duckdb)
