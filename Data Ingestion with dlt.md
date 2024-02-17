@@ -572,11 +572,9 @@ Note events implies immutable and stateful implies mutable.
 
 * In our previous example, the payment status changed from "booked" to "cancelled". Perhaps Jack likes to fraud taxis and that explains his low rating. Besides the ride status change, he also got his rating lowered further.
 * The merge operation replaces an old record with a new one based on a key. The key could consist of multiple fields or a single unique id. We will use a record hash that we created for simplicity. If you do not have a unique key, you could create one deterministically out of several fields, such as by concatenating the data and hashing it.
-* A merge operation replaces rows, it does not update them. If you want to update only parts of a row, you would have to load the new data by appending it and doing a custom transformation to combine the old and new data.
+* A merge operation replaces rows, it does not update them. If you want to update only parts of a row, you would have to load the new data by appending it and doing a custom transformation to combine the old and new data. This is because updating parts of a row is a columnar operate and the data is not transferred in a columnar format.
 
 In this example the scores of the 2 passengers changed. Turns out their payment didn't go through for the ride before and they got a bad rating from the driver, so now we have to update their rating.
-
-As you can see after running the code, their ratings are now lowered.
 
 ```python
 data = [
@@ -629,10 +627,34 @@ pipeline = dlt.pipeline(destination='duckdb', dataset_name='taxi_rides')
 
 # run the pipeline with default settings, and capture the outcome
 info = pipeline.run(data, 
-					table_name="users", 
+					table_name="rides", 
 					write_disposition="merge", 
-					merge_key="record_hash")
+					primary_key="record_hash")
 
 # show the outcome
 print(info)
 ```
+
+```python
+# show the outcome
+conn = duckdb.connect(f"{pipeline.pipeline_name}.duckdb")
+
+# let's see the tables
+conn.sql(f"SET search_path = '{pipeline.dataset_name}'")
+print('Loaded tables: ')
+display(conn.sql("show tables"))
+
+print("\n\n\n Rides table below: Not the times are properly typed")
+rides = conn.sql("SELECT * FROM rides").df()
+display(rides)
+
+print("\n\n\n Passengers table")
+passengers = conn.sql("SELECT * FROM rides__passengers").df()
+display(passengers)
+print("\n\n\n Stops table")
+stops = conn.sql("SELECT * FROM rides__stops").df()
+display(stops)
+```
+
+As you can see after running the code, their ratings are now lowered.
+
