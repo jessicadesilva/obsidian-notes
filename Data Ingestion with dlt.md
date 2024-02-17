@@ -278,6 +278,7 @@ We will discuss more details about dlt or "data load tool" later.
 
 ```python
 import dlt
+import duckdb
 
 # define the connection to laod to
 # we now use duckdb, but you can switch to BigQuery later
@@ -298,4 +299,27 @@ info = generators_pipeline.run(stream_download_json(url),
 							  write_disposition='replace')
 
 print(info)
+```
+
+```python
+conn = duckdb.connect(f"{generators_pipeline.pipeline_name}.duckdb")
+
+# let's see the tables
+conn.sql(f"SET search_path = '{generators_pipeline.dataset_name}'")
+print('Loaded tables:')
+display(conn.sql("show tables"))
+
+# and the data
+
+print("\n\n\n http_download table below:")
+
+rides = conn.sql("SELECT * FROM stream_download").df()
+display(rides)
+
+print("\n\n\n stream_download table below:")
+
+passengers = conn.sql("SELECT * FROM stream_download").df()
+display(passengers)
+
+# As you can see, the same data was loaded in both cases
 ```
