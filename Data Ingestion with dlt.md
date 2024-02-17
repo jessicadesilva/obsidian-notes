@@ -281,7 +281,7 @@ import dlt
 
 # define the connection to laod to
 # we now use duckdb, but you can switch to BigQuery later
-generators_pipeline = dlt.pipeline(destination='duckdb,
+generators_pipeline = dlt.pipeline(destination='duckdb',
 								  dataset_name='generators')
 
 # we can load any generator to a table at the pipeline destination as follows:
