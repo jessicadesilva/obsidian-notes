@@ -350,3 +350,139 @@ Usually we have 2 parts:
 * We will look at a practical example next, as these concepts can be difficult to visualize from text.
 
 **Why prepare data? Why not just use json as is?**
+* json is really a transfer format, so it doesn't describe the data much.
+* We do not easily know what is inside a json document due to lack of schema
+* Types are not enforced between rows of json - we could have one record where age is 25 and another where age is twenty five, and another where it's 25.00. Or in some systems, you might have a dictionary for a single record, but a list of dicts for multiple records. This could easily lead to applications downstream breaking.
+* We cannot just use json data easily, for example we would need to convert strings to time if we want to do a daily aggregation.
+* Reading json loads more data into memory, as the whole document is scanned - while in parquet or databases we can scan a single column of a document. This causes costs and slowness.
+* json is not fast to aggregate - columnar formats are
+* json is not fast to search
+* Basically, json is designed as a "lowest common denominator format" for "interchange" / data transfer and is unsuitable for direct analytical usage.
+
+**Practice example**
+* This is the bread and butter of data engineers pulling data, so follow along in the colab notebook.
+
+In the case of the NY taxi rides data, the dataset is quite clean - so let's instead use a small example of more complex data. Let's assume we know some information about passengers and stops.
+
+For this example we modified the dataset as follows.
+* We added nested dictionaries
+```json
+"coordinates": {
+			"start": {
+				"lon": -73.787442
+				"lat": 40.641525
+				}
+			},
+```
+* We added nested lists
+```json
+"passengers": [
+			{"name": "John", "rating": 4.9},
+			{"name": "Jack", "rating": 3.9}
+			],
+```
+* We added a record hash that gives us a unique id for the record, for easy identification
+```json
+"record_hash": "b00361a396177a9cb410ff61f20015ad";
+```
+We want to load this data to a database. How do we want to clean the data?
+* We want to flatten dictionaries into the base row
+* We want to flatten lists into a separate table
+* We want to convert time strings into time type
+
+```python
+data = [
+    {
+        "vendor_name": "VTS",
+		"record_hash": "b00361a396177a9cb410ff61f20015ad",
+        "time": {
+            "pickup": "2009-06-14 23:23:00",
+            "dropoff": "2009-06-14 23:48:00"
+        },
+        "Trip_Distance": 17.52,
+        "coordinates": {
+            "start": {
+                "lon": -73.787442,
+                "lat": 40.641525
+            },
+            "end": {
+                "lon": -73.980072,
+                "lat": 40.742963
+            }
+        },
+        "Rate_Code": None,
+        "store_and_forward": None,
+        "Payment": {
+            "type": "Credit",
+            "amt": 20.5,
+            "surcharge": 0,
+            "mta_tax": None,
+            "tip": 9,
+            "tolls": 4.15,
+			"status": "booked"
+        },
+        "Passenger_Count": 2,
+        "passengers": [
+            {"name": "John", "rating": 4.9},
+            {"name": "Jack", "rating": 3.9}
+        ],
+        "Stops": [
+            {"lon": -73.6, "lat": 40.6},
+            {"lon": -73.5, "lat": 40.5}
+        ]
+    },
+]
+```
+
+Now let's normalize this data.
+
+## Introducing dlt
+
+dlt is a python library created for the purpose of assisting data engineers to build faster, and more robust pipelines with minimal effort.
+
+You can think of dlt as a loading tool that implements the best practices of data pipelines enabling you to just "use" those best practices in your own pipelines, in a declarative way.
+
+This enables you to stop reinventing the flat tire, and leverage dlt to build pipelines much faster than if you did everything from scratch.
+
+dlt automates much of the tedious work a data engineer would do, and does it in a way that is robust. dlt can handle things like:
+* Schema: Inferring and evolving schema, alerting changes, using schemas as data contracts.
+* Typing data, flattening structures, renaming columns to fit database standards. In our example we will pass the "data" you can see above and see it normalized.
+* Processing a stream of events/rows without filling memory. This includes extraction from generators.
+* Loading to a variety of dbs or file formats.
+
+Let's use it to laod our nested json to duckdb:
+
+Here's how you would do that on you rlocal machine. I will walk you through before showing you in colab as well.
+
+First, install dlt.
+
+```bash
+# Make sure you are using Python 3.8-3.11 and have pip installed
+# spin up a venv
+python -m venv .venv
+source .venv/bin/activate
+# pip install
+pip install dlt[duckdb]
+```
+
+Next, grab your data from above and run this snippet
+* here we define a pipeline, which is a connection to a destination
+* and we run the pipeline, printing the outcome
+
+```python
+# define the connection to laod to
+# we now use DuckDB, but you can switch to BigQuery later
+pipeline = dlt.pipeline(pipeline_name="taxi_data",
+						   destination='duckdb',
+						   dataset_name='taxi_rides')
+
+# run the pipeline with default settings, and capture the outcome
+info = pipeline.run(data,
+				   table_name="users",
+				   write_disposition="replace")
+
+# show the outcome
+print(info)
+```
+
+If you are running dlt locally you can use the built in streamlit app by running the cli command with the pipeline name we chose above.
