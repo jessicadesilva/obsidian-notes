@@ -513,7 +513,7 @@ print("\n\n\n Passengers table")
 passengers = conn.sql("SELECT * FROM rides__passengers").df()
 display(passengers)
 print("\n\n\n Stops table")
-stop = conn.sql("SELECT * FROM rides__stops").df()
+stops = conn.sql("SELECT * FROM rides__stops").df()
 display(stops)
 
 # to reflect the relationships between parent and child rows, let's join them
