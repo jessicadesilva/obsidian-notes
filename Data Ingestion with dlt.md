@@ -442,10 +442,10 @@ dlt is a python library created for the purpose of assisting data engineers to b
 
 You can think of dlt as a loading tool that implements the best practices of data pipelines enabling you to just "use" those best practices in your own pipelines, in a declarative way.
 
-This enables you to stop reinventing the flat tire, and leverage dlt to build pipelines much faster than if you did everything from scratch.
+This enables you to stop reinventing the flat tire (people have the same problems over and over), and leverage dlt to build pipelines much faster than if you did everything from scratch.
 
 dlt automates much of the tedious work a data engineer would do, and does it in a way that is robust. dlt can handle things like:
-* Schema: Inferring and evolving schema, alerting changes, using schemas as data contracts.
+* Schema: Inferring and evolving schema, alerting changes, using schemas as data contracts (e.g., only accept events with a specific format).
 * Typing data, flattening structures, renaming columns to fit database standards. In our example we will pass the "data" you can see above and see it normalized.
 * Processing a stream of events/rows without filling memory. This includes extraction from generators.
 * Loading to a variety of dbs or file formats.
