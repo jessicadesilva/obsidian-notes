@@ -554,7 +554,16 @@ By loading incrementally, our pipelines run faster and cheapter.
 
 **dlt currently supports 2 ways of loading incrementally:**
 1. Append:
-	* We can use this for immutable or stateless events (data that doesn't change) such as taxi rides. For example, every day there are new rides, and we could load the new ones only instead of the entire history.
+	* We can use this for immutable or stateless events (data that doesn't change) such as taxi rides. For example, every day there are new rides, and we could load the new ones only instead of the entire history.'
+	* We could also use this to load different versions of stateful data, for example for creating a "slowly changing dimension" table for auditing changes. For example, if we load a list of cars and their colors every day, and one day one car changes color, we need both sets of data to be able to discern that a change happened.
+2. Merge:
+	* We can use this to update data that changes.
+	* For example, a taxi ride could have a payment status, which is originally "booked" but could later be changed into "paid", "rejected", or "cancelled".
+
+Here is how you can think about which method to use:
+
+![[Pasted image 20240217094740.png]]
+
 
 
 **Update nested data**
