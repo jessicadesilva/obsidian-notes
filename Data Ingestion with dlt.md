@@ -285,7 +285,7 @@ generators_pipeline = dlt.pipeline(destination='duckdb',
 								  dataset_name='generators')
 
 # we can load any generator to a table at the pipeline destination as follows:
-info = generators_pipeline(paginated_getter(),
+info = generators_pipeline.run(paginated_getter(),
 						  table_name='http_download',
 						  write_disposition='replace')
 
