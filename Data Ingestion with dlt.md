@@ -479,7 +479,7 @@ pipeline = dlt.pipeline(pipeline_name="taxi_data",
 # run the pipeline with default settings, and capture the outcome
 info = pipeline.run(data,
 				   table_name="rides",
-				   write_disposition="merge",
+				   write_disposition="replace",
 				   primary_key="record_hash")
 
 # show the outcome
