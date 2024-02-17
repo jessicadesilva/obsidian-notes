@@ -548,7 +548,7 @@ Incremental loading means that as we update our datasets with the new data, we w
 
 By loading incrementally, our pipelines run faster and cheapter.
 * Incremental loading goes hand in hand with incremental extraction and state, two concepts which we will note delve into during this workshop
-	* ```State``` is information that keeps track of what was loaded, to know what else remains to be loaded. dlt stores the state at the destination in a separate table.
+	* In incremental loading, we will have a checkpoint that is stored as a ```state```. ```State``` is information that keeps track of what was loaded, to know what else remains to be loaded. dlt stores the state at the destination in a separate table.
 	* Incremental extraction refers to only requesting the increment of data that we need, and not more. This is tightly connected to the state to determine the exact chunk that needs to be extracted and loaded.
 * You can learn more about incremental extraction and state by reading the dlt docs on how to do it.
 
