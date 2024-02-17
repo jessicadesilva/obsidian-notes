@@ -270,3 +270,32 @@ end = time.time()
 print(end - start)
 ```
 
+## Load the generators
+
+We have 3 ways to download the same data. Let's use the fast and reliable way to load data and inspect it in DuckDB. In this example, we are using dlt library to do the loading, which will process data from the generators incrementally, following the same memory management paradigm.
+
+We will discuss more details about dlt or "data load tool" later.
+
+```python
+import dlt
+
+# define the connection to laod to
+# we now use duckdb, but you can switch to BigQuery later
+generators_pipeline = dlt.pipeline(destination='duckdb,
+								  dataset_name='generators')
+
+# we can load any generator to a table at the pipeline destination as follows:
+info = generators_pipeline(paginated_getter(),
+						  table_name='http_download',
+						  write_disposition='replace')
+
+# the outcome metadata is returned by the load and we can inspect it by printing it
+print(info)
+
+# we can load the next generator to the same or to a different table
+info = generators_pipeline.run(stream_download_json(url),
+							  table_name='stream_download',
+							  write_disposition='replace')
+
+print(info)
+```
