@@ -488,6 +488,12 @@ print(info)
 
 If you are running dlt locally you can use the built in streamlit app by running the cli command with the pipeline name we chose above.
 
+```bash
+dlt pipeline taxi_data show
+```
+
+Or explore the data in the linked colab notebook as described below.
+
 **Inspecting the nested structure, joining the child tables**
 
 Let's look at what happened during the load:
@@ -531,4 +537,86 @@ LEFT JOIN rides__stops as rs
 """	
 ).df()
 display(joined)
+```
+
+What are we looking at?
+* Nested dicts got flattened into the parent row, the structure ```{"coordinates": {"start": {"lat": ...}}}``` became ```coordinates__start__lat```
+* Nested lists got broken out into separate tables with generated columns that would allow us to join the data back when needed.
+### Incremental Loading
+
+Incremental loading means that as we update our datasets with the new data, we would only load the new data, as opposed to making a full copy of a source's data all over again and replacing the old version.
+
+By loading incrementally, our pipelines run faster and cheapter.
+* Incremental loading goes hand in hand with incremental extraction and state, two concepts which we will note delve into during this workshop
+	* ```State``` is information that keeps track of what was loaded, to know what else remains to be loaded. dlt stores the state at the destination in a separate table.
+	* Incremental extraction refers to only requesting the increment of data that we need, and not more. This is tightly connected to the state to determine the exact chunk that needs to be extracted and loaded.
+* You can learn more about incremental extraction and state by reading the dlt docs on how to do it.
+
+**dlt currently supports 2 ways of loading incrementally:**
+1. Append:
+	* We can use this for immutable or stateless events (data that doesn't change) such as taxi rides. For example, every day there are new rides, and we could load the new ones only instead of the entire history.
+
+
+**Update nested data**
+In this example the scores of the 2 passengers changed. Turns out their payment didn't go through for the ride before and they got a bad rating from the driver, so now we have to update their rating.
+
+As you can see after running the code, their ratings are now lowered.
+
+```python
+data = [
+    {
+        "vendor_name": "VTS",
+		"record_hash": "b00361a396177a9cb410ff61f20015ad",
+        "time": {
+            "pickup": "2009-06-14 23:23:00",
+            "dropoff": "2009-06-14 23:48:00"
+        },
+        "Trip_Distance": 17.52,
+        "coordinates": {
+            "start": {
+                "lon": -73.787442,
+                "lat": 40.641525
+            },
+            "end": {
+                "lon": -73.980072,
+                "lat": 40.742963
+            }
+        },
+        "Rate_Code": None,
+        "store_and_forward": None,
+        "Payment": {
+            "type": "Credit",
+            "amt": 20.5,
+            "surcharge": 0,
+            "mta_tax": None,
+            "tip": 9,
+            "tolls": 4.15,
+			"status": "cancelled"
+        },
+        "Passenger_Count": 2,
+        "passengers": [
+            {"name": "John", "rating": 4.4},
+            {"name": "Jack", "rating": 3.6}
+        ],
+        "Stops": [
+            {"lon": -73.6, "lat": 40.6},
+            {"lon": -73.5, "lat": 40.5}
+        ]
+    },
+]
+```
+
+```python
+# define the connection to load to. 
+# We now use duckdb, but you can switch to Bigquery later
+pipeline = dlt.pipeline(destination='duckdb', dataset_name='taxi_rides')
+
+# run the pipeline with default settings, and capture the outcome
+info = pipeline.run(data, 
+					table_name="users", 
+					write_disposition="merge", 
+					merge_key="record_hash")
+
+# show the outcome
+print(info)
 ```
