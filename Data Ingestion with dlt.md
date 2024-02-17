@@ -561,12 +561,19 @@ By loading incrementally, our pipelines run faster and cheapter.
 	* For example, a taxi ride could have a payment status, which is originally "booked" but could later be changed into "paid", "rejected", or "cancelled".
 
 Here is how you can think about which method to use:
+Note events implies immutable and stateful implies mutable.
 
 ![[Pasted image 20240217094740.png]]
 
+* If you want to keep track of when changes occur in stateful data (slowly changing dimension) then you will need to append the data.
 
+**Let's do a merge example together:**
+* This is the bread and butter of data engineers pulling data, so follow along.
 
-**Update nested data**
+* In our previous example, the payment status changed from "booked" to "cancelled". Perhaps Jack likes to fraud taxis and that explains his low rating. Besides the ride status change, he also got his rating lowered further.
+* The merge operation replaces an old record with a new one based on a key. The key could consist of multiple fields or a single unique id. We will use a record hash that we created for simplicity. If you do not have a unique key, you could create one deterministically out of several fields, such as by concatenating the data and hashing it.
+* A merge operation replaces rows, it does not update them. If you want to update only parts of a row, you would have to load the new data by appending it and doing a custom transformation to combine the old and new data.
+
 In this example the scores of the 2 passengers changed. Turns out their payment didn't go through for the ride before and they got a bad rating from the driver, so now we have to update their rating.
 
 As you can see after running the code, their ratings are now lowered.
