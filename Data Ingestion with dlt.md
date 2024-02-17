@@ -658,3 +658,11 @@ display(stops)
 
 As you can see after running the code, their ratings are now lowered.
 
+**What's next?**
+* You could change the destination to parquet + local file system or storage bucket. See the colab bonus section.
+* You could change the destination to BigQuery. Destination & credential setup docs: [https://dlthub.com/docs/dlt-ecosystem/destinations/](https://dlthub.com/docs/dlt-ecosystem/destinations/), [https://dlthub.com/docs/walkthroughs/add_credentials](https://dlthub.com/docs/walkthroughs/add_credentials) or See the colab bonus section.
+* You could use a decorator to convert the generator into a customized dlt resource: [https://dlthub.com/docs/general-usage/resource](https://dlthub.com/docs/general-usage/resource)
+* You can deep dive into building more complex pipelines by following the guides:
+	* [https://dlthub.com/docs/walkthroughs](https://dlthub.com/docs/walkthroughs)
+	- [https://dlthub.com/docs/build-a-pipeline-tutorial](https://dlthub.com/docs/build-a-pipeline-tutorial)
+- You can join our [Slack community](https://dlthub.com/community) and engage with us there.
