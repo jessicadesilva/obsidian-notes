@@ -478,11 +478,57 @@ pipeline = dlt.pipeline(pipeline_name="taxi_data",
 
 # run the pipeline with default settings, and capture the outcome
 info = pipeline.run(data,
-				   table_name="users",
-				   write_disposition="replace")
+				   table_name="rides",
+				   write_disposition="merge",
+				   primary_key="record_hash")
 
 # show the outcome
 print(info)
 ```
 
 If you are running dlt locally you can use the built in streamlit app by running the cli command with the pipeline name we chose above.
+
+**Inspecting the nested structure, joining the child tables**
+
+Let's look at what happened during the load:
+* By looking at the loaded tables, we can see our json document got flattened and sub-documents got split into separate tables.
+* We can re-join those child tables to the parent table by using the generated keys on ```parent_table.dtl_id = child_table._dlt_parent_id```.
+* Data types: if you will pay attention to datatypes, you will note that the timestamps, which in json are of string type, are now of timestamp type in the db.
+
+```python
+# show the ouctomes
+
+conn = duckdb.connect(f"{pipeline.pipeline_name}.duckdb")
+
+# let's see the tables
+conn.sql(f"SET search_path = '{pipeline.dataset_name}'")
+print('Loaded tables: ')
+display(conn.sql("show tables"))
+
+print("\n\n\n Rides table below: Not the times are properly typed")
+rides = conn.sql("SELECT * FROM rides").df()
+display(rides)
+
+print("\n\n\n Passengers table")
+passengers = conn.sql("SELECT * FROM rides__passengers").df()
+display(passengers)
+print("\n\n\n Stops table")
+stop = conn.sql("SELECT * FROM rides__stops").df()
+display(stops)
+
+# to reflect the relationships between parent and child rows, let's join them
+# of course this will have 4 rows due to the two 1:n joins
+
+print("\n\n\n joined table")
+
+joined = conn.sql("""
+SELECT *
+FROM rides as r
+LEFT JOIN rides__passengers as rp
+	ON r._dlt_id = rp._dlt_parent_id
+LEFT JOIN rides__stops as rs
+	ON r._dlt_id = rs._dlt_parent_id
+"""	
+).df()
+display(joined)
+```
