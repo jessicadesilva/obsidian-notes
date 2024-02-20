@@ -32,24 +32,18 @@
 The majority of data processing jobs (say, 80%) is batch processing.
 
 # Spark Introduction
-* What is Spark
-* Why do we need it
+**What is Spark?**
+Apache Spark is a "general purpose distributed processing engine". It's an open-source unified analytics engine for large-scale data processing. Spark pulls data from a data lake into its machines/executers, does something to it, and then saves it somewhere (data lake/warehouse). Processing happens in Spark so that's why it is an engine. It is distributed and so it has clusters where it can split up the work for the jobs. It is multi-language engine meaning it can be used with Java (native way) & Scala. There is a wrapper for Python called **PySpark** (and R and probably others). Typically companies will use Python or Scala or some combination of the two. Spark can be used for both batch jobs and streaming, but we won't cover how to use Spark for streaming.
 
-Spark is a "general purpose distributed processing engine".
-Common use cases: batch-type workloads. Also streaming, but we won't cover it here.
+**When would you use Spark?**
+You have a data lake in S3/GCS in Parquet. Spark will pull the data out of the data lake, process it similarly as you would in SQL, and then output it into another data lake or data warehouse. Sometimes it is not easy to use SQL if you have many files in your data lake, there are ways around it though so that you can still use SQL (using Hive, Presto, Athena). But maybe your job is too difficult to do with SQL (lots of unit tests, lots of modules) then use Spark instead. This often can be machine learning tasks (like training and testing).
 
-When would you use Spark? For the same things as you'd use SQL for - but for executing the queries on the files in your data lake.
-
-If you can write this in SQL and use Hive/Presto/Athena/BG - do it. But not everything can/should be expressed in SQL.
-
-Common case: ML algorithms. You can't easily use SQL for most of it.
-
-Typical pipeline:
-Raw data -> data lake -> some transformation in SQL -> Spark -> Batch job in Python for training a model
+Typical pipeline all orchestrated with Airflow, Prefect, or Mage:
+Raw data -> data lake -> some transformation in SQL (Presto, Hive) -> Spark -> Batch job in Python for training a model
 
 Raw data -> data lake -> SQL -> Spark -> Spark for applying the model -> SQL
 
-All orchestrated with Airflow, Prefect, or Mage.
+**Key recommendation:** Use SQL when you can, use Spark when what you want to do cannot be expressed with SQL.
 
 # Installing Spark (Linux)
 
