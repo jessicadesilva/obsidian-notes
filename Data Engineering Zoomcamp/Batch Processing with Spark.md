@@ -45,6 +45,30 @@ Raw data -> data lake -> SQL -> Spark -> Spark for applying the model -> SQL
 
 **Key recommendation:** Use SQL when you can, use Spark when what you want to do cannot be expressed with SQL.
 
+# Installing Spark/PySpark
+
+```bash
+brew install openjdk
+```
+
+Then there are two commands we need to run:
+(1) To use wrappers like pyspark:
+```bash
+sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+```
+
+(2) assuming we are working in a virtual environment
+```bash
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+```
+
+Then we install pyspark (which also installs Spark):
+
+```bash
+pip install pyspark
+```
+
+And we should be good to go!
 # First Look at Spark/PySpark
 
 We will start our Jupyter notebook with the following to connect to our Spark instance:
