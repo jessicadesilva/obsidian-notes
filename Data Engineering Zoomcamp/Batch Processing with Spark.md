@@ -45,11 +45,19 @@ Raw data -> data lake -> SQL -> Spark -> Spark for applying the model -> SQL
 
 **Key recommendation:** Use SQL when you can, use Spark when what you want to do cannot be expressed with SQL.
 
-# Installing Spark (Linux)
-
-Connecting to an instance on GCP and installing it there
-
 # First Look at Spark/PySpark
+
+We will start our Jupyter notebook with the following to connect to our Spark instance:
+
+```python
+import pyspark
+from pyspark.sql import SparkSession
+
+spark = (SparkSession.builder
+		 .master("local[*]")
+		 .appName("test")
+		 .getOrCreate())
+```
 * Reading CSV files
 * Partitions
 * Saving data to Parquet for local experiments
