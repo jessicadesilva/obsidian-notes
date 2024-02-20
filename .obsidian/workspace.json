@@ -66,9 +66,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "8c5f87b3a8feacbd",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Data Engineering Zoomcamp/Batch Processing with Spark.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -134,7 +146,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Data Engineering Zoomcamp/Data Ingestion with dlt.md",
+                "file": "Data Engineering Zoomcamp/Batch Processing with Spark.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +163,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Data Engineering Zoomcamp/Data Ingestion with dlt.md",
+                "file": "Data Engineering Zoomcamp/Batch Processing with Spark.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +186,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Data Engineering Zoomcamp/Data Ingestion with dlt.md"
+                "file": "Data Engineering Zoomcamp/Batch Processing with Spark.md"
               }
             }
           }
@@ -195,11 +207,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "a7bf74146a71f73d",
+  "active": "8c5f87b3a8feacbd",
   "lastOpenFiles": [
+    "Data Engineering Zoomcamp/Data Ingestion with dlt.md",
+    "Data Engineering Zoomcamp/Batch Processing with Spark.md",
     "attachments/Pasted image 20240217094740.png",
     "Data Engineering Zoomcamp/Analytics Engineering.md",
-    "Data Engineering Zoomcamp/Data Ingestion with dlt.md",
     "Data Engineering Zoomcamp/Data Warehouse.md",
     "attachments/Screenshot 2024-02-08 at 4.54.17 PM.png",
     "attachments/Screenshot 2024-02-08 at 4.52.37 PM.png",
@@ -210,7 +223,6 @@
     "attachments/Screenshot 2024-02-08 at 4.26.49 PM.png",
     "attachments/Screenshot 2024-02-08 at 4.21.13 PM.png",
     "attachments/Screenshot 2024-02-08 at 4.06.58 PM.png",
-    "attachments/Screenshot 2024-02-08 at 3.58.39 PM.png",
     "Data Engineering Zoomcamp/Orchestration.md",
     "Data Engineering Zoomcamp/attachments",
     "Data Engineering Zoomcamp/Introduction to Docker.md",
