@@ -119,10 +119,16 @@ df.schema
 ```
 ![[Screenshot 2024-02-20 at 6.37.13 PM.png]]
 
-In week 1, we used pandas to infer the types to create a schema in our local database. However, pandas may not like having a 700+MB dataframe, so we will apply this method with just a small bit of this data. We can use the head command along with the parameter -n to only look at the first 101 rows of the dataset:
+In week 1, we used pandas to infer the types to create a schema in our local database. However, pandas may not like having a 700+MB dataframe, so we will apply this method with just a small bit of this data. First let's unzip our dataset:
 
 ```python
-!head -n 101 fhvhv_tripdata_2021-01.csv.gz > head.csv
+!gunzip fhvhv_tripdata_2021-01.csv.gz
+```
+
+We can use the head command along with the parameter -n to only look at the first 101 rows of the dataset:
+
+```python
+!head -n 101 fhvhv_tripdata_2021-01.csv > head.csv
 ```
 
 We can then use the wc bash command (standing for word count) with the flag -l for line count to check the number of rows head.csv has:
@@ -139,6 +145,38 @@ df_pandas = pd.read_csv('head.csv')
 
 df_pandas.dtypes
 ```
+![[Screenshot 2024-02-20 at 6.54.31 PM.png]]
+
+Pandas does help us a bit, but it also can't infer the two datetime/timestamp fields.
+
+We can now use Spark to take in this pandas dataframe and create a Spark dataframe from it.
+```python
+spark.createDataFrame(df_pandas)
+```
+
+If you take a look at the Spark dataframe schema, you'll see that it has inheritied the datatypes from pandas:
+
+```python
+spark.createDataFrame(df_pandas).schema
+```
+![[Screenshot 2024-02-20 at 6.57.54 PM.png]]
+
+Since the two int64 columns were converted to longtype (which takes up 8 bytes) let's convert it to integer (taking up only 4 bytes) to be a little more efficient. If we copy the output there (written in Scala) and make the appropriate edits for it to the be interpreted with Python as well as the edits to the datatypes, we will have the following:
+
+```python
+StructType(
+		   StructField('hvfhs_license_num', StringType(), True),
+		   StructField('dispatching_base_num', StringType(), True),
+		   StructField('pickup_datetime', TimestampType(), True),
+		   StructField('dropoff_datetime', TimestampType(), True),
+		   StructField('PULocationID', IntegerType(), True),
+		   StructField('DOLocationID', IntegerType(), True),
+		   StructField('SR_Flag', StringType(), True)
+)
+```
+We aren't completely sure what the SR_Flag field is for, it seems to be null everywhere and so that is interpreted as double. We changed it to StringType just in case and that is nullable so we won't run into any issues.
+
+
 
 * Reading CSV files
 * Partitions
