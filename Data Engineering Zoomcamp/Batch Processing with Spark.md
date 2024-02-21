@@ -336,9 +336,22 @@ df \
 	.show()
 ```
 
-Although there is an extensive list of functions already, we can also define our own functions. 
+Although there is an extensive list of functions already, we can also define our own functions. Let's go ahead and define a function on the dispatching_base_num column that isn't so easy to recreate with SQL:
 
+```python
+def crazy_function(base_num):
+	num = int(base_num[1:])
+	if num % 7 == 0:
+		return f's/{num:03x}'
+	else:
+		return f'e/{num:03x}'
+```
 
+Let's test it:
+
+```python
+crazy_function('B02884')
+```
 
 * Actions vs transformations
 * Partitions
