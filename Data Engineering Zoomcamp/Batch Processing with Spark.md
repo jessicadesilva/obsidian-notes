@@ -372,6 +372,15 @@ df \
 ```
 ![[Screenshot 2024-02-20 at 8.06.21 PM.png]]
 
+# Preparing the Data
+We'll create a bash script to download all of the yellow and green taxi data for 2020 - 2021. When you create a bash script, make sure to change the mode to executable before trying to run it using the following command:
+
+```bash
+chmod +x download_data.sh
+```
+
+
+
 # Spark SQL
 * Temporary tables
 * Some simple queries from week 4
