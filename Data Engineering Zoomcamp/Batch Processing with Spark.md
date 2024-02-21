@@ -178,17 +178,68 @@ We aren't completely sure what the SR_Flag field is for, it seems to be null eve
 The list was turned into a Python list using square brackets. Now we need to import a package to be able to use these types, namely:
 
 ```python
-from pyspark.sql.types import types
+from pyspark.sql import types
 ```
 
 and thus we have to precede all our types with ```types.```:
 
 ```python
-
+schema = types.StructType([
+	types.StructField('hvfhs_license_num', types.StringType(), True),
+	types.StructField('dispatching_base_num', types.StringType(), True),
+	types.StructField('pickup_datetime', types.TimestampType(), True),
+	types.StructField('dropoff_datetime', types.TimestampType(), True),
+	types.StructField('PULocationID', types.IntegerType(), True),
+	types.StructField('DOLocationID', types.IntegerType(), True),
+	types.StructField('SR_Flag', types.StringType(), True)
+])
 ```
 
+Now that we have defined the schema, we can enforce it when we read the (large) CSV file:
 
-* Reading CSV files
+```python
+df = spark.read \
+	.option("header", "true") \
+	.schema(schema) \
+	.csv('fhvhv_tripdata_2021-01.csv')
+```
+
+Let's see what we have:
+
+```python
+df.show()
+```
+![[Screenshot 2024-02-20 at 7.13.18 PM.png]]
+
+```python
+df.head(10)
+```
+![[Screenshot 2024-02-20 at 7.13.46 PM.png]]
+
+Looks like datetime is properly parsed, great!
+
+Now let's save this CSV to a parquet file. However, it's not great to just have one large file. To understand why this is, let's take a brief detour to look at the internals of Spark.
+
+**Spark Internals**
+The Spark cluster has a number of executors, that is, machines that load the data from a data lake and do some computation. The way they work is if we have a bunch of files (say from Google Cloud Storage) then files will be distributed to the executors one file per one executor. If there are leftover files, then once an executor is done with their first file they will pick up a file that hasn't been processed yet. If there is only one file, then only one executor can be used. This isn't optimal since the other executors will just be idle! So we want to break this large CSV into multiple files (called partitions). To do that, we can use the repartition method:
+
+```python
+# argument is number of partitions
+df.repartition(24)
+```
+
+This command is a lazy command, though, as it only does something when the dataframe is being saved somewhere. For example, if we have 
+
+```python
+df = df.repartition(24)
+```
+
+Then df will behave just like it did before, except when it is being exported and saved somewhere else. For example, if we do this:
+
+```python
+df.write.parquet('fhvhv/2021/01/')
+```
+
 * Partitions
 * Saving data to Parquet for local experiments
 * Spark master UI
