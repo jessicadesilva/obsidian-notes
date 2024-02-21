@@ -164,7 +164,7 @@ spark.createDataFrame(df_pandas).schema
 Since the two int64 columns were converted to longtype (which takes up 8 bytes) let's convert it to integer (taking up only 4 bytes) to be a little more efficient. If we copy the output there (written in Scala) and make the appropriate edits for it to the be interpreted with Python as well as the edits to the datatypes, we will have the following:
 
 ```python
-StructType(
+StructType([
 		   StructField('hvfhs_license_num', StringType(), True),
 		   StructField('dispatching_base_num', StringType(), True),
 		   StructField('pickup_datetime', TimestampType(), True),
@@ -172,10 +172,20 @@ StructType(
 		   StructField('PULocationID', IntegerType(), True),
 		   StructField('DOLocationID', IntegerType(), True),
 		   StructField('SR_Flag', StringType(), True)
-)
+		   ])
 ```
 We aren't completely sure what the SR_Flag field is for, it seems to be null everywhere and so that is interpreted as double. We changed it to StringType just in case and that is nullable so we won't run into any issues.
+The list was turned into a Python list using square brackets. Now we need to import a package to be able to use these types, namely:
 
+```python
+from pyspark.sql.types import types
+```
+
+and thus we have to precede all our types with ```types.```:
+
+```python
+
+```
 
 
 * Reading CSV files
