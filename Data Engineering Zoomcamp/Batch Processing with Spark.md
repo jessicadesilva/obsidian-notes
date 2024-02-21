@@ -312,6 +312,33 @@ This "laziness" characterizes the difference between actions and transformations
 * Show/take/head
 * Write
 
+Now a lot of the transformations we discussed above can be done using SQL. But Spark is more flexible and has really great UDF (user defined functions). First, let's talk about the functions that Spark has already:
+
+```python
+from pyspqrk.sql import functions as F
+```
+
+Then when you do the following you can see the many options for functions already defined in Spark:
+
+```python
+F.
+```
+
+![[Screenshot 2024-02-20 at 7.49.16 PM.png]]
+
+Let's use the to_date function which takes in a datetime and keeps only the date. The way these functions work, we can use the withColumn method on the dataframe which adds a new column to the dataframe (transformation). We give it the new column name and the transformation we want to do to get that new column. Note if you give it a name of a pre-existing column, it will override that column.
+
+```python
+df \
+	.withColumn('pickup_date', F.to_date(df.pickup_datetime)) \
+	.withColumn('dropoff_date', F.to_date(df.dropoff_datetime)) \
+	.select('pickup_date', 'dropoff_date', 'PULocationID', 'DOLocationID') \
+	.show()
+```
+
+Although there is an extensive list of functions already, we can also define our own functions. 
+
+
 
 * Actions vs transformations
 * Partitions
