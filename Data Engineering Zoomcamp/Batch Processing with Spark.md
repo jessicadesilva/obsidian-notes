@@ -246,10 +246,14 @@ Once you see the SUCCESS file (which is empty) you know the job is done.
 
 In the Spark UI we could see the job there as well:
 ![[Screenshot 2024-02-20 at 7.26.49 PM.png]]
-* Partitions
-* Saving data to Parquet for local experiments
-* Spark master UI
 
+Using the du bash command we can see that the compressed files take up less space compared to the original CSV file:
+
+```bash
+du -h fhvhv
+```
+
+![[Screenshot 2024-02-20 at 7.28.59 PM.png]]
 # Spark DataFrames
 * Actions vs transformations
 * Partitions
