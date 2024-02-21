@@ -383,7 +383,40 @@ Here is our URL:
 
 https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2019-01.csv.gz
 
-We need to format our data to have a leading 0, we can do this using the following syntax: %02d where 0 means leading 0, 2d means 2 digits.
+We need to format our data to have a leading 0, we can do this using the following syntax: %02d where 0 means leading 0, 2d means 2 digits. Here is our bash script to download the data:
+
+```bash
+# quit on the first nonzero code
+set -e
+
+# make configurable
+TAXI_TYPE=$1 # yellow
+YEAR=$2 # 2020
+
+# https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2019-01.csv.gz
+URL_PREFIX="https://github.com/DataTalksClub/nyc-tlc-data/releases/download"
+
+for MONTH in {1..12}; do
+	FMONTH=`printf "%02d" ${MONTH}`
+	URL="${URL_PREFIX}/${TAXI_TYPE}/${TAXI_TYPE}_tripdata_${YEAR}-${FMONTH}.csv.gz"
+	LOCAL_PREFIX="data/raw/${TAXI_TYPE}/${YEAR}/${FMONTH}"
+	LOCAL_FILE="${TAXI_TYPE}_tripdata_${YEAR}_${FMONTH}.csv.gz"
+	
+	LOCAL_PATH="${LOCAL_PREFIX}/${LOCAL_FILE}"
+	
+	mkdir -p ${LOCAL_PREFIX}
+	wget ${URL} -O ${LOCAL_PATH}
+
+done
+```
+
+We can run the command below using yellow/green and 2020/2021.
+
+```bash
+./download_data.sh yellow 2020
+```
+
+Two directories will be made for August 2021 with empty csv.gz files for both green and yellow, go ahead and remove those.
 
 # Spark SQL
 * Temporary tables
