@@ -240,6 +240,12 @@ Then df will behave just like it did before, except when it is being exported an
 df.write.parquet('fhvhv/2021/01/')
 ```
 
+We can see the files saved in our directory:
+![[Screenshot 2024-02-20 at 7.25.36 PM.png]]
+Once you see the SUCCESS file (which is empty) you know the job is done.
+
+In the Spark UI we could see the job there as well:
+![[Screenshot 2024-02-20 at 7.26.49 PM.png]]
 * Partitions
 * Saving data to Parquet for local experiments
 * Spark master UI
