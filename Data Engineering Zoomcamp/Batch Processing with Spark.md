@@ -383,7 +383,7 @@ Here is our URL:
 
 https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2019-01.csv.gz
 
-We need to format our data to have a leading 0, we can do this using the following syntax: 02d where 0 means leading 0, 2d means 2 digits.
+We need to format our data to have a leading 0, we can do this using the following syntax: %02d where 0 means leading 0, 2d means 2 digits.
 
 # Spark SQL
 * Temporary tables
