@@ -339,23 +339,38 @@ df \
 Although there is an extensive list of functions already, we can also define our own functions. Let's go ahead and define a function on the dispatching_base_num column that isn't so easy to recreate with SQL:
 
 ```python
-def crazy_function(base_num):
+def crazy_stuff(base_num):
 	num = int(base_num[1:])
 	if num % 7 == 0:
 		return f's/{num:03x}'
+	elif num % 3 == 0:
+		return f'a/{num:03x}'
 	else:
 		return f'e/{num:03x}'
 ```
 
 Let's test it:
-
 ```python
-crazy_function('B02884')
+crazy_stuff('B02884')
+```
+![[Screenshot 2024-02-20 at 7.59.41 PM.png]]
+The idea of "testing" is exactly why user-defined functions are so much easier to use in Spark than databases because it is just Python and so we can cover it with tests to make sure it works.
+
+Let's give our function a name, we need to say what the return type is:
+```python
+crazy_stuff_udf = F.udf(crazy_stuff, returnType=types.StringType())
 ```
 
-* Actions vs transformations
-* Partitions
-* Functions and UDFs
+Let's add this to our sequence of transformations:
+```python
+df \
+	.withColumn('pickup_date', F.to_date(df.pickup_datetime)) \
+	.withColumn('dropoff_date', F.to_date(df.dropoff_datetime)) \
+	.withColumn('base_id', crazy_stuff_udf(df.dispatching_base_num)) \
+	.select('base_id', 'pickup_date', 'dropoff_date', 'PULocationID', 'DOLocationID') \
+	.show()
+```
+![[Screenshot 2024-02-20 at 8.06.21 PM.png]]
 
 # Spark SQL
 * Temporary tables
