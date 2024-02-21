@@ -79,7 +79,7 @@ from pyspark.sql import SparkSession
 
 spark = SparkSession.builder \
 		 .master("local[*]") \
-		 .appName("test") \
+		 .appName('test') \
 		 .getOrCreate()
 ```
 
@@ -92,6 +92,53 @@ Let's download the High Volume For-Hire Vehicle Trip Records using wget (high vo
 !wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/fhvhv/fhvhv_tripdata_2021-01.csv.gz
 ```
 
+Let's now read this data as a dataframe using Spark:
+
+```python
+df = spark.read \
+	.option("header", "true") \
+	.csv('fhvhv_tripdata_2021-01.csv.gz')
+
+df.show()
+```
+
+And we see in the output that the column headers were read correctly:
+![[Screenshot 2024-02-20 at 6.32.52 PM.png]]
+
+When we refresh the Spark UI, we see the two jobs (loading to dataframe and showing the dataframe):
+![[Screenshot 2024-02-20 at 6.33.29 PM.png]]
+Unlike pandas, Spark does not try to infer the types of the fields. We can see that by looking at the first five records and noting that the datetime fields are read as strings:
+```python
+df.head(5)
+```
+![[Screenshot 2024-02-20 at 6.35.09 PM.png]]
+
+There is also a schema attribute for the dataframe class which is showing us that every field is interpreted as a string:
+```python
+df.schema
+```
+![[Screenshot 2024-02-20 at 6.37.13 PM.png]]
+
+In week 1, we used pandas to infer the types to create a schema in our local database. However, pandas may not like having a 700+MB dataframe, so we will apply this method with just a small bit of this data. We can use the head command along with the parameter -n to only look at the first 101 rows of the dataset:
+
+```python
+!head -n 101 fhvhv_tripdata_2021-01.csv.gz > head.csv
+```
+
+We can then use the wc bash command (standing for word count) with the flag -l for line count to check the number of rows head.csv has:
+
+```python
+!wc -l head.csv
+```
+![[Screenshot 2024-02-20 at 6.42.22 PM.png]]
+Update head.csv to instead contain the first 1001 rows of the dataset. Let's load the data into a pandas dataframe and check out the schema:
+
+```python
+import pandas as pd
+df_pandas = pd.read_csv('head.csv')
+
+df_pandas.dtypes
+```
 
 * Reading CSV files
 * Partitions
