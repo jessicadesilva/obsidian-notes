@@ -77,10 +77,19 @@ We will start our Jupyter notebook with the following to connect to our Spark in
 import pyspark
 from pyspark.sql import SparkSession
 
-spark = (SparkSession.builder
-		 .master("local[*]")
-		 .appName("test")
-		 .getOrCreate())
+spark = SparkSession.builder \
+		 .master("local[*]") \
+		 .appName("test") \
+		 .getOrCreate()
+```
+
+The spark object we created is how we will communicate with Spark. You can access the Spark UI at localhost:4040 or, if that's in use, port 4041. That will look like this:
+
+![[Screenshot 2024-02-20 at 6.21.34 PM.png]]
+Let's download the High Volume For-Hire Vehicle Trip Records using wget (high volume since spark is mean to be used for high volume data):
+
+```python
+!wget https://nyc-tlc.s3.amazonaws.com/trip+data/fhvhv_tripdata_2021-01.csv
 ```
 * Reading CSV files
 * Partitions
