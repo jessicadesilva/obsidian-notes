@@ -89,8 +89,10 @@ The spark object we created is how we will communicate with Spark. You can acces
 Let's download the High Volume For-Hire Vehicle Trip Records using wget (high volume since spark is mean to be used for high volume data):
 
 ```python
-!wget https://nyc-tlc.s3.amazonaws.com/trip+data/fhvhv_tripdata_2021-01.csv
+!wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/fhvhv/fhvhv_tripdata_2021-01.csv.gz
 ```
+
+
 * Reading CSV files
 * Partitions
 * Saving data to Parquet for local experiments
