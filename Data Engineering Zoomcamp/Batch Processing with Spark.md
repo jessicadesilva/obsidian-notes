@@ -254,7 +254,65 @@ du -h fhvhv
 ```
 
 ![[Screenshot 2024-02-20 at 7.28.59 PM.png]]
+
+One reason for this is that the parquet files know the schema and so they are  more efficient with space for the specific datatypes.
 # Spark DataFrames
+We can easily read in the partitioned data in the form of parquet files in the following way:
+```python
+df = spark.read.parquet('fhvhv/2021/01/')
+```
+Note that the schema is read in as well:
+```python
+df
+```
+![[Screenshot 2024-02-20 at 7.34.26 PM.png]]
+Here is a pretty way to view the schema:
+```python
+df.printSchema()
+```
+
+![[Screenshot 2024-02-20 at 7.35.43 PM.png]]
+
+We can select just a few columns from the dataframe using select (like SQL):
+
+```python
+df.select('pickup_datetime', 'dropoff_datetime', 'PULocationID', 'DOLocationID')
+```
+
+We can do even more by filtering this dataframe:
+```python
+df.select('pickup_datetime', 'dropoff_datetime', 'PULocationID', 'DOLocationID') \
+.filter(df.hvfhs_license_num == 'HV0003')
+```
+
+Now Spark hasn't done anything yet, because we haven't really asked it to do anything (read or write). But we can do that now:
+
+```python
+df.select('pickup_datetime', 'dropoff_datetime', 'PULocationID', 'DOLocationID') \
+.filter(df.hvfhs_license_num == 'HV0003') \
+.show()
+```
+![[Screenshot 2024-02-20 at 7.41.19 PM.png]]
+
+And here is the job in the Spark UI:
+![[Screenshot 2024-02-20 at 7.41.49 PM.png]]
+
+This "laziness" characterizes the difference between actions and transformations.
+
+## Actions vs. Transformations
+**Transformations** are lazy, not executed right away.
+* Selecting columns
+* Filtering
+* Applying functions to each column
+* Repartitioning
+* Joins
+* Group by
+
+**Actions** are eager and it triggers itself and all the dependent transformations to be executed immediately.
+* Show/take/head
+* Write
+
+
 * Actions vs transformations
 * Partitions
 * Functions and UDFs
