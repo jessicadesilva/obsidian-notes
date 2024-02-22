@@ -455,6 +455,32 @@ In order to preserve the ordering of the columns, we won't use the set notation,
 common_cols = [col for col in df_green.columns if col in df_yellow.columns]
 ```
 
+Now as we select only these common columns, we want to include an extra column that says whether it was green or yellow taxi data:
+
+```python
+from pyspark.sql import functions as F
+
+df_green_sel = df_green \
+	.select(common_cols) \
+	.withColumn('service_type', F.lit('green'))
+
+df_yellow_sel = df_yellow \
+	.select(common_cols) \
+	.withColumn('service_type', F.lit('yellow'))
+```
+
+Now let's union these two dataframes:
+
+```python
+df_trips_data = df_green_sel.unionAll(df_yellow_sel)
+```
+
+And see that the data was transformed correctly:
+
+```python
+df_trips_data.groupBy('service_type').count().show()
+```
+![[Screenshot 2024-02-21 at 6.42.03 PM.png]]
 
 
 * Temporary tables
