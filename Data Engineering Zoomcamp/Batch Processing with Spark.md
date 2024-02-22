@@ -441,13 +441,21 @@ We notice that pickup and dropoff times don't appear here, that is because the y
 
 ```python
 df_green = df_green \
-	.withColumnsRenamed('lpep_pickup_datetime', 'pickup_datetime') \
-	.withColumnsRenamed('lpep_dropoff_datetime', 'dropoff_datetime')
+	.withColumnRenamed('lpep_pickup_datetime', 'pickup_datetime') \
+	.withColumnRenamed('lpep_dropoff_datetime', 'dropoff_datetime')
 	
 df_yellow = df_yellow \
-	.withColumnsRenamed('tpep_pickup_datetime', 'pickup_datetime') \
-	.withColumnsRenamed('tpep_dropoff_datetime', 'dropoff_datetime')
+	.withColumnRenamed('tpep_pickup_datetime', 'pickup_datetime') \
+	.withColumnRenamed('tpep_dropoff_datetime', 'dropoff_datetime')
 ```
+
+In order to preserve the ordering of the columns, we won't use the set notation, instead a list comprehension.
+
+```python
+common_cols = [col for col in df_green.columns if col in df_yellow.columns]
+```
+
+
 
 * Temporary tables
 * Some simple queries from week 4
