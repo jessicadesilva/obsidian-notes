@@ -421,6 +421,34 @@ Two directories will be made for August 2021 with empty csv.gz files for both gr
 Apply the same methods as in the previous video to define the schema for the table and save as partitioned parquet files.
 
 # Spark SQL
+
+Start the Spark session as we have done before and load the yellow and green taxi data from the parquet files into a Spark dataframe:
+
+```python
+df_green = spark.read.parquet('data/pq/green/*/*')
+df_yellow = spark.read.parquet('data/pq/yellow/*/*')
+```
+
+When we inspect the schema using the printSchema() method we see that they are similar but not exactly the same:
+![[Screenshot 2024-02-21 at 6.22.43 PM.png]]
+So we will combine the two dataframes only using the fields that they both have. We can inspect the columns of a spark dataframe using the columns attribute and then find their intersection:
+
+```python
+set(df_green.columns) & set(df_yellow.columns)
+```
+![[Screenshot 2024-02-21 at 6.25.22 PM.png]]
+We notice that pickup and dropoff times don't appear here, that is because the yellow and green taxi datasets use tpep and lpep respectively as prefixes. Let's rename those columns by removing their prefixes:
+
+```python
+df_green = df_green \
+	.withColumnsRenamed('lpep_pickup_datetime', 'pickup_datetime') \
+	.withColumnsRenamed('lpep_dropoff_datetime', 'dropoff_datetime')
+	
+df_yellow = df_yellow \
+	.withColumnsRenamed('tpep_pickup_datetime', 'pickup_datetime') \
+	.withColumnsRenamed('tpep_dropoff_datetime', 'dropoff_datetime')
+```
+
 * Temporary tables
 * Some simple queries from week 4
 
