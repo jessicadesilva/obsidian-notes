@@ -541,7 +541,13 @@ df_result.write.parquet('data/report/revenue/')
 
 Here is the DAG visualization of the job:
 
-![[Screenshot 2024-02-21 at 7.12.33 PM.png]]# Joins in Spark
+![[Screenshot 2024-02-21 at 7.12.33 PM.png]]
+If we want to combine parquet files so there aren't as many of them, we can do the opposite of partitioning using the coalesce method:
+
+```python
+df_result.coalesce(1).write.parquet('data/report/revenue/', mode='overwrite')
+```
+# Joins in Spark
 * Merge sort join
 * Broadcasting
 
