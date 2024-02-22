@@ -538,7 +538,10 @@ Let's go ahead and write our results:
 ```python
 df_result.write.parquet('data/report/revenue/')
 ```
-# Joins in Spark
+
+Here is the DAG visualization of the job:
+
+![[Screenshot 2024-02-21 at 7.12.33 PM.png]]# Joins in Spark
 * Merge sort join
 * Broadcasting
 
