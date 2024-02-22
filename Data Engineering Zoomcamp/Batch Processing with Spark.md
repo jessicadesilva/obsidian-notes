@@ -418,6 +418,8 @@ We can run the command below using yellow/green and 2020/2021.
 
 Two directories will be made for August 2021 with empty csv.gz files for both green and yellow, go ahead and remove those.
 
+Apply the same methods as in the previous video to define the schema for the table and save as partitioned parquet files.
+
 # Spark SQL
 * Temporary tables
 * Some simple queries from week 4
