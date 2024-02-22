@@ -482,9 +482,31 @@ df_trips_data.groupBy('service_type').count().show()
 ```
 ![[Screenshot 2024-02-21 at 6.42.03 PM.png]]
 
+Great, it works!
 
-* Temporary tables
-* Some simple queries from week 4
+Now let's start creating SQL statements with Spark. To do that, we need to create temporary views of our Spark dataframe for it to access:
+
+```python
+df_trips_data.createOrReplaceTempView('trips_data')
+```
+
+Now we can refer to the table "trips_data" in our SQL queries:
+
+```python
+spark.sql("""
+SELECT
+	service_type,
+	count(1)
+FROM
+	trips_data
+GROUP BY
+	service_type
+""").show()
+```
+![[Screenshot 2024-02-21 at 6.50.08 PM.png]]
+Now let's execute some of the queries from Week 4.
+
+
 
 # Joins in Spark
 * Merge sort join
