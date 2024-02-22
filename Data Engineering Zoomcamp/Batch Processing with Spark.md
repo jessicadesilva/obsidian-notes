@@ -506,8 +506,38 @@ GROUP BY
 ![[Screenshot 2024-02-21 at 6.50.08 PM.png]]
 Now let's execute some of the queries from Week 4.
 
+```python
+df_result = spark.sql("""
+SELECT
+	PULocationID AS revenue_zone,
+	date_trunc('month', pickup_datetime) AS revenue_month,
+	service_type,
+	SUM(fare_amount) AS revenue_monthly_fare,
+	SUM(extra) AS revenue_monthly_extra,
+	SUM(mta_tax) AS revenue_monthly_mta_tax,
+	SUM(tip_amount) AS revenue_monthly_tip_amount,
+	SUM(tolls_amount) AS revenue_monthly_tolls_amount,
+	SUM(improvement_surcharge) AS revenue_monthly_improvement_surcharge,
+	SUM(total_amount) AS revenue_monthly_total_amount,
+	SUM(congestion_surcharge) AS revenue_monthly_congestion_surcharge,
+	AVG(passenger_count) AS avg_monthly_passenger_count,
+	AVG(trip_distance) AS avg_monthly_trip_distance
 
+FROM
+	trips_data
+GROUP BY
+	1, 2, 3
+""")
 
+df_result.show()
+```
+![[Screenshot 2024-02-21 at 7.10.23 PM.png]]
+
+Let's go ahead and write our results:
+
+```python
+df_result.write.parquet('data/report/revenue/')
+```
 # Joins in Spark
 * Merge sort join
 * Broadcasting
