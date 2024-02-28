@@ -616,6 +616,14 @@ In Stage 2, we need to combine these sub-result files together. This is called *
 
 When Spark executes the Order By command, it will do reshuffling to make sure the results are ordered. Let's remove the Order by in the query for green taxi data and repeat the process for yellow taxi.
 
+Let's repartition them into 20 parts since the data is relatively small:
+
+```python
+df_green_revenue \
+	.repartition(20) \
+	.write.parquet('data/report/revenue/yellow', mode='overwrite')
+```
+
 # Joins in Spark
 * Merge sort join
 * Broadcasting
