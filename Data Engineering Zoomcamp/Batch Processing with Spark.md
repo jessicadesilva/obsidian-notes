@@ -558,6 +558,8 @@ df_result.coalesce(1).write.parquet('data/report/revenue/', mode='overwrite')
 
 We have a package with Spark code written in Python, Scala, etc. We then submit the package to the Master (think of it as the entry-point to the Spark cluster) using the ```spark-submit``` command. We can specify some information like what kind of resources we need for this job. Then the Master coordinates between executors by sending them instructions on what to do. Master will know if an executor goes away and sends assigns the job at that executor to some other executor. The executor first needs to pull data from the Spark DataFrame (living in Cloud Storage like S3 or GCS, historically Hadoop/HDFS) which is partitioned (just parquet files). When we submit a job to Master then executors will pull individual parquet files in to process. When Hadoop is used, the files are actually stored in the executors with some redundancy in case a node/executor goes away. In this way, data is local and they only need to download the code. This made a lot of sense since the files can be quite large but the code is relatively small. But these days, since we have S3 and GCS those are in the same Data Center as the cluster and it is fast to download/export data.
 
+# Groupby in Spark
+
 # Joins in Spark
 * Merge sort join
 * Broadcasting
