@@ -559,6 +559,62 @@ df_result.coalesce(1).write.parquet('data/report/revenue/', mode='overwrite')
 We have a package with Spark code written in Python, Scala, etc. We then submit the package to the Master (think of it as the entry-point to the Spark cluster) using the ```spark-submit``` command. We can specify some information like what kind of resources we need for this job. Then the Master coordinates between executors by sending them instructions on what to do. Master will know if an executor goes away and sends assigns the job at that executor to some other executor. The executor first needs to pull data from the Spark DataFrame (living in Cloud Storage like S3 or GCS, historically Hadoop/HDFS) which is partitioned (just parquet files). When we submit a job to Master then executors will pull individual parquet files in to process. When Hadoop is used, the files are actually stored in the executors with some redundancy in case a node/executor goes away. In this way, data is local and they only need to download the code. This made a lot of sense since the files can be quite large but the code is relatively small. But these days, since we have S3 and GCS those are in the same Data Center as the cluster and it is fast to download/export data.
 
 # Groupby in Spark
+Let's load in our green taxi data in a new Spark Session:
+
+```python
+import pyspark
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder \
+	.master("local[*]") \
+	.appName('test') \
+	.getOrCreate()
+```
+
+```python
+df_green = spark.read.parquet('data/pq/green/*/*')
+df_green.createOrReplaceTempView('green')
+```
+
+Now we will create a query that gives us the total amounts and number of records for each hour and each zone using groupby:
+
+```python
+df_green_revenue = spark.sql("""
+	SELECT
+		date_trunc('hour', lpep_pickup_datetime) AS hour,
+		PULocationID AS zone,
+		SUM(total_amount) AS amount,
+		COUNT(1) AS number_records
+
+	FROM
+		green
+	WHERE
+		lpep_pickup_datetime >= '2020-01-01 00:00:00'
+	
+	GROUP BY
+		1, 2
+	
+	ORDER BY
+		1, 2
+""")
+```
+
+Now we can save the DataFrame into partitioned parquet files:
+
+```python
+df_green_revenue.write.parquet('data/report/revenue/green')
+```
+
+And on localhost:4040 we can see what's happening in the cluster when we run this job.
+![[Screenshot 2024-02-27 at 8.00.22 PM.png]]
+The first stage prepares the data for Group By, the second stage does the Group By, and the third stage is Order By.
+
+Now let's see how Spark executes a query like this.
+
+Each executor pulls in a part from the partition. In Stage 1, each executor will do the filtering and groupby for the parquet file it takes in. Now for each partition we have temporary files for sub-results. That completes the first stage.
+In Stage 2, we need to combine these sub-result files together. This is called **reshuffling** because it shuffles the records we have in each part of the partition and move them between each other. As a result, all the records with the same key should end up in the same part of the partition. It uses the External Merge Sort algorithm to do this reshuffling. Now we have some number of parts of a partition but within a part any distinct key that appears, all of the records pertaining to that key are within that same of the partition. Then we apply Group By again to obtain one record for each key across all parts of the partition (but one part will have multiple distinct keys).
+
+When Spark executes the Order By command, it will do reshuffling to make sure the results are ordered. Let's remove the Order by in the query for green taxi data and repeat the process for yellow taxi.
 
 # Joins in Spark
 * Merge sort join
