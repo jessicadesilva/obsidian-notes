@@ -547,6 +547,12 @@ If we want to combine parquet files so there aren't as many of them, we can do t
 ```python
 df_result.coalesce(1).write.parquet('data/report/revenue/', mode='overwrite')
 ```
+
+# Spark Cluster
+* Executors are things that execute the Spark jobs
+* The notation ```master(local[*])``` means we are creating a local cluster
+* Driver, master, and executors
+
 # Joins in Spark
 * Merge sort join
 * Broadcasting
