@@ -623,7 +623,18 @@ df_green_revenue \
 	.repartition(20) \
 	.write.parquet('data/report/revenue/yellow', mode='overwrite')
 ```
+![[Screenshot 2024-02-27 at 8.16.16 PM.png]]
 
+Now we see a third stage that will do the repartitioning. We can see the amount of data that is shuffled under **Shuffle Read** and we want to make sure this stays small.
+
+![[Screenshot 2024-02-27 at 8.17.12 PM.png]]
+
+We can look at the size of the files in our command line using this command:
+```bash
+ls -lhR report/revenue
+```
+
+R is for recursive. And we will see the yellow data is 15MB and green data is 6.2MB. 
 # Joins in Spark
 * Merge sort join
 * Broadcasting
