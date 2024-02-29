@@ -658,7 +658,7 @@ df_join = df_green_revenue_temp.join(df_yellow_revenue_temp, on=['hour','zone'],
 
 Here is our visual of what Spark is doing to complete this job:
 
-
+![[Screenshot 2024-02-28 at 7.26.53 PM.png]]
 In the first two stages we are reading in the green and yellow taxi data respectively and doing the Group By. 
 
 * Merge sort join
