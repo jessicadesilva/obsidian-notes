@@ -666,9 +666,24 @@ For the join, it will first take each record and convert it into a key/record pa
 MergeSortJoin is used when the two tables are approximately the same size. When they are very different in sizes, it will use a different approach. Let's create a (small) DataFrame corresponding to the zone data:
 
 ```python
-
+df_zones = spark.read.parquet('zones/*')
 ```
 
+We can now join this DataFrame with our previous one:
+
+```python
+df_result = df_join.join(df_zones, df_join.zone == df_zones.LocationID)
+```
+
+Finally we will write the result with duplicate columns removed:
+
+```python
+df_result.drop('LocationID', 'zone').write.parquet('tmp/revenue-zones')
+```
+
+Here is what it looks like in Spark (very similar to before):
+
+![[Screenshot 2024-02-28 at 7.40.36 PM.png]]
 * Merge sort join
 * Broadcasting
 
