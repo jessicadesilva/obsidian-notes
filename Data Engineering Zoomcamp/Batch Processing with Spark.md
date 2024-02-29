@@ -689,7 +689,7 @@ But we see that actually some actions were taken prior to this, in particular:
 ![[Screenshot 2024-02-28 at 7.50.51 PM.png]]
 Which is doing a broadcast exchange:
 ![[Screenshot 2024-02-28 at 7.51.05 PM.png]]
-
+When we have one dataframe that is small compared to the other that will be joined, the executors will be sent a part in the partition of the big dataframe and a copy of the entire small dataframe (that's the broadcasting). Then the join happens within the executor and no shuffling is needed, which is much faster.
 
 # RDDs
 * From DF to RDD
