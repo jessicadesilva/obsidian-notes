@@ -650,11 +650,16 @@ df_yellow_revenue_temp = df_yellow_revenue \
 	.withColumnRenamed('number_records', 'yellow_number_records')
 ```
 
+Now we can (outer) join the two tables along the matching columns.
+
 ```python
-df_join = df_green_revenue.join(df_yellow_revenue, on=['hour','zone'], how='outer')
+df_join = df_green_revenue_temp.join(df_yellow_revenue_temp, on=['hour','zone'], how='outer')
 ```
 
+Here is our visual of what Spark is doing to complete this job:
 
+
+In the first two stages we are reading in the green and yellow taxi data respectively and doing the Group By. 
 
 * Merge sort join
 * Broadcasting
