@@ -684,8 +684,12 @@ df_result.drop('LocationID', 'zone').write.parquet('tmp/revenue-zones')
 Here is what it looks like in Spark (very similar to before):
 
 ![[Screenshot 2024-02-28 at 7.40.36 PM.png]]
-* Merge sort join
-* Broadcasting
+
+But we see that actually some actions were taken prior to this, in particular:
+![[Screenshot 2024-02-28 at 7.50.51 PM.png]]
+Which is doing a broadcast exchange:
+![[Screenshot 2024-02-28 at 7.51.05 PM.png]]
+
 
 # RDDs
 * From DF to RDD
