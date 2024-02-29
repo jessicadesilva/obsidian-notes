@@ -661,7 +661,13 @@ Here is our visual of what Spark is doing to complete this job:
 ![[Screenshot 2024-02-28 at 7.26.53 PM.png]]
 In the first two stages we are reading in the green and yellow taxi data respectively and doing the Group By.
 
-For the join, it will first take each record and convert it into a key/record pair where the key is, in this case, a combined key of the Hour and Zone. Then it will use reshuffling to put all the records with a given key in the same part of the partition. Then we take two records with matching primary keys and convert them into one record with the combined information. If there is only one record for a given key, since we use an outer join there will be a record corresponding to that key with null values in certain fields.
+For the join, it will first take each record and convert it into a key/record pair where the key is, in this case, a combined key of the Hour and Zone. Then it will use reshuffling to put all the records with a given key in the same part of the partition. Then we take two records with matching primary keys and convert them into one record with the combined information. If there is only one record for a given key, since we use an outer join there will be a record corresponding to that key with null values in certain fields. This is called the MergeSortJoin algorithm.
+
+MergeSortJoin is used when the two tables are approximately the same size. When they are very different in sizes, it will use a different approach. Let's create a (small) DataFrame corresponding to the zone data:
+
+```python
+
+```
 
 * Merge sort join
 * Broadcasting
