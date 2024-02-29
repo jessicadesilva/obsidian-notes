@@ -638,7 +638,17 @@ R is for recursive. And we will see the yellow data is 15MB and green data is 6.
 # Joins in Spark
 We will talk about two types of joins: (1) when the tables are approximately the same size and (2) when one table is much smaller than the other. We will also talk about the External Merge Sort algorithm since that's how joins work in Spark.
 
-Looking aback at our df_green_revenue and df_yellow_revenue Spark Dataframes, they both have an hour column and a zone column. When we join on those two columns, we will end up with size columns: 2 coming from the joined hour and zone columns, 2 coming from revenue for each of green and yellow, and 2 coming from number of trips for each of green and yellow taxis.
+Looking aback at our df_green_revenue and df_yellow_revenue Spark Dataframes, they both have an hour column and a zone column. When we join on those two columns, we will end up with size columns: 2 coming from the joined hour and zone columns, 2 coming from revenue for each of green and yellow, and 2 coming from number of trips for each of green and yellow taxis. Let's first rename the revenue and number of trips columns for green and yellow taxi data so that it indicates which of the two it corresponds to:
+
+```python
+df_green_revenue_temp = df_green_revenue \
+	.withColumnRenamed('amount', 'green_amount') \
+	.withColumnRenamed('number_records', 'green_number_records')
+
+df_yellow_revenue_temp = df_yellow_revenue \
+	.withColumnRenamed('amount', 'yellow_amount') \
+	.withColumnRenamed('number_records', 'yellow_number_records')
+```
 
 ```python
 df_join = df_green_revenue.join(df_yellow_revenue, on=['hour','zone'], how='outer')
