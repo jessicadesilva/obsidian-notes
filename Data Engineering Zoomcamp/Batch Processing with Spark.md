@@ -690,8 +690,15 @@ But we see that actually some actions were taken prior to this, in particular:
 Which is doing a broadcast exchange:
 ![[Screenshot 2024-02-28 at 7.51.05 PM.png]]
 When we have one dataframe that is small compared to the other that will be joined, the executors will be sent a part in the partition of the big dataframe and a copy of the entire small dataframe (that's the broadcasting). Then the join happens within the executor and no shuffling is needed, which is much faster.
+# Operations on Spark RDDs
+RDD stands for resilient distributed dataset. It is the basis of what Spark uses for distributed computations. The datasets we have been using are built upon an RDD, so it gives us an added layer of abstraction so we don't actually need to use RDD. In this section we will talk about simple operations (map and reduce) and what RDDs are. In the next section we will talk about mapPartition.
 
-# RDDs
+An RDD is a distributed dataset (collection of objects) whereas a DataFrame is this but also it has a schema. If you have a DataFrame, you can access the RDD it is built off of with the following command:
+
+```python
+df_green.rdd
+```
+
 * From DF to RDD
 * map
 * reduce
