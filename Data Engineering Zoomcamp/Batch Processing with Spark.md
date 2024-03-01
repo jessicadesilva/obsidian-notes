@@ -698,6 +698,15 @@ An RDD is a distributed dataset (collection of objects) whereas a DataFrame is t
 ```python
 df_green.rdd
 ```
+This gives us the following result:
+![[Screenshot 2024-03-01 at 3.52.09 PM.png]]
+The take method on a DataFrame gives us a list of the first five "row objects" which are what make up the corresponding RDD:
+```python
+df_green.take(5)
+```
+![[Screenshot 2024-03-01 at 3.54.05 PM.png]]
+
+
 
 * From DF to RDD
 * map
