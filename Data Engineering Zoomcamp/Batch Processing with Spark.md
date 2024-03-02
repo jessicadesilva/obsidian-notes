@@ -714,6 +714,26 @@ rdd = df_green \
 ```
 We can check that the RDD is correct by inspecting 5 rows with the take method.
 
+We can implement a where clause on the RDD using the filter method with a corresponding function. In this example, we will have a where clause that depends on a datetime field, so let's import corresponding python packages:
+
+ ```python
+ from datetime import datetime
+
+# for example
+start = datetime(year=2020, month=1, day=1)
+```
+We can create a function to check that the lpep_pickup_datetime is at least the date indicated above to remove outliers:
+
+```python
+def filter_outliers(row):
+	return row.lpep_pickup_datetime >= start
+```
+We want this function to return a boolean value in order to use the filter method as a where clause:
+```python
+rdd \
+	.filter(filter_outliers) \
+	.take(1)
+```
 
 * From DF to RDD
 * map
