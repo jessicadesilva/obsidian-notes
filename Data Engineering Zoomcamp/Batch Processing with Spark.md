@@ -945,7 +945,7 @@ def apply_model_in_batch(partition):
 	cnt = len(df)
 	return [cnt]
 ```
-Note that in order for this to work, the executors need to have enough memory to be able to materialize the entire partition as a dataframe. If that is an issue, you can use the islice iterator from itertools to process the partition in groups of 100,000 for example.
+Note that in order for this to work, the executors need to have enough memory to be able to materialize the entire partition as a dataframe. If that is an issue, you can use the islice iterator from itertools to process the partition in groups of 100,000 for example. When we use mapPartitions with this function we get the same result as before.
 
 Let's say our model will predict the trip length to be the distance times times 5 minutes per mile.
 
