@@ -966,8 +966,6 @@ def apply_model_in_batch(rows):
 	for row in df.itertuples():
 		yield row
 ```
-* mapPartition
-* From RDD to DF
 
 # Spark Internals
 * Driver, master, and executors
