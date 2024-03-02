@@ -737,7 +737,22 @@ rdd \
 And this is our result:
 ![[Screenshot 2024-03-01 at 4.05.51 PM.png]]
 
-Filter returns either true or false and it is used to discard records. **Map** is applied to every element of the RDD and it gives us something else as a result.
+Filter returns either true or false and it is used to discard records. **Map** is applied to every element (row) of the RDD and it gives us something else as a result. Let's create our function which will be applied to all the elements:
+
+```python
+def prepare_for_grouping(row):
+	# key is hour and zone
+	hour = row.lpep_pickup_datdeetime.replace(minute=0, second=0, microsecond=0)
+	zone = row.PULocationID
+	key = (hour, zone)
+
+	# value is sum of amounts
+	amount = row.total_amount
+	count = 1
+	value = (amount, count)
+
+	return (key, value)
+```
 
 * From DF to RDD
 * map
