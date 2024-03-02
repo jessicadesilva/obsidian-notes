@@ -975,6 +975,9 @@ We can now flatten it into a dataframe:
 ```python
 duration_rdd.mapPartitions(apply_model_in_batch).toDF().show()
 ```
+Something strange happened to lpep_pickup_datetime, but the rest looks fine...
+
+![[Screenshot 2024-03-01 at 5.58.03 PM.png]]
 # Spark Internals
 * Driver, master, and executors
 * Partitioning + coalesce
