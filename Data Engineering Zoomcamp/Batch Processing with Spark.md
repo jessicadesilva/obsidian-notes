@@ -985,7 +985,37 @@ Let's duplicate our 05_sparksql.ipynb notebook for connecting to GCS. First we w
 # navigate inside the data folder
 gsutil -m cp -r pq/ gs://mage-zoomcamp-jessica-desilva/pq
 ```
+Now we will download a jar file, which is a library in Java, to tell Spark exactly how to take the URL given to connect to GCS. This is called the  Cloud Storage Connector for Hadoop which we can download from GCS itself using the following commands:
 
+```bash
+# go back to week 5 directory
+mkdir lib/
+cd lib
+gsutil cp gs://hadoop-lib/gcs/gcs-connector-hadoop3-2.2.5.jar gcs-connector-hadoop3-2.2.5.jar
+```
+The version there is not of Spark, but of the connector.
+
+Now that we have the data uploaded to GCS and the jar file downloaded, let's get into the Jupyter notebook. We need to import a few additional things to start the Spark Session:
+
+```python
+import pyspark
+from pyspark.sql import SparkSession
+from pyspark.conf import SparkConf
+from pyspark.context import SparkContest
+```
+
+Now we configure our Spark:
+
+```python
+spark = SparkConf() \
+	.setMaster('local[*]') \
+	.setAppName('test') \
+	# specify location of jar file
+	.set("spark.jars", "./lib/gcs-connector-hadoop3-2.2.5.jar") \
+	.set("spark.hadoop.google.cloud.auth.service.account.enable", "true") \
+	# path to google credentials
+	.set("spark.hadoop.google.cloud.auth.service.account.json.keyfile", "path/to/google_credentials.json")
+```
 
 * https://cloud.google.com/solutions/spark
 
