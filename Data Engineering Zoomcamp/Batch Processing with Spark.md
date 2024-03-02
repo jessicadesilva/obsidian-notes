@@ -965,8 +965,16 @@ def apply_model_in_batch(rows):
 	
 	for row in df.itertuples():
 		yield row
-```
 
+duration_rdd.mapPartitions(apply_model_in_batch).take(10)
+```
+Here is our result:
+![[Screenshot 2024-03-01 at 5.52.58 PM.png]]
+
+We can now flatten it into a dataframe:
+```python
+duration_rdd.mapPartitions(apply_model_in_batch).toDF().show()
+```
 # Spark Internals
 * Driver, master, and executors
 * Partitioning + coalesce
