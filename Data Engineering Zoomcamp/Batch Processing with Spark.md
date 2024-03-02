@@ -945,9 +945,27 @@ def apply_model_in_batch(partition):
 	cnt = len(df)
 	return [cnt]
 ```
-Note that in order for this to work, the executors need to have enough memory to be able to materialize the entire partition as a dataframe.
+Note that in order for this to work, the executors need to have enough memory to be able to materialize the entire partition as a dataframe. If that is an issue, you can use the islice iterator from itertools to process the partition in groups of 100,000 for example.
 
+Let's say our model will predict the trip length to be the distance times times 5 minutes per mile.
 
+```python
+def model_predict(df):
+	y_pred = df.trip_distance * 5
+	return y_pred
+```
+
+Then we calculate the prediction for each row of a dataframe:
+	
+```python
+def apply_model_in_batch(rows):
+	df = pd.DataFrame(rows, columns=cols)
+	predictions = model_predict(df)
+	df['predicted_duration'] = predictions
+	
+	for row in df.itertuples():
+		yield row
+```
 * mapPartition
 * From RDD to DF
 
