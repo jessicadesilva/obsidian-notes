@@ -737,6 +737,7 @@ rdd \
 And this is our result:
 ![[Screenshot 2024-03-01 at 4.05.51 PM.png]]
 
+Filter returns either true or false and it is used to discard records. **Map** is applied to every element of the RDD and it gives us something else as a result.
 
 * From DF to RDD
 * map
