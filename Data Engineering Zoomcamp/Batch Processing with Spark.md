@@ -980,7 +980,7 @@ Something strange happened to lpep_pickup_datetime, but the rest looks fine...
 ![[Screenshot 2024-03-01 at 5.58.03 PM.png]]
 # Running Spark in the Cloud (GCP)
 Here we will talk about how we can connect to Google Cloud Storage, how to create a local cluster, and how to create a data prop(?) cluster.
-Let's duplicate our 05_sparksql.ipynb notebook for connecting to GCS.
+Let's duplicate our 05_sparksql.ipynb notebook for connecting to GCS. First we will move the data from the local folder to our GCS. 
 
 * https://cloud.google.com/solutions/spark
 
