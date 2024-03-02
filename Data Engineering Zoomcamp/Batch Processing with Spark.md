@@ -737,8 +737,9 @@ rdd \
 And this is our result:
 ![[Screenshot 2024-03-01 at 4.05.51 PM.png]]
 
-Filter returns either true or false and it is used to discard records. **Map** is applied to every element (row) of the RDD and it gives us something else as a result. Let's create our function which will be applied to all the elements:
+Filter returns either true or false and it is used to discard records.
 
+In order to do the GroupBy operation, we will first need to create a pair for each row of the form (key, value). In our example of GroupBy before, we grouped by the pickup hour and zone, then selected columns giving the sum of the total amounts and the number of records per key. To create this key-value pair, we will use **map** which applies a function to every element (row) of the RDD and it gives us something else as a result. Let's create our function to return the key-value pair for a given row:
 ```python
 def prepare_for_grouping(row):
 	# key is hour and zone
@@ -748,11 +749,44 @@ def prepare_for_grouping(row):
 
 	# value is sum of amounts
 	amount = row.total_amount
+	# to count number of records
 	count = 1
 	value = (amount, count)
 
 	return (key, value)
 ```
+Let's see what we get when we apply this map:
+
+```python
+rdd \
+	.filter(filter_outliers) \
+	.map(prepare_for_grouping) \
+	.take(10)
+```
+![[Screenshot 2024-03-01 at 4.19.05 PM.png]]
+
+So it seems to be working. Now we want to add these things together using **reduce**, or **reduceByKey** function. What it does is it takes elements of a group with the same key and reduces it to only one record according to some input function. Let's say the rows with a specific key have corresponding values value_0, value_1, value_2, etc. This function will first be applied to value_0 and value_1 and it will give a result which is the same number of fields as value_0&1. This output along with value_2 is then fed into the function again, and this repeats until all values are fed into the function. Here is the function that can give us the sum of the amounts and total number of records from this procedure:
+```python
+	def calculate_revenue(left_value, right_value):
+		# in our example the value is amount, 1
+		left_amount, left_count = left_value
+		right_amount, right_count = right_value
+
+		output_amount = left_amount + right_amount
+		output_count = left_count + right_count
+
+		return (output_amount, output_count)
+```
+Then we can feed this function into the reduceByKey method to complete our GroupBy operation:
+
+```python
+rdd \
+	.filter(filter_outliers) \
+	.map(prepare_for_grouping) \
+	.reduceByKey(calculate_revenue) \
+	.take(10)
+```
+
 
 * From DF to RDD
 * map
