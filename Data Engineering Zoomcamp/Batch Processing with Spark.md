@@ -786,6 +786,36 @@ rdd \
 	.reduceByKey(calculate_revenue) \
 	.take(10)
 ```
+![[Screenshot 2024-03-01 at 4.34.50 PM.png]]
+No we want to unnest these pairs and turn it into a dataframe. First, let's define the column names using namedtuple data structure:
+
+```python
+from collections import namedtuple
+
+RevenueRow = namedtuple('RevenueRow', ['hour', 'zone', 'revenue', 'count'])
+```
+Then create a function to take the two tuples and return a single named tuple.
+
+```python
+def unwrap(row):
+	return RevenueRow(
+	hour=row[0][0],
+	zone=row[0][1],
+	revenue=row[1][0],
+	count=row[1][1]
+	)
+```
+We can apply this function using the map method and then turn it back into a dataframe using the toDF method:
+
+```python
+rdd \
+	.filter(filter_outliers) \
+	.map(prepare_for_grouping) \
+	.reduceByKey(calculate_revenue) \
+	.map(unwrap) \
+	.toDF() \
+	.show()
+```
 
 
 * From DF to RDD
