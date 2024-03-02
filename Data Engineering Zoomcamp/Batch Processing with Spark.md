@@ -1009,16 +1009,32 @@ Now we configure our Spark:
 ```python
 credentials_location = './iron-cycle-412122-077e564b3924.json'
 
-spark = SparkConf() \
+conf = SparkConf() \
 	.setMaster('local[*]') \
 	.setAppName('test') \
-	# specify location of jar file
 	.set("spark.jars", "./lib/gcs-connector-hadoop3-2.2.5.jar") \
 	.set("spark.hadoop.google.cloud.auth.service.account.enable", "true") \
-	# path to google credentials
 	.set("spark.hadoop.google.cloud.auth.service.account.json.keyfile", credentials_location)
 ```
 
+Now we create the context:
+```python
+sc = SparkContext(conf=conf)
+hadoop_config = sc._jsc.hadoopConfiguration()
+
+hadoop_config.set("fs.AbstractFileSystem.gs.impl", "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS")
+hadoop_config.set("fs.gs.impl", "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem")
+hadoop_config.set("fs.gs.auth.service.account.json.keyfile", credentials_location)
+hadoop_config.set("fs.gs.auth.service.account.enable", "true")
+```
+What this is doing is it is saying when you see filesystem (fs) that starts with gs, then we need to use the implementation coming from the jar file with the given credentials.
+
+Now we need to create the session:
+```python
+spark = SparkSession.builder \
+	.config(conf=sc.getConf()) \
+	.getOrCreate()
+```
 * https://cloud.google.com/solutions/spark
 
 # Connecting Spark to a DWH
