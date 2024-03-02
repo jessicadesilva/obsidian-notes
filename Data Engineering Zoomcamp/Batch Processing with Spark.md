@@ -978,16 +978,10 @@ duration_rdd.mapPartitions(apply_model_in_batch).toDF().show()
 Something strange happened to lpep_pickup_datetime, but the rest looks fine...
 
 ![[Screenshot 2024-03-01 at 5.58.03 PM.png]]
-# Spark Internals
-* Driver, master, and executors
-* Partitioning + coalesce
-* Shuffling
-* Group by or not group by?
-* Broadcasting
-
-# Spark and Docker
-* TBD
 # Running Spark in the Cloud (GCP)
+Here we will talk about how we can connect to Google Cloud Storage, how to create a local cluster, and how to create a data prop(?) cluster.
+Let's duplicate our 05_sparksql.ipynb notebook for connecting to GCS.
+
 * https://cloud.google.com/solutions/spark
 
 # Connecting Spark to a DWH
