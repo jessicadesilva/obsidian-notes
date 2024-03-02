@@ -925,7 +925,29 @@ def apply_model_in_batch(partition):
 
 duration_rdd.mapPartitions(apply_model_in_batch).collect()
 ```
-Then
+![[Screenshot 2024-03-01 at 5.30.12 PM.png]]
+We see the parts of the partition aren't super balanced which isn't good because then executors will take varying amounts of time to complete jobs for a given partition. We could repartition it, but that is an expensive operation which we won't talk about now.
+
+Now let's make some changes by turning our partition into a pandas dataframe.
+
+```python
+import pandas as pd
+
+rows = duration_rdd.take(10)
+pd.DataFrame(rows, columns = cols)
+```
+
+So now our function will create a pandas dataframe from the input partition and, for now, let's have it still just count how many rows there are.
+
+```python
+def apply_model_in_batch(partition):
+	df = pd.DataFrame(partition, columns=cols)
+	cnt = len(df)
+	return [cnt]
+```
+Note that in order for this to work, the executors need to have enough memory to be able to materialize the entire partition as a dataframe.
+
+
 * mapPartition
 * From RDD to DF
 
