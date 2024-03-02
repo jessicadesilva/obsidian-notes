@@ -879,6 +879,10 @@ df_result.write.parquet('tmp/green-revenue')
 ![[Screenshot 2024-03-01 at 4.59.21 PM.png]]
 
 We see it is in two stages just like the SQL example. The two stages here are because the reduceByKey is doing reshuffling to make sure rows with the same key end up in the same part of the partition.
+
+Now let's talk about the mapPartitions operation on RDDs. It is similar to map, where now it takes in an RDD (instead of a row) and returns an RDD. By RDD in this case we mean a partition. So this operation is applied to parts of a partition independently. One example of this would be if we had our machine learning model as a function fed into mapPartition and it will chunk the large dataset into pieces and apply the model to each piece separately (in parallel). Then it will combine results and upload it to a data lake.
+
+
 * mapPartition
 * From RDD to DF
 
