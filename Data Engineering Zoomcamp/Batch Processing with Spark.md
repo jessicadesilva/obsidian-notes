@@ -900,7 +900,32 @@ duration_rdd = df_green \
 	.rdd
 ```
 
+Now let's create a function representing applying our matching learning model on a partition:
+```python
+def apply_model_in_batch(partition):
+	# output needs to be iterable like input
+	return [1]
 
+duration_rdd.mapPartitions(apply_model_in_batch).collect()
+```
+In this case we get the following output:
+![[Screenshot 2024-03-01 at 5.20.20 PM.png]]
+
+This means there are 12 parts in the partition which all generate an output of [1] when the model is applied. Then mapPartitions flattens (removes nested-ness) the outputs to give us one list of just 1s.
+
+Let's make a more complicated function, maybe one that checks how many rows there are in a part:
+
+```python
+def apply_model_in_batch(partition):
+	# len doesn't work on partition
+	cnt = 0
+	for row in partition:
+		cnt += 1
+	return [cnt]
+
+duration_rdd.mapPartitions(apply_model_in_batch).collect()
+```
+Then
 * mapPartition
 * From RDD to DF
 
