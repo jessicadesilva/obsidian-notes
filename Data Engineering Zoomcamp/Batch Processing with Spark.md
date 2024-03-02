@@ -1001,12 +1001,14 @@ Now that we have the data uploaded to GCS and the jar file downloaded, let's get
 import pyspark
 from pyspark.sql import SparkSession
 from pyspark.conf import SparkConf
-from pyspark.context import SparkContest
+from pyspark.context import SparkContext
 ```
 
 Now we configure our Spark:
 
 ```python
+credentials_location = './iron-cycle-412122-077e564b3924.json'
+
 spark = SparkConf() \
 	.setMaster('local[*]') \
 	.setAppName('test') \
@@ -1014,7 +1016,7 @@ spark = SparkConf() \
 	.set("spark.jars", "./lib/gcs-connector-hadoop3-2.2.5.jar") \
 	.set("spark.hadoop.google.cloud.auth.service.account.enable", "true") \
 	# path to google credentials
-	.set("spark.hadoop.google.cloud.auth.service.account.json.keyfile", "path/to/google_credentials.json")
+	.set("spark.hadoop.google.cloud.auth.service.account.json.keyfile", credentials_location)
 ```
 
 * https://cloud.google.com/solutions/spark
