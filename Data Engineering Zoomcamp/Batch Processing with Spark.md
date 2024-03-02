@@ -816,11 +816,26 @@ rdd \
 	.toDF() \
 	.show()
 ```
+We see that the columns were interpreted correctly:
 
+![[Screenshot 2024-03-01 at 4.45.45 PM.png]]
 
-* From DF to RDD
-* map
-* reduce
+Let's save our result:
+
+```python
+df_result = rdd \
+	.filter(filter_outliers) \
+	.map(prepare_for_grouping) \
+	.reduceByKey(calculate_revenue) \
+	.map(unwrap) \
+	.toDF() 
+```
+Now we can adjust the schema as we did before:
+
+```python
+df_result.schema
+```
+
 * mapPartition
 * From RDD to DF
 
