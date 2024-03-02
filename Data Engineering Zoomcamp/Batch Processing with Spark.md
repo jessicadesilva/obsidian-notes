@@ -734,6 +734,9 @@ rdd \
 	.filter(filter_outliers) \
 	.take(1)
 ```
+And this is our result:
+![[Screenshot 2024-03-01 at 4.05.51 PM.png]]
+
 
 * From DF to RDD
 * map
