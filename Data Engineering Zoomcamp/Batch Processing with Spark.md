@@ -706,6 +706,23 @@ df_green.take(5)
 ```
 ![[Screenshot 2024-03-01 at 3.54.05 PM.png]]
 
+Our goal here is to recreate this SQL query using RDD operations:
+```SQL
+	SELECT
+		date_trunc('hour', lpep_pickup_datetime) AS hour,
+		PULocationID AS zone,
+		SUM(total_amount) AS amount,
+		COUNT(1) AS number_records
+
+	FROM
+		green
+	WHERE
+		lpep_pickup_datetime >= '2020-01-01 00:00:00'
+	
+	GROUP BY
+		1, 2
+```
+
 Let's focus on the RDD of just some columns from this dataframe:
 ```python
 rdd = df_green \
@@ -830,12 +847,38 @@ df_result = rdd \
 	.map(unwrap) \
 	.toDF() 
 ```
-Now we can adjust the schema as we did before:
-
+This takes a long time because it is trying to figure out the schema. Now we can adjust the schema as we did before:
 ```python
 df_result.schema
 ```
+```python
+from pyspark.sql import types
 
+schema = types.StructType([
+types.StructField('hour', types.TimestampType(), True),
+types.StructField('zone', types.IntegerType(), True),
+types.StructField('revenue', types.DoubleType(), True),
+types.StructField('count', types.IntegerType(), True)
+])
+```
+Now when we save result using the predefined schema in the toDF method it won't take any time unless we want to show the result.
+
+```python
+df_result = rdd \
+	.filter(filter_outliers) \
+	.map(prepare_for_grouping) \
+	.reduceByKey(calculate_revenue) \
+	.map(unwrap) \
+	.toDF(schema)
+```
+
+Let's save the result and see what's happening in Spark:
+```python
+df_result.write.parquet('tmp/green-revenue')
+```
+![[Screenshot 2024-03-01 at 4.59.21 PM.png]]
+
+We see it is in two stages just like the SQL example. The two stages here are because the reduceByKey is doing reshuffling to make sure rows with the same key end up in the same part of the partition.
 * mapPartition
 * From RDD to DF
 
