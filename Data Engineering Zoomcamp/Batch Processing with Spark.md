@@ -882,6 +882,24 @@ We see it is in two stages just like the SQL example. The two stages here are be
 
 Now let's talk about the mapPartitions operation on RDDs. It is similar to map, where now it takes in an RDD (instead of a row) and returns an RDD. By RDD in this case we mean a partition. So this operation is applied to parts of a partition independently. One example of this would be if we had our machine learning model as a function fed into mapPartition and it will chunk the large dataset into pieces and apply the model to each piece separately (in parallel). Then it will combine results and upload it to a data lake.
 
+Let's say we have a machine learning model that predicts how long a trip will be. Some of the columns that would be useful for this prediction would be the following:
+
+```python
+cols = ['VendorID', 'lpep_pickup_datetime', 'PULocationID', 'DOLocationID', 'trip_distance']
+
+df_green \
+	.select(cols) \
+	.show()
+```
+
+Now let's turn this into an RDD:
+
+```python
+duration_rdd = df_green \
+	.select(cols) \
+	.rdd
+```
+
 
 * mapPartition
 * From RDD to DF
