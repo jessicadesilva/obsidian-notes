@@ -1035,6 +1035,17 @@ spark = SparkSession.builder \
 	.config(conf=sc.getConf()) \
 	.getOrCreate()
 ```
+
+We should be connected, let's check it out:
+```python
+df_green = spark.read.parquet('gs://mage-zoomcamp-jessica-desilva/pq/green/*/*')
+
+df_green.show()
+```
+![[Screenshot 2024-03-01 at 9.28.47 PM.png]]
+
+Later we will see that we can use a managed service from Google for Spark.
+
 * https://cloud.google.com/solutions/spark
 
 # Connecting Spark to a DWH
