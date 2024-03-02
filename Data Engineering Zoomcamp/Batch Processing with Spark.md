@@ -706,6 +706,13 @@ df_green.take(5)
 ```
 ![[Screenshot 2024-03-01 at 3.54.05 PM.png]]
 
+Let's focus on the RDD of just some columns from this dataframe:
+```python
+rdd = df_green \
+	.select('lpep_pickup_datetime','PULocationID','total_amount') \
+	.rdd
+```
+We can check that the RDD is correct by inspecting 5 rows with the take method.
 
 
 * From DF to RDD
