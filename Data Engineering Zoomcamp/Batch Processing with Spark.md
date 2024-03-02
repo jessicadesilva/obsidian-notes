@@ -742,7 +742,7 @@ Filter returns either true or false and it is used to discard records. **Map** i
 ```python
 def prepare_for_grouping(row):
 	# key is hour and zone
-	hour = row.lpep_pickup_datdeetime.replace(minute=0, second=0, microsecond=0)
+	hour = row.lpep_pickup_datetime.replace(minute=0, second=0, microsecond=0)
 	zone = row.PULocationID
 	key = (hour, zone)
 
