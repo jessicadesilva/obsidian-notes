@@ -1132,9 +1132,9 @@ df_result.coalesce(1).write.parquet(output, mode="overwrite")
 Let's try it:
 ```bash
 python 05_local_cluster_sparksql.py \
-	--input_green=data/pq/green/2020/*/ \
-	--input_yellow=data/pq/yellow/2020/*/ \
-	--output=data/report-2020
+	--input_green='data/pq/green/2020/*/' \
+	--input_yellow='data/pq/yellow/2020/*/' \
+	--output='data/report-2020'
 ```
 
 
