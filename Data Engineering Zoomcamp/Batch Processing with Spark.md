@@ -1089,7 +1089,13 @@ Now we see a worker:
 
 And we should be able to execute the entire notebook. If you install pyspark before installing the full spark, you should maybe delete and re-install pyspark from your virtual environment so that it points to the correct spark.
 
-Now we will turn the notebook into a python script. 
+Now we will turn the notebook into a python script. In VSCode, I did this by exporting the file as a Python Script. We made a few changes to the file so that it only kept the necessary tasks to get df_result exported.
+
+Now we run the python script:
+```python
+python 05_local_cluster_sparksql.py
+```
+
 * https://cloud.google.com/solutions/spark
 
 # Connecting Spark to a DWH
