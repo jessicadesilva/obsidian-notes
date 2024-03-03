@@ -1087,9 +1087,9 @@ If you make a mistake above and need to fix it, you may need to restart your ker
 Now we see a worker:
 ![[Screenshot 2024-03-02 at 6.54.23 PM.png]]
 
-And we should be able to execute the entire notebook.
+And we should be able to execute the entire notebook. If you install pyspark before installing the full spark, you should maybe delete and re-install pyspark from your virtual environment so that it points to the correct spark.
 
-
+Now we will turn the notebook into a python script. 
 * https://cloud.google.com/solutions/spark
 
 # Connecting Spark to a DWH
