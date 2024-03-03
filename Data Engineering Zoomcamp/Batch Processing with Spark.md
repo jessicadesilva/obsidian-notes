@@ -1046,6 +1046,8 @@ df_green.show()
 
 Later we will see that we can use a managed service from Google for Spark.
 
+ We will start by turning a Jupyter notebook into a script and then learning how to use Spark Submit for submitting Spark jobs. For this we will create a local Spark cluster and then in the next video we will see how to do this in the cloud.
+
 * https://cloud.google.com/solutions/spark
 
 # Connecting Spark to a DWH
