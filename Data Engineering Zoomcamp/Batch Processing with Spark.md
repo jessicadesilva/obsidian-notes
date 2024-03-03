@@ -1079,6 +1079,7 @@ spark = SparkSession.builder \
 	.appName('test') \
 	.getOrCreate()
 ```
+If you make a mistake above and need to fix it, you may need to restart your kernel to get it working again.
 
 * https://cloud.google.com/solutions/spark
 
