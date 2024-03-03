@@ -1162,6 +1162,7 @@ In practice, this is how you submit jobs to a Spark cluster. Now that we are don
 ./sbin/stop-worker.sh
 ./sbin/stop-master.sh
 ```
+
 * https://cloud.google.com/solutions/spark
 
 # Connecting Spark to a DWH
