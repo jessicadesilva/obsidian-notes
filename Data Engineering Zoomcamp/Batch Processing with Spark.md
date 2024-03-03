@@ -1076,7 +1076,7 @@ We will see this running on localhost:8080 (or 8081 if 8080 is already being use
 ```python
 spark = SparkSession.builder \
 	.master("spark://Math-47770:7077") \
-	.appname('test') \
+	.appName('test') \
 	.getOrCreate()
 ```
 
