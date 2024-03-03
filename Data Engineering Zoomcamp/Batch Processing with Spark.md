@@ -1079,7 +1079,16 @@ spark = SparkSession.builder \
 	.appName('test') \
 	.getOrCreate()
 ```
-If you make a mistake above and need to fix it, you may need to restart your kernel to get it working again.
+If you make a mistake above and need to fix it, you may need to restart your kernel to get it working again. So at this point we have started a cluster with a Master, but not workers (executors). We can start the worker using the following command in the terminal again navigated to where our apache-spark lives:
+
+```bash
+./sbin/start-worker.sh spark://Math-47770:7077
+```
+Now we see a worker:
+![[Screenshot 2024-03-02 at 6.54.23 PM.png]]
+
+And we should be able to execute the entire notebook.
+
 
 * https://cloud.google.com/solutions/spark
 
