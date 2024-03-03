@@ -1106,6 +1106,35 @@ Let's make our script configurable using the argparse package:
 
 ```python
 import argparse
+# other imports
+parser = argparse.ArgumentParser()
+
+parser.add_argument("--input_green", required=True)
+parser.add_argument("--input_yellow", required=True)
+parser.add_argument("--output", required=True)
+
+args = parser.parse_args()
+
+input_green = args.input_green
+input_yellow = args.input_yellow
+output = args.output
+
+# start session
+
+df_green = spark.read.parquet(input_green)
+df_yellow = spark.read.parquet(input_yellow)
+
+# manipulate data
+
+df_result.coalesce(1).write.parquet(output, mode="overwrite")
+```
+
+Let's try it:
+```bash
+python 05_local_cluster_sparksql.py \
+	--input_green=data/pq/green/2020/*/ \
+	--input_yellow=data/pq/yellow/2020/*/ \
+	--output=data/report-2020
 ```
 
 
