@@ -1156,7 +1156,12 @@ spark-submit \
 	--output='data/report-2021'
 ```
 
-In practice, this is how you submit jobs to a Spark cluster.
+In practice, this is how you submit jobs to a Spark cluster. Now that we are done, we need to stop the master and the workers.
+
+```bash
+./sbin/stop-worker.sh
+./sbin/stop-master.sh
+```
 * https://cloud.google.com/solutions/spark
 
 # Connecting Spark to a DWH
