@@ -1096,6 +1096,12 @@ Now we run the python script:
 python 05_local_cluster_sparksql.py
 ```
 
+Now when we connected the notebook to our cluster, we didn't specify how many resources we needed and so it is using up all of the executors. Let's "kill" it so that Master can have our script executed.
+
+![[Screenshot 2024-03-02 at 7.38.41 PM.png]]
+
+Now our notebook isn't connected to master, but there should be resources available to execute the script.
+
 * https://cloud.google.com/solutions/spark
 
 # Connecting Spark to a DWH
