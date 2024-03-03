@@ -1145,7 +1145,18 @@ spark = SparkSession.builder \
 	.getOrCreate()
 ```
 
+Then we can use spark-submit to submit the job to the master. For spark-submit we give it the URL for the master, name of the python file to run, and the configuration desired when running that file:
 
+```bash
+spark-submit \
+	--master="spark://Math-47770:7077" \
+	05_local_cluster_sparksql.py \
+	--input_green='data/pq/green/2021/*/' \
+	--input_yellow='data/pq/yellow/2021/*/' \
+	--output='data/report-2021'
+```
+
+In practice, this is how you submit jobs to a Spark cluster.
 * https://cloud.google.com/solutions/spark
 
 # Connecting Spark to a DWH
