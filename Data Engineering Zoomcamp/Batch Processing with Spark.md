@@ -1102,7 +1102,13 @@ Now when we connected the notebook to our cluster, we didn't specify how many re
 
 Now our notebook isn't connected to master, but there should be resources available to execute the script.
 
-Let's make our script configurable.
+Let's make our script configurable using the argparse package:
+
+```python
+import argparse
+```
+
+
 
 * https://cloud.google.com/solutions/spark
 
