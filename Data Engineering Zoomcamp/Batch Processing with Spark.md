@@ -1137,6 +1137,13 @@ python 05_local_cluster_sparksql.py \
 	--output='data/report-2020'
 ```
 
+Now instead of hardcoding the URL to master, we will use spark-submit to tell it that information. Go ahead and remove master from building the sparksession:
+
+```python
+spark = SparkSession.builder \
+	.appName('test') \
+	.getOrCreate()
+```
 
 
 * https://cloud.google.com/solutions/spark
