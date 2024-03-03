@@ -1071,11 +1071,11 @@ So I need to navigate to that directory and then go inside the libexec directory
 
 ![[Screenshot 2024-03-02 at 6.41.05 PM.png]]
 
-We will see this running on localhost:8080 (or 8081 if 8080 is already being used). When we go there, we will see a URL for the Spark Master and so that is what we should use when we set the master in our notebook except we can replace the part before the colon with localhost:
-
+We will see this running on localhost:8080 (or 8081 if 8080 is already being used). When we go there, we will see a URL for the Spark Master and so that is what we should use when we set the master in our notebook:
+![[Screenshot 2024-03-02 at 6.47.18 PM.png]]
 ```python
 spark = SparkSession.builder \
-	.master("spark://localhost:7077") \
+	.master("spark://Math-47770:7077") \
 	.appname('test') \
 	.getOrCreate()
 ```
