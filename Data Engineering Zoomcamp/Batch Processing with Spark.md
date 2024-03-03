@@ -1048,6 +1048,38 @@ Later we will see that we can use a managed service from Google for Spark.
 
  We will start by turning a Jupyter notebook into a script and then learning how to use Spark Submit for submitting Spark jobs. For this we will create a local Spark cluster outside of a Jupyter notebook and then in the next video we will see how to do this in the cloud.
 
+First, if you have not already be sure to install the full version of Spark (not just PySpark). I did this with Homebrew:
+
+```bash
+brew install apache-spark
+```
+
+Then we need to find where it was installed:
+
+```bash
+brew info apache-spark
+```
+
+For me, this was installed here:
+```bash
+/opt/homebrew/Cellar/apache-spark/3.5.1
+```
+So I need to navigate to that directory and then go inside the libexec directory. Once I'm there, I execute the following command:
+```bash
+./sbin/start-master.sh
+```
+
+![[Screenshot 2024-03-02 at 6.41.05 PM.png]]
+
+We will see this running on localhost:8080 (or 8081 if 8080 is already being used). When we go there, we will see a URL for the Spark Master and so that is what we should use when we set the master in our notebook except we can replace the part before the colon with localhost:
+
+```python
+spark = SparkSession.builder \
+	.master("spark://localhost:7077") \
+	.appname('test') \
+	.getOrCreate()
+```
+
 * https://cloud.google.com/solutions/spark
 
 # Connecting Spark to a DWH
