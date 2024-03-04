@@ -1249,3 +1249,9 @@ Then our output needs to be configured as the following:
 ```bash
 --output=trips_data_all.reports-2020
 ```
+
+We also need to specify the jars before giving the name of the Python script (if using gsutl, if using WebUI it will prompt you for jar file location):
+
+```bash
+--jars=gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar
+```
