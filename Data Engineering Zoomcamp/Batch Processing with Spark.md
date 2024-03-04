@@ -1233,3 +1233,5 @@ gcloud dataproc jobs submit job-command \
 You may need to update permissions on your Service Account to be able to submit jobs. You can do this by adding a Dataproc Administrator role to the service account.
 
 If we use Airflow, you can just use the bash operator above.
+
+Now we want to look at how we can write the Spark job results to BigQuery. 
