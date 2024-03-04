@@ -1234,4 +1234,18 @@ You may need to update permissions on your Service Account to be able to submit 
 
 If we use Airflow, you can just use the bash operator above.
 
-Now we want to look at how we can write the Spark job results to BigQuery. 
+Now we want to look at how we can write the Spark job results to BigQuery. Here is a link to the reference we are using:
+https://cloud.google.com/dataproc/docs/tutorials/bigquery-connector-spark-example#pyspark
+
+Instead of writing our file to GCS, we will replace that write line in our Python script with the following:
+```python
+df_result.write.format('bigquery') \
+	.option('table', output) \
+	.save()
+```
+
+Then our output needs to be configured as the following:
+
+```bash
+--output=trips_data_all.reports-2020
+```
