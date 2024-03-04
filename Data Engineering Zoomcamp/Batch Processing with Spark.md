@@ -1265,3 +1265,5 @@ We also need to specify the jars before giving the name of the Python script (if
 ```bash
 --jars=gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar
 ```
+
+We notice that even though the table wasn't there, it actually created the table for us instead of asking us to create a table first.
