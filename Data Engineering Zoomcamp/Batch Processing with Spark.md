@@ -1191,7 +1191,7 @@ Click on the cluster (the link de-zoomcamp-cluster) and click SUBMIT JOB:![[Scre
 Change the job type to PySpark. We need to upload our python script somewhere, we will upload it to our mage-zoomcamp-jessica-desilva bucket. Create a folder there called code and upload the file there. Make sure your file does not specify master because we want to use the DataProc configuration to process the script. When you do this, you can rename the file 05_dataproc_cluster_sparksql.py. This file path goes in the Main python file section:
 
 ```bash
-gs://mage-zoomcamp-jessica-desilva/data/05_dataproc_cluster_sparksql.py
+gs://mage-zoomcamp-jessica-desilva/code/05_dataproc_cluster_sparksql.py
 ```
 
 Now since we need to set some parameters when we run the job, that will go in the Arguments section. This is what our Arguments section will look like:
@@ -1200,4 +1200,7 @@ Now since we need to set some parameters when we run the job, that will go in th
 --input_yellow=gs://mage-zoomcamp-jessica-desilva/pq/yellow/2021/\*/
 --output=gs://mage-zoomcamp-jessica-desilva/report-2021
 
-Copy these one at a time into the arguments section and press return. Then we click submit.
+Copy these one at a time into the arguments section and press return. Then we click submit. We see the job succeeded:
+![[Screenshot 2024-03-04 at 7.33.06 AM.png]]We can check the result in our bucket.
+![[Screenshot 2024-03-04 at 7.33.55 AM.png]]
+
