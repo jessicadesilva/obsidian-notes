@@ -1204,3 +1204,4 @@ Copy these one at a time into the arguments section and press return. Then we cl
 ![[Screenshot 2024-03-04 at 7.33.06 AM.png]]We can check the result in our bucket.
 ![[Screenshot 2024-03-04 at 7.33.55 AM.png]]
 
+Now we can do this through Google SDK instead of through the GCP web UI.
