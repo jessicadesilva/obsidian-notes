@@ -1205,3 +1205,29 @@ Copy these one at a time into the arguments section and press return. Then we cl
 ![[Screenshot 2024-03-04 at 7.33.55 AM.png]]
 
 Now we can do this through Google SDK instead of through the GCP web UI.
+
+There are three ways of submitting a job to DataProc. The first is through the web UI as we just did. Another way is through Google Cloud SDK and the third is through the REST API. In this job, if you go to Job Details, and then Configuration, then Equivalent Rest, you will see this which we will copy:
+![[Screenshot 2024-03-04 at 9.51.23 AM.png]]
+
+At this URL:
+https://cloud.google.com/dataproc/docs/guides/submit-job
+
+Click the gcloud tab:
+![[Screenshot 2024-03-04 at 9.53.52 AM.png]]
+
+So we have:
+
+```bash
+gcloud dataproc jobs submit job-command \
+    --cluster=de-zoomcamp-cluster \
+    --region=us-west1 \
+    gs://mage-zoomcamp-jessica-desilva/code/05_dataproc_cluster_sparksql.py \
+    -- \
+		--input_green='gs://mage-zoomcamp-jessica-desilva/data/pq/green/2020/*/' \
+		--input_yellow='gs://mage-zoomcamp-jessica-desilva/data/pq/yellow/2020/*/' \
+		--output='gs://mage-zoomcamp-jessica-desilva/data/report-2020'
+```
+
+You may need to update permissions on your Service Account to be able to submit jobs. You can do this by adding a Dataproc Administrator role to the service account.
+
+If we use Airflow, you can just use the bash operator above.
