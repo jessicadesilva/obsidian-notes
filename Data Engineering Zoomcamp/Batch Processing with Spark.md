@@ -1237,6 +1237,16 @@ If we use Airflow, you can just use the bash operator above.
 Now we want to look at how we can write the Spark job results to BigQuery. Here is a link to the reference we are using:
 https://cloud.google.com/dataproc/docs/tutorials/bigquery-connector-spark-example#pyspark
 
+First we need to configure out Spark to a GCS bucket that is used as temporary storage while it migrates the data over to BQ. When we created our cluster they created temporary buckets for us already:
+![[Screenshot 2024-03-04 at 1.55.13 PM.png]]
+
+We will specify this in the python script:
+
+```python
+bucket = 'dataproc-temp-us-west1-992306808016-7dbthjaz'
+spark.conf.set('temporaryGcsBucket', bucket)
+```
+
 Instead of writing our file to GCS, we will replace that write line in our Python script with the following:
 ```python
 df_result.write.format('bigquery') \
