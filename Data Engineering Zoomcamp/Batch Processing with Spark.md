@@ -1163,8 +1163,17 @@ In practice, this is how you submit jobs to a Spark cluster. Now that we are don
 ./sbin/stop-master.sh
 ```
 
-* https://cloud.google.com/solutions/spark
-
 # Connecting Spark to a DWH
-* Spark with BigQuery (Athena/presto/hive/etc similar)
+
+Now we will talk about creating a Spark cluster in Google Cloud Platform. To do this, we will be using a service called DataProc (data processing). Start by going to Google Cloud Platform and search for DataProc.
+![[Screenshot 2024-03-04 at 6.58.34 AM.png]]
+
+Then click on Create Cluster:
+![[Screenshot 2024-03-04 at 6.59.28 AM.png]]
+Then it asks which infrastructure service we want to use. Let's select Compute Engine.
+![[Screenshot 2024-03-04 at 7.00.05 AM.png]]
+
+We can name the cluster de-zoomcamp-cluster. Use the same region where the bucket is, for me it is us (multiple regions in United States) and we won't update the zone. In practice, we would go with Standard for the cluster type, but for now let's go with single node (one master and 0 workers). For additional components, let's select Jupyter Notebook and Docker. We won't show how to use Jupyter with DataProc but there are a lot of resources out there for that. Docker also isn't covered in this module. We will go with default on everything else.
+* https://cloud.google.com/solutions/spark
+Spark with BigQuery (Athena/presto/hive/etc similar)
 * Reading from GCP and saving to BG
