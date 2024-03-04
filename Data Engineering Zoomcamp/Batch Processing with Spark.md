@@ -1212,7 +1212,9 @@ There are three ways of submitting a job to DataProc. The first is through the w
 At this URL:
 https://cloud.google.com/dataproc/docs/guides/submit-job
 
-Click the gcloud tab:
+You can see how to use this REST response as a way to submit the job.
+
+For doing this in the terminal, click the gcloud tab:
 ![[Screenshot 2024-03-04 at 9.53.52 AM.png]]
 
 So we have:
