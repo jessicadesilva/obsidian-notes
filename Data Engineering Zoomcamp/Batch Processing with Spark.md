@@ -1180,5 +1180,12 @@ We can name the cluster de-zoomcamp-cluster. Use the same region where the bucke
 We see the cluster showing up in our Compute Engine (below is the master). We won't connect to this for now; connecting would give you access to the master UI.
 
 ![[Screenshot 2024-03-04 at 7.09.34 AM.png]]
-Spark with BigQuery (Athena/presto/hive/etc similar)
-* Reading from GCP and saving to BG
+
+Once it says running, we can create an executor.
+![[Screenshot 2024-03-04 at 7.12.47 AM.png]]
+
+In a previous video, we had to connect to Google Cloud Storage separately since we were using our local environment, but we won't need to do this here since DataProc is automatically connected to GCS.
+
+Click on the cluster (the link de-zoomcamp-cluster) and click SUBMIT JOB:![[Screenshot 2024-03-04 at 7.15.07 AM.png]]
+
+Change the job type to PySpark. We need to upload our python script somewhere, we will upload it to our mage-zoomcamp-jessica-desilva bucket. Create a folder there called code and upload the file there. Make sure your file does not specify master because we want to use the DataProc configuration to process the script.
