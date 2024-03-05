@@ -124,7 +124,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class JsonProducer {
-	public List<Ride> getRides() throws IOException, CSVException {
+	public List<Ride> getRides() throws IOException, CsvException {
 		var ridesStream = this.getClass().getResource("rides.csv");
 		var reader = new CSVReader(new FileReader(ridesStream.getFile()));
 		reader.skip(1);
@@ -132,7 +132,7 @@ public class JsonProducer {
 			.collect(Collectors.toList());
 	}
 	public static void main(String[] args) throws IOException, CsvException {
-		var producer = new JsonProducer()
+		var producer = new JsonProducer();
 		producer.getRides();
 	}
 }
