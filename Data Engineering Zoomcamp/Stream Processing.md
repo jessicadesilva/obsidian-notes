@@ -172,7 +172,7 @@ public JsonProducer(){
 	props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "io.confluent.kafka.serializers.KafkaJsonSerializer");
 }
 
-public void publishRides(List<Ride> rides) {
+public void publishRides(List<Ride> rides) throws ExecutionException, InterruptedException {
 	var kafkaProducer = new KafkaProducer<String, Ride>(props);
 	for(Ride ride: rides) {
 		kafkaProducer.send(new ProducerRecord<>("rides", String.valueOf(ride.PULocationID), ride);
