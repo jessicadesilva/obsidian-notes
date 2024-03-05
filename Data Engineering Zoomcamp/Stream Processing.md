@@ -151,7 +151,7 @@ public JsonProducer(){
 	// coming froming Confluent Cloud Configuration snippet
 	props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "pkc-12576z.us-west2.gcp.confluent.cloud:9092");
 	props.put("security.protocol", "SASL_SSL");
-	props.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username='{{ CLUSTER_API_KEY }}' password='{{ CLUSTER_API_SECRET }}'");
+	props.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username='{{ CLUSTER_API_KEY }}' password='{{ CLUSTER_API_SECRET }}';");
 	props.put("sasl.mechanism", "PLAIN");
 	props.put("session.timeout.ms", "45000");
 	props.put(ProducerConfig.ACKS_CONFIG, "all");
