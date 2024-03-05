@@ -141,7 +141,7 @@ public class JsonProducer {
 The code above seems to just be reading off of a CSV file. Now we will create a method:
 
 ```java
-Properties prop = new Properties();
+Properties props = new Properties();
 
 public JsonProducer(){
 	// coming froming Confluent Cloud
@@ -156,7 +156,9 @@ public JsonProducer(){
 	session.timeout.ms=45000
 	// Best practice for Kafka producer to prevent data loss
 	acks=all
-	prop.put()
+	props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "pkc-12576z.us-west2.gcp.confluent.cloud:9092");
+	props.put("security.protocol", "SASL_SSL");
+	props.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username='{{ CLUSTER_API_KEY }}' password='{{ CLUSTER_API_SECRET }}'");
 }
 
 public void publishRides(list<Ride> rides) {
