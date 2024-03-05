@@ -59,7 +59,7 @@ Now we will create a new directory:
 Now in this folder let's create a subfolder called data. In it, we will include this Java file, called a constructor, which just takes in each data point as a string and parses all of the fields using the respective data types:
 
 ```java
-package org.example.data;
+package org_example.data;
 
 import java.nio.DoubleBuffer;
 import java.time.LocalDate;
