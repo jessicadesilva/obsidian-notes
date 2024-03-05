@@ -173,5 +173,8 @@ Since we don't want to expose our API credentials, you can export CLUSTER_API_KE
 Then we can add the following to our main function:
 
 ```java
+var rides = producer.getRides();
 producer.publishRides(rides);
 ```
+
+In order to run this in VSCode, you need to tell VSCode that this kafka_examples directory is a Java Project.
