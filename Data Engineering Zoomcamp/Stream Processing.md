@@ -129,7 +129,8 @@ import java.util.stream.Collectors;
 
 public class JsonProducer {
 	public List<Ride> getRides() throws IOException, CsvException {
-		var ridesStream = this.getClass().getResource("rides.csv");
+		// pulls from resources folder in main
+		var ridesStream = this.getClass().getResource("/rides.csv");
 		var reader = new CSVReader(new FileReader(ridesStream.getFile()));
 		reader.skip(1);
 		return reader.readAll().stream().map(arr -> new Ride(arr))
