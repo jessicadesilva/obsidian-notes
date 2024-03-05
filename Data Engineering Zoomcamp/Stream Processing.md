@@ -107,4 +107,33 @@ public class Ride {
 ```
 
 
-Now in the example folder we will create a new file called JsonProducer.Java
+Now in the example folder we will create a new file called JsonProducer.Java. Now he seemed to be working off a template, not sure where that came from:
+
+```java
+package org.example;
+
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
+import org.example.data.Ride;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class JsonProducer {
+	public List<Ride> getRides() throws IOException, CSVException {
+		var ridesStream = this.getClass().getResource("rides.csv");
+		var reader = new CSVReader(new FileReader(ridesStream.getFile()));
+		reader.skip(1);
+		return reader.readAll().stream().map(arr -> new Ride(arr))
+			.collect(Collectors.toList());
+	}
+	public static void main(String[] args) throws IOException, CsvException {
+		var producer = new JsonProducer()
+		producer.getRides();
+	}
+}
+```
