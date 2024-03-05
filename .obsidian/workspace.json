@@ -4,83 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "913e57c5f4b30fdf",
+        "id": "e105696d89cdcef1",
         "type": "tabs",
         "children": [
           {
-            "id": "97e367b3852e8cb6",
+            "id": "29fd0f0264e5c1a4",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Data Engineering Zoomcamp/Orchestration.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "4975d7b1a23946d0",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Data Engineering Zoomcamp/Orchestration.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "378ff8450640c0f4",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Data Engineering Zoomcamp/Data Warehouse.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "b38da00e1515fe24",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Data Engineering Zoomcamp/Analytics Engineering.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "595028ec54c3ea2e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Data Engineering Zoomcamp/Data Ingestion with dlt.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "8c5f87b3a8feacbd",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Data Engineering Zoomcamp/Batch Processing with Spark.md",
+                "file": "Data Engineering Zoomcamp/Stream Processing.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 5
+        ]
       }
     ],
     "direction": "vertical"
@@ -130,8 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "0b4de2c0a9bc39db",
@@ -147,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Data Engineering Zoomcamp/Batch Processing with Spark.md",
+                "file": "Data Engineering Zoomcamp/Stream Processing.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -164,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Data Engineering Zoomcamp/Batch Processing with Spark.md",
+                "file": "Data Engineering Zoomcamp/Stream Processing.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -187,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Data Engineering Zoomcamp/Batch Processing with Spark.md"
+                "file": "Data Engineering Zoomcamp/Stream Processing.md"
               }
             }
           }
@@ -208,8 +146,14 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "8c5f87b3a8feacbd",
+  "active": "29fd0f0264e5c1a4",
   "lastOpenFiles": [
+    "Data Engineering Zoomcamp/Stream Processing.md",
+    "Data Engineering Zoomcamp/Orchestration.md",
+    "Data Engineering Zoomcamp/Data Warehouse.md",
+    "Data Engineering Zoomcamp/Analytics Engineering.md",
+    "Data Engineering Zoomcamp/Data Ingestion with dlt.md",
+    "Data Engineering Zoomcamp/Batch Processing with Spark.md",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 1.55.13 PM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 9.53.52 AM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 9.51.23 AM.png",
@@ -220,12 +164,6 @@
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 7.09.34 AM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 7.00.05 AM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 6.59.28 AM.png",
-    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 6.58.34 AM.png",
-    "Data Engineering Zoomcamp/Data Ingestion with dlt.md",
-    "Data Engineering Zoomcamp/Batch Processing with Spark.md",
-    "Data Engineering Zoomcamp/Analytics Engineering.md",
-    "Data Engineering Zoomcamp/Data Warehouse.md",
-    "Data Engineering Zoomcamp/Orchestration.md",
     "Data Engineering Zoomcamp/attachments",
     "Data Engineering Zoomcamp/Introduction to Docker.md",
     "attachments",
