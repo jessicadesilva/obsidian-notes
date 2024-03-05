@@ -48,3 +48,7 @@ Navigate to the Clients tab and create a new client that will be written in Java
 
 In our repo, we will create a folder for week_6_stream_processing and one called kafka_examples. We see that we need this build.gradle file from Confluent Cloud:
 ![[Screenshot 2024-03-04 at 6.50.07 PM.png]]
+
+Now we will create a new directory:
+![[Screenshot 2024-03-04 at 6.52.04 PM.png]]
+
