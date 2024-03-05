@@ -144,24 +144,29 @@ The code above seems to just be reading off of a CSV file. Now we will create a 
 Properties props = new Properties();
 
 public JsonProducer(){
-	// coming froming Confluent Cloud
-	// Required connection configs for Kafka producer, consumer, and admin bootstrap.
-	servers=pkc-12576z.us-west2.gcp.confluent.cloud:9092
-	security.protocol=SASL_SSL
-	sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username='{{ CLUSTER_API_KEY }}' password='{{ CLUSTER_API_SECRET }}';
-	sasl.mechanism=PLAIN
-	// Required for correctness in Apache Kafka clients prior to 2.6
-	client.dns.lookup=use_all_dns_ips
-	// Best practice for higher availability in Apache Kafka clients prior to 3.0
-	session.timeout.ms=45000
-	// Best practice for Kafka producer to prevent data loss
-	acks=all
+	// coming froming Confluent Cloud Configuration snippet
 	props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "pkc-12576z.us-west2.gcp.confluent.cloud:9092");
 	props.put("security.protocol", "SASL_SSL");
 	props.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username='{{ CLUSTER_API_KEY }}' password='{{ CLUSTER_API_SECRET }}'");
+	props.put("sasl.mechanism", "PLAIN");
+	props.put("session.timeout.ms", "45000");
+	props.put(ProducerConfig.ACKS_CONFIG, "all");
+	props.put(ProducerConfig.KEY_SERIALIZED_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+	props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "io.confluent.kafka.serializers.KafkaJsonSerializer");
 }
 
 public void publishRides(list<Ride> rides) {
-
+	var kafkaProducer = new KafkaProducer<String, Ride>(props);
+	for(Ride ride: rides) {
+		kafkaProducer.send(new ProducerRecord<>("rides", String.valueOf(ride.PULocationID), ride);
+	}
 }
+```
+
+Since we don't want to expose our API credentials, you can export CLUSTER_API_KEY to be the username from that key .txt file we downloaded and the CLUSTER_API_SECRET similarly.
+
+Then we can add the following to our main function:
+
+```java
+producer.publishRides(rides);
 ```
