@@ -45,3 +45,6 @@ Let's create a rides topic in Confluent Cloud with 2 partitions with a retention
 Navigate to the Clients tab and create a new client that will be written in Java.
 
 ![[Screenshot 2024-03-04 at 6.31.51 PM.png]]
+
+In our repo, we will create a folder for week_6_stream_processing and one called kafka_examples. We see that we need this build.gradle file from Confluent Cloud:
+![[Screenshot 2024-03-04 at 6.50.07 PM.png]]
