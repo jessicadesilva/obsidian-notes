@@ -125,9 +125,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
+import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.streams.StreamsConfig;
+
 public class JsonProducer {
+
 	public List<Ride> getRides() throws IOException, CsvException {
 		// pulls from resources folder in main
 		var ridesStream = this.getClass().getResource("/rides.csv");
