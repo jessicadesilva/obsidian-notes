@@ -59,7 +59,7 @@ Now we will create a new directory:
 Now in this folder let's create a subfolder called data. In it, we will include this Java file, called a constructor, which just takes in each data point as a string and parses all of the fields using the respective data types:
 
 ```java
-package org_example.data;
+package org.example.data;
 
 import java.nio.DoubleBuffer;
 import java.time.LocalDate;
@@ -160,7 +160,7 @@ public JsonProducer(){
 	props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "io.confluent.kafka.serializers.KafkaJsonSerializer");
 }
 
-public void publishRides(list<Ride> rides) {
+public void publishRides(List<Ride> rides) {
 	var kafkaProducer = new KafkaProducer<String, Ride>(props);
 	for(Ride ride: rides) {
 		kafkaProducer.send(new ProducerRecord<>("rides", String.valueOf(ride.PULocationID), ride);
