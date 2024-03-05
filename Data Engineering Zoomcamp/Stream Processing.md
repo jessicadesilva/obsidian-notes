@@ -185,7 +185,6 @@ Since we don't want to expose our API credentials, you can export CLUSTER_API_KE
 Then we can add the following to our main function:
 
 ```java
-var rides = producer.getRides();
 producer.publishRides(rides);
 ```
 
