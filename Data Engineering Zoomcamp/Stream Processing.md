@@ -155,7 +155,7 @@ public JsonProducer(){
 	props.put("sasl.mechanism", "PLAIN");
 	props.put("session.timeout.ms", "45000");
 	props.put(ProducerConfig.ACKS_CONFIG, "all");
-	props.put(ProducerConfig.KEY_SERIALIZED_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+	props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
 	props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "io.confluent.kafka.serializers.KafkaJsonSerializer");
 }
 
