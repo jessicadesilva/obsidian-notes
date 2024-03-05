@@ -40,4 +40,8 @@ Now pause this connector so that it doesn't use up all your credits.
 # Kafka producer consumer
 In this video, we are going to produce messages programmatically to Kafka using the taxi rides data. We are going to use Java as a programming language since Kafka libraries are well-maintained for Java and Python isn't as well-maintained.
 
-Let's create a rides topic in Confluent Cloud with 2 partitions.
+Let's create a rides topic in Confluent Cloud with 2 partitions with a retention time of 1 day.
+
+Navigate to the Clients tab and create a new client that will be written in Java.
+
+![[Screenshot 2024-03-04 at 6.31.51 PM.png]]
