@@ -118,7 +118,7 @@ package org.example;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
-import org.example.data.Ride;
+import org_example.data.Ride;
 
 import java.io.File;
 import java.io.FileNotFoundException;
