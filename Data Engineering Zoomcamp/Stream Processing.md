@@ -143,9 +143,9 @@ public class JsonProducer {
 			.collect(Collectors.toList());
 	}
 	
-	public static void main(String[] args) throws IOException, CsvException {
+	public static void main(String[] args) throws IOException, CsvException, ExecutionException, InterruptedException {
 		var producer = new JsonProducer();
-		producer.getRides();
+		var rides = producer.getRides();
 	}
 	
 }
