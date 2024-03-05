@@ -142,10 +142,12 @@ public class JsonProducer {
 		return reader.readAll().stream().map(arr -> new Ride(arr))
 			.collect(Collectors.toList());
 	}
+	
 	public static void main(String[] args) throws IOException, CsvException {
 		var producer = new JsonProducer();
 		producer.getRides();
 	}
+	
 }
 ```
 
