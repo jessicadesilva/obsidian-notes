@@ -33,3 +33,4 @@ Now if we click on the message we can see the key, value, and timestamp.
 Now let's create a dummy connector (Datagen Source).
 ![[Screenshot 2024-03-04 at 5.45.24 PM.png]]
 
+Set the output record format to JSON and the ORDERS template.
