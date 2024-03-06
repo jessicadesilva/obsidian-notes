@@ -288,3 +288,13 @@ a consumer group was consuming from a topic that had a partition size of 1. Now 
 **What was ACK.ALL?** This is from the producer side, and it stands for **acknowledgement all**. There are different options for ACK.ALL: 0 - (fire and forget) means it sends a message to the leader node and it doesn't check that the message was delivered to the reader, 1 (leader successful) so the message has to be converted into the log of the leader before it returns success to the producer, all (leader + follower successful) the producer waits for the leader and all followers have written the message to their respective logs before sending a success to the producer. If you are using all, then at least one delivery will be guaranteed since even if a leader goes down the follower definitely has the message. But this is slow. Which one you want to use depends on how sure you want to be that your messages are delivered.
 
 But this is not it! There are more configurations that Kafka provides. Feel free to go through the documentation on the kafka website.
+
+# Kafka Streams Basics
+
+In this example, we will see how keys play an important. role when messages are outputted through Kafka.
+
+Let's start by making a new class called JsonKStream:
+
+```java
+
+```
