@@ -608,3 +608,5 @@ public Topology createTopology() {
 ```
 
 Then make sure our main class throws InterruptedException (from joinRidesPickupLocation method).
+
+Now when we run the two producers and this new stream we have some messages being produced through out new 
