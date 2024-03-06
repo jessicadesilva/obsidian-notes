@@ -375,7 +375,7 @@ We need to add a few more properties:
 ```java
 // like a group ID
 props.put(StreamsConfig.APPLICATION_ID_CONFIG, "kafka_tutorial.kstream.count.plocation.v1");
-props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "lastest");
+props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 props.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, 0);
 ```
 
@@ -401,4 +401,10 @@ var kStreams = new KafkaStreams(streamsBuilder.build(), props);
 kStreams.start();
 
 Runtime.getRuntime().addShutdownHook(new Thread(kStreams::close));
+```
+
+And let's update our main function to include the following:
+```java
+var object = new JsonKStream();
+object.countPLocation();
 ```
