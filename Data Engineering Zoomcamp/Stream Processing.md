@@ -589,13 +589,19 @@ public Topology createTopology() {
 	KStream<String, PickupLocation> pickupLocations = streamsBuilder.stream(INPUT_RIDE_LOCATION, Consumed.with(Serdes.String(), CustomSerdes.getPickupLocationSerde()));
 	
 	var pickupLoactionsKeyedOnPUId = pickup.Locations.selectKey((key, value) -> String.valueOf(valule.PULocationID));
-	rides.join(pickupLocationsKeyedOnPUId, new Value Joiner<Ride, PickupLocation, Object>() {
-	@Override
-	public Object apply(Ride ride, PickupLocation pickupLocation) {
-		return ;
-	}
-	
-	})
+	var joined = rides.join(pickupLocationsKeyedOnPUId, (ValueJoiner<Ride, PickupLocation, Optional <VendorInfo>>) (ride, pickupLocation) -> {
+		// time elapsed between calls
+		var period = Duration.between(ride.tpep_dropoff_datetime, pickupLocation.tpep_pickup_datetime);
+		// Optional is wrapper around null
+		if(period.abs().toMinutes() > 10) return Optional.empty();
+		else Optional.of(new VendorInfo(ride.VendorID, pickupLocationID.PULocationID, pickupLocation.tpep_pickup_datetime, ride.tpep_dropoff_datetime));
+	},
+		JoinWindows.ofTimeDifferenceAndGrace(Duration.ofMinutes(20), Duration.ofMinutes(5)),
+	StreamJoined.with(Serdes.String(), CustomSerdes.getRideSerdes(), CustomSerdes.getPickupLocationSerde()));
 
+	joined.filter(((key, value) -> value.isPresent())).mapValues(Optional::get).to(OUTPUT_TOPIC, Produced.with(Serdes.String(), CustomSerdes.getVendorSerde()));
+
+	// returns the topology
+	return streamsBuilder.builder();
 }
 ```
