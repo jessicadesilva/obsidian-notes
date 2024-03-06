@@ -368,4 +368,27 @@ public static void main(String[] args) {
 
 What we are seeing in the getJsonSerde method is the creation of a SerDe which stands for serializer/deserializer. A **serializer** refers to a component responsible for converting data from its native format (such as Java objects) into a format that can be transmitted and stored in Kafka topics. Similarly, a **deserializer** converts Kafka messages back into their native formats.
 
-When we create the serde we create a hash map from the Ride class. Then we tell it to use a json serializer/deserializer. 
+When we create the serde we create a hash map from the Ride class. Then we tell it to use a json serializer/deserializer.
+
+We need to add a few more properties:
+
+```java
+// like a group ID
+props.put(StreamsConfig.APPLICATION_ID_CONFIG, "kafka_tutorial.kstream.count.plocation.v1");
+props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "lastest");
+props.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, 0);
+```
+
+And let's fill in our countPLocation method:
+
+```java
+public void countPLocation() {
+
+	StreamsBuilder streamsBuilder = new StreamsBuilder();
+	// returns a kafka stream
+	var kstream = streamsBuilder.stream("rides", Consumed.with(Serdes.String(), getJsonSerde()));
+	var kCountStream = kstream.groupByKey().count().toStream();
+	kCountStream.to("rides-pulocation-count", Produced.with(Serdes.String(), Serdes.Long()));
+
+}
+```
