@@ -191,7 +191,7 @@ producer.publishRides(rides);
 
 In order to run this in VSCode, you need to tell VSCode that this kafka_examples directory is a Java Project.
 
-Now let's create a JsonConsumer in our data folder starting with this outline borrowed from the JsonProducer file swapping out ProducerConfig with ConsumerConfig.
+Now let's create a JsonConsumer in our example folder starting with this outline borrowed from the JsonProducer file swapping out ProducerConfig with ConsumerConfig.
 
 ```java
 package org.example;
