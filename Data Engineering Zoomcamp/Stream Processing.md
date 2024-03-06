@@ -176,6 +176,7 @@ public void publishRides(List<Ride> rides) throws ExecutionException, Interrupte
 	var kafkaProducer = new KafkaProducer<String, Ride>(props);
 	for(Ride ride: rides) {
 		kafkaProducer.send(new ProducerRecord<>("rides", String.valueOf(ride.PULocationID), ride);
+		Thread.sleep(500);
 	}
 }
 ```
@@ -190,7 +191,7 @@ producer.publishRides(rides);
 
 In order to run this in VSCode, you need to tell VSCode that this kafka_examples directory is a Java Project.
 
-Now let's create a JsonConsumer in our data folder starting with this outline borrowed from the JsonProducer file:
+Now let's create a JsonConsumer in our data folder starting with this outline borrowed from the JsonProducer file swapping out ProducerConfig with ConsumerConfig.
 
 ```java
 package org.example;
@@ -201,10 +202,57 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import java.util.Properties;
 
 public class JsonConsumer {
+	// make private
+	private Properties props = new Properties();
 
+	public JsonConsumer(){
+		// read in environment variables
+		String userName = System.getenv("CLUSTER_API_KEY");
+		String passWord = System.getenv("CLUSTER_API_SECRET");
+		
+		// coming froming Confluent Cloud Configuration snippet
+		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "pkc-12576z.us-west2.gcp.confluent.cloud:9092");
+		props.put("security.protocol", "SASL_SSL");
+		props.put("sasl.jaas.config", String.format("org.apache.kafka.common.security.plain.PlainLoginModule required username='%s' password='%s';", userName, passWord));
+		props.put("sasl.mechanism", "PLAIN");
+		props.put("session.timeout.ms", "45000");
+		// ACKS removed for Consumer
+		
+		// de-serialization for Consumer
+		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
+		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "io.confluent.kafka.serializers.KafkaJsonDeserializer");
+
+		props.put(ConsumerConfig.GROUP_ID_CONFIG, "kafka_tutorial_example.jsonconsumer");
+		// subscribe to the topic
+		consumer.subscribe(List.of("rides"));
+	}
 	public static void main(String[] args) {
 
 	}
 
 }
+```
+
+Now that we have our properties set up, let's set up our consumer method in the JsonConsumer class:
+
+```java
+private KafkaConsumer<String, Ride> consumer;
+
+public void consumeFromKafka() {
+	var results = consumer.poll(Duration.of(1, ChronoUnit.SECONDS));
+	do {
+		for(ConsumerRecord<string, Ride> result: results) {
+			System.out.println(result.value().DOLocationID);
+		}
+		results = consumer.poll(Duration.of(1, ChronoUnit.SECONDS));
+	}
+	while(!results.isEmpty());
+}
+```
+
+And then we call this method in the main method:
+
+```java
+JsonConsumer jsonConsumer = new JsonConsumer();
+jsonConsumer.consumeFromKafka();
 ```
