@@ -293,7 +293,7 @@ But this is not it! There are more configurations that Kafka provides. Feel free
 
 In this example, we will see how keys play an important. role when messages are outputted through Kafka.
 
-Let's start by making a new class called JsonKStream:
+Let's start by making a new class called JsonKStream which will be a Kafka Stream application. We have rides coming in from our topic and we are going to group these by key, which is the PULocationID. Then we count it and sent the count over to a new topic called rides-pulocation-count.
 
 ```java
 // imports
@@ -428,3 +428,5 @@ public void publishRides(List<Ride> rides) throws ExecutionException, Interrupte
 ```
 
 Now when we have both the JsonProducer and the JsonKStream going we can see that the rides-pulocation-count topic is being sent messages.
+
+In this example, we have 1 app that is receiving messages from both partitions. In the case where we have two apps, each partition will send messages to a unique app. So then the counts for the individual apps might be wrong if the partitions don't have all the messages for a given key. So how does Kafka solve this problem? When the producer is writing to Kafka (e.g., our rides topic) it is writing to different partitions and it will **hash** the key and **modulo** it by the partition count to determine which partition it should be sent to. That means the producer makes sure that a partition receives all messages for a given key. When the key is null then it will just round-robin the message throughout the different partitions. This way the data sizes are always equal for each partition (assuming there is an equal number of events for each key).
