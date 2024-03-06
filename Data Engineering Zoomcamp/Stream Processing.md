@@ -606,3 +606,5 @@ public Topology createTopology() {
 	return streamsBuilder.build();
 }
 ```
+
+Then make sure our main class throws InterruptedException (from joinRidesPickupLocation method).
