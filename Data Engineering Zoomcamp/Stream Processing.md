@@ -579,3 +579,23 @@ Runtime.getRuntime().addShutdownHook(new Thread(kStreams::close));
 
 }
 ```
+Now let's build a topology.
+
+```java
+public Topology createTopology() {
+	// need streambuilder and data from input topic(s)
+	StreamsBuilder streamsBuilder = new StreamsBuilder();
+	KStream<String, Ride> rides = streamsBuilder.stream(INPUT_RIDE_TOPIC, Consumed.with(Serdes.String(), CustomSerdes.getRideSerdes()));
+	KStream<String, PickupLocation> pickupLocations = streamsBuilder.stream(INPUT_RIDE_LOCATION, Consumed.with(Serdes.String(), CustomSerdes.getPickupLocationSerde()));
+	
+	var pickupLoactionsKeyedOnPUId = pickup.Locations.selectKey((key, value) -> String.valueOf(valule.PULocationID));
+	rides.join(pickupLocationsKeyedOnPUId, new Value Joiner<Ride, PickupLocation, Object>() {
+	@Override
+	public Object apply(Ride ride, PickupLocation pickupLocation) {
+		return ;
+	}
+	
+	})
+
+}
+```
