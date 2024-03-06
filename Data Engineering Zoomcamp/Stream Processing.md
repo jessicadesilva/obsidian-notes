@@ -223,7 +223,7 @@ public class JsonConsumer {
 		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "io.confluent.kafka.serializers.KafkaJsonDeserializer");
 
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "java-group-1");
-		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest")
+		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 		// subscribe to the topic
 		consumer.subscribe(List.of("rides"));
 	}
@@ -242,7 +242,7 @@ private KafkaConsumer<String, Ride> consumer;
 public void consumeFromKafka() {
 	var results = consumer.poll(Duration.of(1, ChronoUnit.SECONDS));
 	do {
-		for(ConsumerRecord<string, Ride> result: results) {
+		for(ConsumerRecord<String, Ride> result: results) {
 			System.out.println(result.value().DOLocationID);
 		}
 		results = consumer.poll(Duration.of(1, ChronoUnit.SECONDS));
