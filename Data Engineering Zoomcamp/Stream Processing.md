@@ -268,3 +268,15 @@ And then we call this method in the main method:
 JsonConsumer jsonConsumer = new JsonConsumer();
 jsonConsumer.consumeFromKafka();
 ```
+
+# Kafka Configuration
+We see in the previous section that there is a lot of terminology that is involved in configuring Kafka. Here we will dive into the theory behind all of this.
+
+**What is a Kafka cluster?** Just nodes or machines running Kafka that are talking to each other in a network using some communication protocol. Earlier on, **zookeeper** was used for communication, zookeeper was used for topics (what are the topics exist/ have been created, the partitions or retention for the topic, etc.). Now Kafka uses Kafka's internals and so the topic itself stores all of that information and that is what is used for the nodes to communication with each other.
+
+**What is a topic?** A topic is just a sequence of events coming in. An event / message has a key, value, and timestamp (type long) and these are released by our Kafka Producer.
+
+**How does a cluster provide reliability in Kafka?** A topic exists on one of the clusters (let's say Node 1 of nodes 0, 1, 2). If Node 1 goes down, the cluster rebalances and there is only Node 0 and Node 2 but the topic itself is gone. Then all the producers that produce to that topic will stop and consumers will also stop consuming from that topic. This is obviously bad, so this is where the concept of **replication** comes in. The topic is replicated in some number of nodes, for example let's say there are two nodes that contain a copy of the topic. In this case, one of the nodes is designated a leader and the others are followers. The log for the message will be saved in the leader node and duplicated in the follower nodes. The producers and consumers will talk to the leader. Now if the leader dies, the producers and consumers won't notice a difference (maybe a delay) as they will instead then directly connect to a follower. Then that follower node becomes a leader and since the cluster knew it wanted a replication of 2 for that topic then it will select one of the other nodes to become a follower so that replication still exists.
+
+
+
