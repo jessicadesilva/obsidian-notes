@@ -437,6 +437,12 @@ We will set up two topics where the data can be joined and we will build a topol
 
 Recall that the rides topic key was the Drop-off location ID. In Kafka, you can only do joins on the key of a message. So we will create another topic, called the pickup-location, with the same key but different message (this one will send the pickup location). Then we will join these on their keys (PU location ID) with a Kafka stream application.
 
+First, let's create the second producer which will send out the messages for the pickup location topic.
+
+```java
+
+```
+
 Create a new class called JsonKStreamJoins with the same Streams configuration as our JsonKStreams class.
 
 Here are our imports:
@@ -490,9 +496,14 @@ props.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, 0);
 }
 ```
 
-Then we will create two methods:
+Then we will create two methods and include some inputs:
 
 ```java
+
+private static final String INPUT_RIDE_TOPIC = "rides";
+private static final String INPUT_RIDE_LOCATION_TOPIC = "rides_location";
+private static final String OUTPUT_TOPIC = "vendor_info";
+
 // next video will talk about topology
 public Topology createTopology() {
 
