@@ -195,17 +195,19 @@ Now let's create a JsonConsumer in our example folder starting with this outline
 
 ```java
 package org.example;
-
+  
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.example.data.Ride;
 
 import java.time.temporal.ChronoUnit;
 import java.time.*;
 import java.util.List;
 import java.util.Properties;
+
+import io.confluent.kafka.serializers.KafkaJsonDeserializerConfig;
 
 public class JsonConsumer {
 	// make private
