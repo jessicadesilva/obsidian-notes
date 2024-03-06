@@ -426,3 +426,5 @@ public void publishRides(List<Ride> rides) throws ExecutionException, Interrupte
 	}
 }
 ```
+
+Now when we have both the JsonProducer and the JsonKStream going we can see that the rides-pulocation-count topic is being sent messages.
