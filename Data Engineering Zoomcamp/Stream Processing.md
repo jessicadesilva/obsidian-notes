@@ -212,6 +212,7 @@ import io.confluent.kafka.serializers.KafkaJsonDeserializerConfig;
 public class JsonConsumer {
 	// make private
 	private Properties props = new Properties();
+	private KafkaConsumer<String, Ride> consumer;
 
 	public JsonConsumer(){
 		// read in environment variables
@@ -232,6 +233,9 @@ public class JsonConsumer {
 
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "java-group-1");
 		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+		// new consumer
+		consumer = new KafkaConsumer<String, Ride>(props);
+		
 		// subscribe to the topic
 		consumer.subscribe(List.of("rides"));
 	}
@@ -248,14 +252,13 @@ Now that we have our properties set up, let's set up our consumer method in the 
 private KafkaConsumer<String, Ride> consumer;
 
 public void consumeFromKafka() {
-	var results = consumer.poll(Duration.of(1, ChronoUnit.SECONDS));
-	do {
+	System.out.println("Consuming form kafka started");
+	while(true){
+		var results = consumer.poll(Duration.of(1, ChronoUnit.SECONDS));
 		for(ConsumerRecord<String, Ride> result: results) {
 			System.out.println(result.value().DOLocationID);
 		}
-		results = consumer.poll(Duration.of(1, ChronoUnit.SECONDS));
 	}
-	while(!results.isEmpty());
 }
 ```
 
