@@ -408,3 +408,21 @@ And let's update our main function to include the following:
 var object = new JsonKStream();
 object.countPLocation();
 ```
+
+We updated our publishRides method in the JsonProducer class to the following:
+
+```java
+public void publishRides(List<Ride> rides) throws ExecutionException, InterruptedException {
+	KafkaProducer<String, Ride> kafkaProducer = new KafkaProducer<String, Ride>(props);
+	for(Ride ride: rides) {
+		ride.tpep_pickup_datetime = LocalDateTime.now().minusMinutes(20);
+		ride.tpep_dropoff_datetime = LocalDateTime.now();
+		var record = kafkaProducer.send(new ProducerRecord<>("rides", String.valueOf(ride.PULocationID), ride), (metadata, exception) -> {
+			if(exception != null) {
+				System.out.println(exception.getMessage());
+			}
+		});
+		Thread.sleep(500);
+	}
+}
+```
