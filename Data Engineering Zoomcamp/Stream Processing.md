@@ -386,11 +386,19 @@ public void countPLocation() {
 
 	StreamsBuilder streamsBuilder = new StreamsBuilder();
 	// returns a kafka stream
-	var kstream = streamsBuilder.stream("rides", Consumed.with(Serdes.String(), getJsonSerde()));
-	var kCountStream = kstream.groupByKey().count().toStream();
-	kCountStream.to("rides-pulocation-count", Produced.with(Serdes.String(), Serdes.Long()));
+	var ridesStream = streamsBuilder.stream("rides", Consumed.with(Serdes.String(), getJsonSerde()));
+	var puLocationCount = ridesStream.groupByKey().count().toStream();
+	puLocationCount.to("rides-pulocation-count", Produced.with(Serdes.String(), Serdes.Long()));
 
 }
 ```
 
 In Confluent Cloud, go ahead and create the rides-pulocation-count topic.
+
+We need to add a few more things to our countPLocation method:
+```java
+var kStreams = new KafkaStreams(streamsBuilder.build(), props);
+kStreams.start();
+
+Runtime.getRuntime().addShutdownHook(new Thread(kStreams::close));
+```
