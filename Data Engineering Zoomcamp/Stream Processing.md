@@ -587,9 +587,9 @@ public Topology createTopology() {
 	// need streambuilder and data from input topic(s)
 	StreamsBuilder streamsBuilder = new StreamsBuilder();
 	KStream<String, Ride> rides = streamsBuilder.stream(INPUT_RIDE_TOPIC, Consumed.with(Serdes.String(), CustomSerdes.getRideSerdes()));
-	KStream<String, PickupLocation> pickupLocations = streamsBuilder.stream(INPUT_RIDE_LOCATION, Consumed.with(Serdes.String(), CustomSerdes.getPickupLocationSerde()));
+	KStream<String, PickupLocation> pickupLocations = streamsBuilder.stream(INPUT_RIDE_LOCATION_TOPIC, Consumed.with(Serdes.String(), CustomSerdes.getPickupLocationSerde()));
 	
-	var pickupLoactionsKeyedOnPUId = pickup.Locations.selectKey((key, value) -> String.valueOf(valule.PULocationID));
+	var pickupLocationsKeyedOnPUId = pickupLocations.selectKey((key, value) -> String.valueOf(value.PULocationID));
 	var joined = rides.join(pickupLocationsKeyedOnPUId, (ValueJoiner<Ride, PickupLocation, Optional <VendorInfo>>) (ride, pickupLocation) -> {
 		// time elapsed between calls
 		var period = Duration.between(ride.tpep_dropoff_datetime, pickupLocation.tpep_pickup_datetime);
