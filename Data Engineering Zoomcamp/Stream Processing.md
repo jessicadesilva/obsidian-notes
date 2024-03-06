@@ -439,3 +439,85 @@ Recall that the rides topic key was the Drop-off location ID. In Kafka, you can 
 
 Create a new class called JsonKStreamJoins with the same Streams configuration as our JsonKStreams class.
 
+Here are our imports:
+
+```java
+package org.example;
+
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.streams.KafkaStreams;
+import org.apache.kafka.streams.StreamsBuilder;
+import org.apache.kafka.streams.StreamsConfig;
+import org.apache.kafka.streams.Topology;
+import org.apache.kafka.streams.errors.StreamsUncaughtExceptionHandler;
+import org.apache.kafka.streams.kstream.*;
+import org.example.customserdes.CustomSerdes;
+import org.example.data.PickupLocation;
+import org.example.data.Ride;
+import org.example.data.VendorInfo;
+
+import java.time.Duration;
+import java.util.Optional;
+import java.util.Properties;
+```
+
+Here is the skeleton of our class with the application ID updated:
+
+```java
+public class JsonKStreamJoins {
+
+	private Properties props = new Properties();
+
+	public JsonKStreamJoins() {
+		String userName = System.getenv("CLUSTER_API_KEY");
+		String passWord = System.getenv("CLUSTER_API_SECRET");
+		String bootstrapServer = System.getenv("BOOTSTRAP_SERVER");
+		props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
+		props.put("security.protocol", "SASL_SSL");
+		props.put("sasl.jaas.config", String.format("org.apache.kafka.common.security.plain.PlainLoginModule required username='%s' password='%s';", userName, passWord));
+		props.put("sasl.mechanism", "PLAIN");
+		props.put("client.dns.lookup", "use_all_dns_ips");
+		props.put("session.timeout.ms", "45000");
+		// update application id
+		props.put(StreamsConfig.APPLICATION_ID_CONFIG, "kafka_tutorial.kstream.join.v20");
+props.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, 0);
+	}
+	
+	public static void main(String[] args) {
+		var object = new JsonKStreamJoins();
+	}
+}
+```
+
+Then we will create two methods:
+
+```java
+// next video will talk about topology
+public Topology createTopology() {
+
+}
+
+public void joinRidesPickupLocation() throws InterruptedException {
+
+	var topology = createTopology();
+	var kStreams = new KafkaStreams(topology, props);
+	// catching exceptions
+	kStreams.setUncaughtExceptionHandler(exception -> {
+	System.out.println(exception.getMessage());
+	return StreamsUncaughtExceptionHandler.StreamThreadExceptionResponse.SHUTDOWN_APPLICATION;
+	});
+	//starting the stream
+	kStreams.start();
+	
+	while (kStreams.start() != KafkaStreams.State.RUNNING) {
+	System.out.println(kStreams.state());
+	Thread.sleep(1000);
+	}
+	
+System.out.println(kStreams.state());
+
+Runtime.getRuntime().addShutdownHook(new Thread(kStreams::close));
+
+}
+```
