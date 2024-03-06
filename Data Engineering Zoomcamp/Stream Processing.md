@@ -586,8 +586,8 @@ Now let's build a topology.
 public Topology createTopology() {
 	// need streambuilder and data from input topic(s)
 	StreamsBuilder streamsBuilder = new StreamsBuilder();
-	KStream<String, Ride> rides = streamsBuilder.stream(INPUT_RIDE_TOPIC, Consumed.with(Serdes.String(), CustomSerdes.getRideSerdes()));
-	KStream<String, PickupLocation> pickupLocations = streamsBuilder.stream(INPUT_RIDE_LOCATION_TOPIC, Consumed.with(Serdes.String(), CustomSerdes.getPickupLocationSerde()));
+	KStream<String, Ride> rides = streamsBuilder.stream(INPUT_RIDE_TOPIC, Consumed.with(Serdes.String(), CustomSerdes.getSerde(Ride.class)));
+	KStream<String, PickupLocation> pickupLocations = streamsBuilder.stream(INPUT_RIDE_LOCATION_TOPIC, Consumed.with(Serdes.String(), CustomSerdes.getSerde(PickupLocation.class)));
 	
 	var pickupLocationsKeyedOnPUId = pickupLocations.selectKey((key, value) -> String.valueOf(value.PULocationID));
 	var joined = rides.join(pickupLocationsKeyedOnPUId, (ValueJoiner<Ride, PickupLocation, Optional <VendorInfo>>) (ride, pickupLocation) -> {
@@ -600,7 +600,7 @@ public Topology createTopology() {
 		JoinWindows.ofTimeDifferenceAndGrace(Duration.ofMinutes(20), Duration.ofMinutes(5)),
 	StreamJoined.with(Serdes.String(), CustomSerdes.getRideSerdes(), CustomSerdes.getPickupLocationSerde()));
 
-	joined.filter(((key, value) -> value.isPresent())).mapValues(Optional::get).to(OUTPUT_TOPIC, Produced.with(Serdes.String(), CustomSerdes.getVendorSerde()));
+	joined.filter(((key, value) -> value.isPresent())).mapValues(Optional::get).to(OUTPUT_TOPIC, Produced.with(Serdes.String(), CustomSerdes.getSerde(VendorInfo.class)));
 
 	// returns the topology
 	return streamsBuilder.build();
