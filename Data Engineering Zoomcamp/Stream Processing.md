@@ -598,7 +598,7 @@ public Topology createTopology() {
 		else Optional.of(new VendorInfo(ride.VendorID, pickupLocation.PULocationID, pickupLocation.tpep_pickup_datetime, ride.tpep_dropoff_datetime));
 	},
 		JoinWindows.ofTimeDifferenceAndGrace(Duration.ofMinutes(20), Duration.ofMinutes(5)),
-	StreamJoined.with(Serdes.String(), CustomSerdes.getRideSerdes(), CustomSerdes.getPickupLocationSerde()));
+	StreamJoined.with(Serdes.String(), CustomSerdes.getSerde(Ride.class), CustomSerdes.getSerde(PickupLocation.class)));
 
 	joined.filter(((key, value) -> value.isPresent())).mapValues(Optional::get).to(OUTPUT_TOPIC, Produced.with(Serdes.String(), CustomSerdes.getSerde(VendorInfo.class)));
 
