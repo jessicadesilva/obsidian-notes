@@ -595,7 +595,7 @@ public Topology createTopology() {
 		var period = Duration.between(ride.tpep_dropoff_datetime, pickupLocation.tpep_pickup_datetime);
 		// Optional is wrapper around null
 		if(period.abs().toMinutes() > 10) return Optional.empty();
-		else Optional.of(new VendorInfo(ride.VendorID, pickupLocationID.PULocationID, pickupLocation.tpep_pickup_datetime, ride.tpep_dropoff_datetime));
+		else Optional.of(new VendorInfo(ride.VendorID, pickupLocation.PULocationID, pickupLocation.tpep_pickup_datetime, ride.tpep_dropoff_datetime));
 	},
 		JoinWindows.ofTimeDifferenceAndGrace(Duration.ofMinutes(20), Duration.ofMinutes(5)),
 	StreamJoined.with(Serdes.String(), CustomSerdes.getRideSerdes(), CustomSerdes.getPickupLocationSerde()));
@@ -603,6 +603,6 @@ public Topology createTopology() {
 	joined.filter(((key, value) -> value.isPresent())).mapValues(Optional::get).to(OUTPUT_TOPIC, Produced.with(Serdes.String(), CustomSerdes.getVendorSerde()));
 
 	// returns the topology
-	return streamsBuilder.builder();
+	return streamsBuilder.build();
 }
 ```
