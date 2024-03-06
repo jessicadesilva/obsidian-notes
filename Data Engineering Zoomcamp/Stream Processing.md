@@ -435,7 +435,7 @@ In this example, we have 1 app that is receiving messages from both partitions. 
 
 We will set up two topics where the data can be joined and we will build a topology (Kafka stream application) to do the join.
 
-Recall that the rides topic key was the Drop-off location ID. In Kafka, you can only do joins on the key of a message. So we will create another topic, called the pickup-location, with the same key but different message (this one will send the pickup location). Then we will join these on their keys (PU location ID) with a Kafka stream application.
+Recall that the rides topic key was the Drop-off location ID. In Kafka, you can only do joins on the key of a message. So we will create another topic, called the pickup-location, with the same key but different message (this one will send the pickup location). Then we will join these on their keys (PU location ID) with a Kafka stream application. Note that when you are going to join two topics, they need to have the same partition count in order for the keys to match.
 
 First, let's create the second producer which will send out the messages for the pickup location topic.
 
