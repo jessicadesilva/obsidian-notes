@@ -437,7 +437,7 @@ We will set up two topics where the data can be joined and we will build a topol
 
 Recall that the rides topic key was the Drop-off location ID. In Kafka, you can only do joins on the key of a message. So we will create another topic, called the pickup-location, with the same key but different message (this one will send the pickup location). Then we will join these on their keys (PU location ID) with a Kafka stream application. Note that when you are going to join two topics, they need to have the same partition count in order for the keys to match.
 
-First, let's create the second producer which will send out the messages for the pickup location topic.
+First, let's create the second producer which will send out the messages for the rides_location topic (both using the class below and also setting it up in Confluent Cloud).
 
 ```java
 package org.example;
@@ -609,4 +609,5 @@ public Topology createTopology() {
 
 Then make sure our main class throws InterruptedException (from joinRidesPickupLocation method).
 
-Now when we run the two producers and this new stream we have some messages being produced through out new 
+Now when we run the two producers and this new stream we have some messages being produced through out new kafka_tutorial_kstream.joined.rides.pickuplocation.v1 topic.![[Screenshot 2024-03-06 at 8.44.45 AM.png]]
+
