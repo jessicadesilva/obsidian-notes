@@ -430,3 +430,12 @@ public void publishRides(List<Ride> rides) throws ExecutionException, Interrupte
 Now when we have both the JsonProducer and the JsonKStream going we can see that the rides-pulocation-count topic is being sent messages.
 
 In this example, we have 1 app that is receiving messages from both partitions. In the case where we have two apps, each partition will send messages to a unique app. So then the counts for the individual apps might be wrong if the partitions don't have all the messages for a given key. So how does Kafka solve this problem? When the producer is writing to Kafka (e.g., our rides topic) it is writing to different partitions and it will **hash** the key and **modulo** it by the partition count to determine which partition it should be sent to. That means the producer makes sure that a partition receives all messages for a given key. When the key is null then it will just round-robin the message throughout the different partitions. This way the data sizes are always equal for each partition (assuming there is an equal number of events for each key).
+
+# Kafka Stream Joins
+
+We will set up two topics where the data can be joined and we will build a topology (Kafka stream application) to do the join.
+
+Recall that the rides topic key was the Drop-off location ID. In Kafka, you can only do joins on the key of a message. So we will create another topic, called the pickup-location, with the same key but different message (this one will send the pickup location). Then we will join these on their keys (PU location ID) with a Kafka stream application.
+
+Create a new class called JsonKStreamJoins with the same Streams configuration as our JsonKStreams class.
+
