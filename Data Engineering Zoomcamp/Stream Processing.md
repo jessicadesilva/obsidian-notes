@@ -392,3 +392,5 @@ public void countPLocation() {
 
 }
 ```
+
+In Confluent Cloud, go ahead and create the rides-pulocation-count topic.
