@@ -140,9 +140,11 @@ SELECT
 	AVG(trip_time) AS avg_trip_time,
 	MIN(trip_time) AS min_trip_time,
 	MAX(trip_time) AS max_trip_time,
-	pulocationid,
-	dolocationid
+	tz_pickup.Zone AS pickup_zone,
+	tz_dropoff.Zone AS dropoff_zone
 FROM trip_time
+JOIN taxi_zone AS tz_pickup ON tz_pickup.Zone=trip_time.pulocationid
+JOIN taxi_zone AS tz_dropoff ON tz_dropoff.Zone=trip_time.dolocationid
 GROUP BY pulocationid, dolocationid;
 ```
 
