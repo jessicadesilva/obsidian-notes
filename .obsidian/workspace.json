@@ -18,8 +18,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "199abae80cb29da8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Data Engineering Zoomcamp/Stream Processing with RisingWave.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Data Engineering Zoomcamp/Stream Processing.md",
+                "file": "Data Engineering Zoomcamp/Stream Processing with RisingWave.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Data Engineering Zoomcamp/Stream Processing.md",
+                "file": "Data Engineering Zoomcamp/Stream Processing with RisingWave.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Data Engineering Zoomcamp/Stream Processing.md"
+                "file": "Data Engineering Zoomcamp/Stream Processing with RisingWave.md"
               }
             }
           }
@@ -146,8 +159,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "29fd0f0264e5c1a4",
+  "active": "a7bf74146a71f73d",
   "lastOpenFiles": [
+    "Data Engineering Zoomcamp/Stream Processing.md",
+    "Data Engineering Zoomcamp/Stream Processing with RisingWave.md",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-06 at 8.44.45 AM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 6.52.04 PM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 6.50.07 PM.png",
@@ -158,13 +173,11 @@
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 5.42.19 PM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 5.40.15 PM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 5.38.44 PM.png",
-    "Data Engineering Zoomcamp/Stream Processing.md",
     "Data Engineering Zoomcamp/Orchestration.md",
     "Data Engineering Zoomcamp/Data Warehouse.md",
     "Data Engineering Zoomcamp/Analytics Engineering.md",
     "Data Engineering Zoomcamp/Data Ingestion with dlt.md",
     "Data Engineering Zoomcamp/Batch Processing with Spark.md",
-    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 1.55.13 PM.png",
     "Data Engineering Zoomcamp/attachments",
     "Data Engineering Zoomcamp/Introduction to Docker.md",
     "attachments",
