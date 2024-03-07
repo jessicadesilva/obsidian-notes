@@ -143,9 +143,9 @@ SELECT
 	tz_pickup.Zone AS pickup_zone,
 	tz_dropoff.Zone AS dropoff_zone
 FROM trip_time
-JOIN taxi_zone AS tz_pickup ON tz_pickup.Zone=trip_time.pulocationid
-JOIN taxi_zone AS tz_dropoff ON tz_dropoff.Zone=trip_time.dolocationid
-GROUP BY pulocationid, dolocationid;
+JOIN taxi_zone AS tz_pickup ON tz_pickup.location_id=trip_time.pulocationid
+JOIN taxi_zone AS tz_dropoff ON tz_dropoff.location_id=trip_time.dolocationid
+GROUP BY pickup_zone, dropoff_zone;
 ```
 
 ```SQL
