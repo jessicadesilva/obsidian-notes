@@ -5,4 +5,81 @@ In this workshop, we will be discussing stream processing in SQL with RisingWave
 
 Batch ingestion is when data is coming in hourly/daily/weekly batches and so the data is more static and the load is lower as well. Stream ingestion is when you have dynamic, high volume, high velocity data.
 
-Once the data has been ingested by the upstream source, then for batch it will be ingested into a database
+Once the data has been ingested by the upstream source, then for batch it will be ingested into a database. Then the application will run batch queries and the entire batch processing pipeline will run each time we run the query. Examples of this application are PostgreSQL and ClickHouse.
+
+On the other hand, for a stream engine like RisingWave we run things in an incremental fashion. When events come in, they get streamed into our pipeline and each node will calculate the delta (change) in the stream and propagate it throughout to the application. The latency is much lower.
+
+For example, you can use batch or stream to analyze social media data for sentiment analysis. If you want the analysis to be real-time you should use a streaming engine. If you want to monitor the performance of a fleet of IoT devices, you want real-time monitoring so streaming is necessary for low latency.
+
+# What is RisingWave?
+RisingWave is a distributed system with 4 key components. For the first component, the user connects to the **frontend** through PGSQL which is called the "Serving Layer". The frontend will take care of parsing, validation, optimization, and query planning. The query plan is then passed to the compute node which lies in the **processing layer**. The processing layer executes the optimized query plan, data ingestion, and data delivery. The **persistent layer** has object storage and since the object storage is lsm3 it needs to have regular compaction with the compactors. The final piece is the **MetaServer** which keeps track of the metadata, scheduling, and monitoring stream jobs.
+
+Here are some characteristics of a stream processing engine and what that looks like in RisingWave:
+
+| **Criteria** | **RisingWave** |
+| ---- | ---- |
+| Processing Model | Both Stream processing and Batch processing |
+| Latency | Low (seconds - milliseconds) |
+| Throughput | High |
+| Fault tolerance | Exactly-one semantics with checkpoints and snapshots - if a node crashes then if/when it recovers it won't reprocess data so you won't get duplicate data |
+| API Support | SQL only |
+| Storage system | Internal storage system based on Hummock tiered storage |
+| State management | Advanced (supports stateful queries with incremental view maintenance and materialized views) |
+# Data Ingestion & Delivery
+
+Some examples of upstream data sources RisingWave can ingest from are mongoDB, Kafka, PostgreSQL, MySQL, etc. Then data can be delivered to a variety of sinks, such as elasticsearch, kafka, ClickHouse, iceberg, etc. For the workshop we will use Kafka and ClickHouse.
+
+Now let's talk about how stateless computations are done with RisingWave. Consider the query below
+
+```SQL
+CREATE TABLE t (v1 int)
+CREATE MATERIALIZED VIEW m1 AS SELECT v1 + 1 FROM t WHERE v1 > 0; 
+```
+
+If you use the keyword EXPLAIN in front of the materialized view then you will get the following query plan (read from bottom to top):
+
+```
+StreamMaterialize {
+	columns: [v1, t._row_id(hidden)],
+	stream_key: [t._row_id],
+	pk_columns: [t._row_id],
+	pk_conflict: NoCheck
+}
+|-StreamProject { exprs: [(t.v1 + 1:Int32) as $exprt, t._row_id] }
+	|-StreamFilter { predicate: (t.v1 > 0:Int32) }
+		|-StreamTableScan { table: t, columns: [v1, _row_id] }
+(4 rows)
+```
+
+The intermediate steps here, filter and project (+ 1), are stateless since nothing needs to be stored. Now let's say for example we have two data points one with an n value of 0 and another with an n value of 1 that we want to insert into the table t according to this set of operations. The delta here is + since the change is to try to add these values. Since 0 isn't greater than 0, it will be filtered out. So 1 will be added only to the record with n value 1, then it will be materialized (which is a stateful computation). Now instead if we wanted to delete these values from the table t, everything would be the same except the delta here is now - since we want to delete and that would be interpreted in the materialize step.
+
+Okay let's move on to stateful computations, such as the following:
+
+```SQL
+CREATE TABLE t (v1 int);
+CREATE MATERIALIZED VIEW m2 AS SELECT count(*) FROM t;
+```
+
+The count(\*) here is an aggregation function. Let's say the initial value is 0, then since the delta here is + we will update the count to 2 to represent the 2 additional records (0 and 1). Then when we propagate the changes to the materialized view we tell it to remove the value of 0 and add the value of 2 to represent the new total count.
+
+Now let's look at a join:
+
+```SQL
+CREATE TABLE t (v1 int, v2 int);
+CREATE TABLE t2 (v1 int, v2 int);
+CREATE MATERIALIZED VIEW m3 AS
+	SELECT t.v1 AS v1, t.v2 AS x2, t2.v2 AS y2
+	FROM t JOIN t1 ON t.v1 = t2.v1; 
+```
+
+Let's say we have these records coming in:
+
+| Op | V1 | V2 |
+| ---- | ---- | ---- |
+| + | 0 | 200 |
+| + | 1 | 300 |
+Then once the table is scanned, there will be a HashJoin (which is stateful with two states, one for the LHS and one for the RHS). The HashJoin will update each state with the information coming in, so if only the LHS has come in then it will see there's nothing to join on the right and nothing will be sent to materialize. But it still has 
+
+
+
+
