@@ -176,3 +176,14 @@ GROUP BY 2, 3;
 ![[Screenshot 2024-03-06 at 8.49.03 PM.png]]
 
 ## Question 3
+```SQL
+WITH latest_pickup_time AS (
+SELECT * FROM latest_pickup_time
+)
+SELECT
+	taxi_zone.Zone AS pickup_zone,
+	COUNT(*)
+FROM trip_data
+JOIN taxi_zone ON taxi_zone.location_id=trip_data.pulocationid
+WHERE trip_data.
+```
