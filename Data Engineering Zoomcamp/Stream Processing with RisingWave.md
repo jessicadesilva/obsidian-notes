@@ -176,6 +176,15 @@ GROUP BY 2, 3;
 ![[Screenshot 2024-03-06 at 8.49.03 PM.png]]
 
 ## Question 3
+
+```SQL
+CREATE MATERIALIZED VIEW latest_pickup_time AS
+SELECT tpep_pickup_datetime AS pickup_time
+FROM trip_data
+WHERE tpep_pickup_datetime=(SELECT MAX(tpep_pickup_datetime) FROM trip_data);
+```
+
+
 ```SQL
 WITH latest_pickup_time AS (
 SELECT * FROM latest_pickup_time
@@ -185,5 +194,5 @@ SELECT
 	COUNT(*)
 FROM trip_data
 JOIN taxi_zone ON taxi_zone.location_id=trip_data.pulocationid
-WHERE trip_data.
+WHERE trip_data.tpep_pickup_datetime-latest_pickup_time<=17
 ```
