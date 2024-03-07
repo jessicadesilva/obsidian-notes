@@ -98,3 +98,12 @@ Now we will move on to the hands-on project.
 4. psql
 5. Clone the repo
 
+Navigate to the project folder and run the following commands:
+```bash
+% check that you have psql
+psql --version
+source commands.sh
+
+start-cluster
+
+```
