@@ -158,3 +158,21 @@ WHERE avg_trip_time=(SELECT MAX(avg_trip_time) FROM taxi_zone_stats);
 ```
 
 ![[Screenshot 2024-03-06 at 8.34.23 PM.png]]
+## Question 2
+```SQL
+WITH max_avg_trip AS (
+SELECT
+	pickup_zone, dropoff_zone, avg_trip_time
+FROM taxi_zone_stats
+WHERE avg_trip_time=(SELECT MAX(avg_trip_time) FROM taxi_zone_stats))
+SELECT
+	COUNT(*),
+	max_avg_trip.pickup_zone,
+	max_avg_trip.dropoff_zone
+FROM max_avg_trip
+LEFT JOIN taxi_zone_stats ON taxi_zone_stats.pickup_zone=max_avg_trip.pickup_zone AND taxi_zone_stats.dropoff_zone=max_avg_trip.dropoff_zone
+GROUP BY 2, 3;
+```
+![[Screenshot 2024-03-06 at 8.49.03 PM.png]]
+
+## Question 3
