@@ -78,8 +78,15 @@ Let's say we have these records coming in:
 | ---- | ---- | ---- |
 | + | 0 | 200 |
 | + | 1 | 300 |
-Then once the table is scanned, there will be a HashJoin (which is stateful with two states, one for the LHS and one for the RHS). The HashJoin will update each state with the information coming in, so if only the LHS has come in then it will see there's nothing to join on the right and nothing will be sent to materialize. But it still has 
+Then once the table is scanned, there will be a HashJoin (which is stateful with two states, one for the LHS and one for the RHS). The HashJoin will update each state with the information coming in, so if only the LHS has come in then it will see there's nothing to join on the right and nothing will be sent to materialize. But it still keeps record of this in the HashJoin. 
 
+Now let's say we have some records coming in from the right side:
 
+| Op | V1 | V2 |
+| ---- | ---- | ---- |
+| + | 1 | 500 |
+| + | 2 | 600 |
+Then when it goes to the HashJoin there is a match on the join predicate. So then the output is propagated to the materialize step.
 
+Now we will move on to the hands-on project.
 
