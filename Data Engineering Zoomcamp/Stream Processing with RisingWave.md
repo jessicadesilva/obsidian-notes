@@ -105,5 +105,8 @@ psql --version
 source commands.sh
 
 start-cluster
+python -m venv .venv
 
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 ```
