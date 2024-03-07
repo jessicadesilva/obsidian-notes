@@ -110,3 +110,11 @@ python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
+
+There are two datasets we will be using (already included in the repo):
+* yellow_tripdata_2022-01.parquet
+* taxi_zone.csv
+
+We are using RisingWave's DockerCompose file with just slight modifications to have ClickHouse as the downstream system.
+
+So what we will do is replace the timestamp field in the yellow tripdata file with timestamps closer to the current time done with the seed_kafka.py file. The first thing we will do is ingest data into RisingWave using Kafka. The seed_kafka.py file has the logic to process data and populate RisingWave from Kafka.
