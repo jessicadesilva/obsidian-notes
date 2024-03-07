@@ -125,3 +125,32 @@ So what we will do is replace the timestamp field in the yellow tripdata file wi
 % runs seed_kafka.py
 stream-kafka
 ```
+# Homework
+## Question 1
+```SQL
+CREATE MATERIALIZED VIEW taxi_zone_stats AS
+WITH trip_time AS (
+SELECT
+	tpep_dropoff_datetime - tpep_pickup_datetime AS trip_time,
+	pulocationid,
+	dolocationid
+FROM trip_data
+)
+SELECT
+	AVG(trip_time) AS avg_trip_time,
+	MIN(trip_time) AS min_trip_time,
+	MAX(trip_time) AS max_trip_time
+FROM trip_time
+GROUP BY pulocationid, dolocationid;
+```
+
+```SQL
+SELECT
+tz_pickup.Zone AS pickup_zone,
+tz_dropoff.Zone AS dropoff_zone,
+taxi_zone_stats.avg_trip_time AS max_avg
+FROM taxi_zone_stats
+JOIN taxi_zone AS tz_pickup ON tz_pickup.location_id=taxi_zone_stats.pulocationid
+JOIN taxi_zone AS tz_dropoff ON tz_dropoff.location_id=taxi_zone_stats.dolocationid
+WHERE taxi_zone_stats.avg_trip_time=(SELECT MAX(avg_trip_time) FROM taxi_zone_stats);
+```
