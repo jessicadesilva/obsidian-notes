@@ -90,3 +90,10 @@ Then when it goes to the HashJoin there is a match on the join predicate. So the
 
 Now we will move on to the hands-on project.
 
+# Hands-on Project
+## Prerequisites
+1. Docker and Docker Compose
+2. Python 3.7 or later
+3. pip and virtualenv for Python
+4. psql
+5. Clone the repo
