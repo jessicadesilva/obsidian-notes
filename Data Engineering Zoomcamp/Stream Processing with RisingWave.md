@@ -191,7 +191,7 @@ SELECT
 	COUNT(*)
 FROM trip_data
 JOIN taxi_zone ON taxi_zone.location_id=trip_data.pulocationid
-WHERE trip_data.tpep_pickup_datetime <= ((SELECT * FROM latest_pickup_time) + interval '17 hours')
+WHERE trip_data.tpep_pickup_datetime <= ((SELECT * FROM latest_pickup_time) + INTERVAL '17' HOURS)
 GROUP BY pickup_zone
 ORDER BY 1 DESC
 LIMIT 3;
