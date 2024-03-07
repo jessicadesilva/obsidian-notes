@@ -150,13 +150,11 @@ GROUP BY pickup_zone, dropoff_zone;
 
 ```SQL
 SELECT
-tz_pickup.Zone AS pickup_zone,
-tz_dropoff.Zone AS dropoff_zone,
-taxi_zone_stats.avg_trip_time AS max_avg
+pickup_zone,
+dropoff_zone,
+avg_trip_time AS max_avg
 FROM taxi_zone_stats
-JOIN taxi_zone AS tz_pickup ON tz_pickup.location_id=taxi_zone_stats.pulocationid
-JOIN taxi_zone AS tz_dropoff ON tz_dropoff.location_id=taxi_zone_stats.dolocationid
-WHERE taxi_zone_stats.avg_trip_time=(SELECT MAX(avg_trip_time) FROM taxi_zone_stats);
+WHERE avg_trip_time=(SELECT MAX(avg_trip_time) FROM taxi_zone_stats);
 ```
 
 ![[Screenshot 2024-03-06 at 8.34.23 PM.png]]
