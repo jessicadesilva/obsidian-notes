@@ -188,30 +188,12 @@ WHERE tpep_pickup_datetime=(SELECT MAX(tpep_pickup_datetime) FROM trip_data);
 ```SQL
 SELECT
 	taxi_zone.Zone AS pickup_zone,
-	COUNT(*)
+	COUNT(*) AS num_rides
 FROM trip_data
 JOIN taxi_zone ON taxi_zone.location_id=trip_data.pulocationid
-WHERE trip_data.tpep_pickup_datetime <= (SELECT pickup_time - INTERVAL '17 HOURS' FROM latest_pickup_time)
+WHERE trip_data.tpep_pickup_datetime >= (SELECT pickup_time - INTERVAL '17 HOURS' FROM latest_pickup_time)
 GROUP BY pickup_zone
-ORDER BY 1 DESC
+ORDER BY num_rides DESC
 LIMIT 3;
 ```
-
-```SQL
-CREATE MATERIALIZED VIEW latest_dropoff_time AS
-SELECT tpep_dropoff_datetime AS dropoff_time
-FROM trip_data
-WHERE tpep_dropoff_datetime=(SELECT MAX(tpep_dropoff_datetime) FROM trip_data);
-```
-
-```SQL
-SELECT
-	taxi_zone.Zone AS dropoff_zone,
-	COUNT(*)
-FROM trip_data
-JOIN taxi_zone ON taxi_zone.location_id=trip_data.dolocationid
-WHERE trip_data.tpep_dropoff_datetime <= (SELECT pickup FROM latest_dropoff_time) + interval '17 hours'
-GROUP BY dropoff_zone
-ORDER BY 1 DESC
-LIMIT 3;
-```
+![[Screenshot 2024-03-06 at 9.12.58 PM.png]]
