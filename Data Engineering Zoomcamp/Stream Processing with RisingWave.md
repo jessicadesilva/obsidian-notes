@@ -97,3 +97,4 @@ Now we will move on to the hands-on project.
 3. pip and virtualenv for Python
 4. psql
 5. Clone the repo
+
