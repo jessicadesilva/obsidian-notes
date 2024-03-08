@@ -621,6 +621,37 @@ First let's update the import list to include CustomSerdes:
 
 ```java
 import org.example.customserdes.CustomSerdes;
+import java.util.Optional;
+```
+
+We will also update the initialization of the class so that it can take in existing properties:
+
+```java
+public JsonKStream(Optional<Properties> properties) {
+
+	this.props = properties.orElseGet(() -> {
+	
+		String userName = System.getenv("CLUSTER_API_KEY");
+		String passWord = System.getenv("CLUSTER_API_SECRET");
+		String bootstrapServer = System.getenv("BOOTSTRAP_SERVER");
+		props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
+		props.put("security.protocol", "SASL_SSL");
+		props.put("sasl.jaas.config", String.format("org.apache.kafka.common.security.plain.PlainLoginModule required username='%s' password='%s';", userName, passWord));
+		props.put("sasl.mechanism", "PLAIN");
+		props.put("client.dns.lookup", "use_all_dns_ips");
+		props.put("session.timeout.ms", "45000");
+		props.put(StreamsConfig.APPLICATION_ID_CONFIG, "kafka_tutorial.kstream.count.plocation.v1");
+		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+props.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, 0);
+		
+		return props;
+	});
+}
+```
+
+Then in our main class when we call JsonKStream we need it feed it an optional empty argument:
+```java
+var object = new JsonKStream(Optional.empty());
 ```
 
 Now we will make a new class called createTopology which will return a Topology and just has the code in the countPLocation class which sets up the operations we want to do on the topics.
@@ -678,10 +709,9 @@ public void setup() {
 	props = new Properties();
 	props.setProperty(StreamsConfig.APPLICATION_ID_CONFIG, "testing_count_application");
 	props.setProperty(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "dummy:1234");
-
-	testDriver = new TopologyTestDriver(topology, props);
-	inputTopic = testDriver.createInputTopic("rides_test", Serdes.String().serializer(), CustomSerdes.getSerde(Ride.class).serializer());
-	outputTopic = testDriver.createOutputTopic("rides_count_test", Serdes.String().deserializer(), Serdes.Long().deserializer());
+	if testDriver != null {
+		testDriver.close();
+	}
 
 }
 
@@ -692,7 +722,9 @@ public void testIfOneMessageIsPassedToInputTopicWeGetCountOfOne() {
 
 @AfterAll
 public static void tearDown() { testDriver.close(); }
-
+	if (testDriver != null) {
+		testDriver.close();
+	}
 }
 
 ```
@@ -700,7 +732,7 @@ public static void tearDown() { testDriver.close(); }
 Then we can create our topology:
 
 ```java
-private Topology topology = new JsonKStream().createTopology();
+private Topology topology = new JsonKStream(Optional.of(props)).createTopology();
 ```
 
 And create our input and output topics within the setup class:
@@ -746,7 +778,31 @@ public void testIfOneMessageIsPassedToInputTopicWeGetCountOfOne() {
 	inputTopic.pipeInput(String.valueOf(ride.DOLocationID), ride);
 
 	assertEquals(outputTopic.getQueueSize(), 1);
-	assertEquals(outputTopic.readKeyValue(), KeyValue.pair(String.valueOf(ride.DOLocationID), 1));
+	// L is for long type here
+	assertEquals(outputTopic.readKeyValue(), KeyValue.pair(String.valueOf(ride.DOLocationID), 1L));
 	assertTrue(outputTopic.isEmpty());
+}
+```
+
+When we run the test, it passes!
+
+Let's create another test:
+
+```java
+@Test
+public void testIfTwoMessagesArePassedWithDifferentKey() {
+
+	Ride ride1 = DataGeneratorHelper.generateRide();
+	ride1.DOLocationID = 1L;
+	inputTopic.pipeInput(String.valueOf(ride1.DOLocationID), ride1);
+
+	Ride ride2 = DataGeneratorHelper.generateRide();
+	ride2.DOLocationID = 200L;
+	inputTopic.pipeInput(String.valueOf(ride2.DOLocationID, ride2));
+
+	assertEquals(outputTopic.readKeyValue(), KeyValue.pair(String.valueOf(ride1.DOLocationID), 1L));
+	assertEquals(outputTopic.readKeyValue(), KeyValue.pair(String.valueOf(ride2.DOLocationID), 1L));
+	assertTrue(outputTopic.isEmpty());
+
 }
 ```
