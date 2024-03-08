@@ -899,28 +899,37 @@ Now initialize the class:
 ```java
 class JsonKStreamJoinTest {
 
-private Properties props;
-private static TopologyTestDriver testDriver;
-private TestInputTopic<String, Ride> inputTopic;
-private TestOutputTopic<String, Long> outputTopic;
-private Topology topology;
+	private Properties props;
+	private static TopologyTestDriver testDriver;
+	private TestInputTopic<String, Ride> ridesTopic;
+	private TestInputTopic<String, PickupLocation> pickupLocationTopic;
+	private TestOutputTopic<String, VendorInfo> outputTopic;
+	private Topology topology;
 
-@BeforeEach
-public void setup() {
-	props = new Properties();
-	props.setProperty(StreamsConfig.APPLICATION_ID_CONFIG, "testing_count_application");
-	props.setProperty(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "dummy:1234");
-	topology = new JsonKStream(Optional.of(props)).createTopology();
-	if (testDriver != null) {
-		testDriver.close();
+	@BeforeEach
+	public void setup() {
+		props = new Properties();
+		props.setProperty(StreamsConfig.APPLICATION_ID_CONFIG, "testing_count_application");
+		props.setProperty(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "dummy:1234");
+		topology = new JsonKStream(Optional.of(props)).createTopology();
+		if (testDriver != null) {
+			testDriver.close();
+		}
+	
+		testDriver = new TopologyTestDriver(topology, props);
+		
+		ridesTopic = testDriver.createInputTopic("rides", Serdes.String().serializer(), CustomSerdes.getSerde(Ride.class).serializer());
+	
+		pickupLocationTopic = testDriver.createInputTopic("rides_location", Serdes.String().serializer(), CustomSerdes.getSerde(PickupLocation.class).serializer());
+		
+		outputTopic = testDriver.createOutputTopic("vendor_info", Serdes.String().deserializer(), CustomSerdes.getSerde(VendorInfo.class).deserializer());
 	}
 
-	testDriver = new TopologyTestDriver(topology, props);
-	
-	inputTopic = testDriver.createInputTopic("rides", Serdes.String().serializer(), CustomSerdes.getSerde(Ride.class).serializer());
-	
-	outputTopic = testDriver.createOutputTopic("rides-pulocation-count", Serdes.String().deserializer(), Serdes.Long().deserializer());
-}
-
+	@AfterAll
+	public static void shutdown() {
+		if(testDriver != null) {
+			testDriver.close()
+		}
+	}
 }
 ```
