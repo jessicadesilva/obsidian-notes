@@ -490,7 +490,7 @@ public class JsonProducerPickupLocation {
 }
 ```
 
-Create a new class called JsonKStreamJoins with the same Streams configuration as our JsonKStreams class.
+Create a new class called JsonKStreamJoins with the same Streams configuration as our JsonKStream class.
 
 Here are our imports:
 
@@ -615,13 +615,34 @@ Now when we run the two producers and this new stream we have some messages bein
 
 We have already created a basic Kafka stream example and so now we are going to write unit tests for it. In these examples, we used two classes from Kafka streams: Stream builder and KStreams. In the Stream builder, this is where we tell them which topics to read from, what are the actions on the events we want to do, and where to output and this is called a **topology**. We can test the **topology** with something called a topology driver. To do this, we need to write a function that will return the topology and then test it.
 
-Going back to our count example (JsonKSream.java), we need to write our code in a way so that the topology can be extracted and then test it. Thus we will make a new class called createTopology which will return a Topology and just has the code in the countPLocation class which sets up the operations we want to do on the topics.
+Going back to our count example (JsonKSream.java), we need to write our code in a way so that the topology can be extracted and then test it.
+
+First let's update the import list:
+
+```java
+package org.example;
+
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.streams.KafkaStreams;
+import org.apache.kafka.streams.StreamsBuilder;
+import org.apache.kafka.streams.StreamsConfig;
+import org.apache.kafka.streams.Topology;
+import org.apache.kafka.streams.kstream.Consumed;
+import org.apache.kafka.streams.kstream.Produced;
+import org.example.customserdes.CustomSerdes;
+import org.example.data.Ride;
+
+import java.util.Properties;
+```
+
+Now we will make a new class called createTopology which will return a Topology and just has the code in the countPLocation class which sets up the operations we want to do on the topics.
 
 ```java
 public Topology createTopology() {
 	StreamsBuilder streamsBuilder = new StreamsBuilder();
 	// returns a kafka stream
-	var ridesStream = streamsBuilder.stream("rides", Consumed.with(Serdes.String(), getSerde(Ride.class)));
+	var ridesStream = streamsBuilder.stream("rides", Consumed.with(Serdes.String(), CustomSerdes.getSerde(Ride.class)));
 	var puLocationCount = ridesStream.groupByKey().count().toStream();
 	puLocationCount.to("rides-pulocation-count", Produced.with(Serdes.String(), Serdes.Long()));
 	// return topology
