@@ -1033,5 +1033,12 @@ Okay let's talk more about KStream windowing:
 
 Let's see what this looks like in code. Create a JsonKStreamWindow class by making a copy of our JsonKStream class. Be sure to update the class name and the initializing method accordingly. We will adjust the countPLocation class by renaming it countPLocationWindowed.
 
+Add these imports:
+
+```java
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+```
+
 First let's take a look at our topology. Instead of counting everything for puLocationCount, we want to just count things in chunks (for now let's doing tumbling). 
 
