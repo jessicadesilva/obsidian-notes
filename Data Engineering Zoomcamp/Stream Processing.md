@@ -1036,6 +1036,8 @@ Let's see what this looks like in code. Create a JsonKStreamWindow class by maki
 Add these imports:
 
 ```java
+import org.apache.kafka.streams.kstream.TimeWindows;
+import org.apache.kafka.streams.kstream.WindowedSerdes;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 ```
