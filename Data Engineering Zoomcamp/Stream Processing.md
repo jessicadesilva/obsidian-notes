@@ -640,3 +640,105 @@ public void countPLocation() {
 	Runtime.getRuntime().addShutdownHook(new Thread(kStreams::close));
 }
 ```
+
+Alright so now we have isolated the creation of our topology for testing. Let's create a new set of folders in the src directory: test/java/org/example. And within that we will have a new file called JsonKStreamsTest.java with this skeleton populated:
+
+```java
+// imports
+package org.example;
+
+import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.streams.*;
+import org.example.customserdes.CustomSerdes;
+import org.example.data.Ride;
+import org.example.helper.DataGeneratorHelper;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import java.util.Properties;
+
+class JsonKStreamtest {
+private Properties props;
+private static TopologyTestDriver testDriver;
+private TestInputTopic<String, Ride> inputTopic;
+private TestOutputTopic<String, Long> outputTopic;
+private Topology topology = new JsonKStream().createTopology();
+
+@BeforeEach
+public void setup() {
+	props = new Properties();
+	props.setProperty(StreamsConfig.APPLICATION_ID_CONFIG, "testing_count_application");
+	props.setProperty(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "dummy:1234");
+
+	testDriver = newTopologyTestDriver(topology, props);
+	inputTopic = testDriver.createInputTopoic("rides_test", Serdes.String().serializer(), CustomSerdes.getSerdes(Rides.class).serializer());
+	ouptputTopic = testDriver.createOutputTopic("rides_count_test", Serdes.String().deserializer(), Serdes.Long().deserializer());
+
+}
+
+@Test
+public void testIfOneMessageIsPassedToInputTopicWeGetCountOfOne() {
+
+}
+
+@AfterAll
+public static void tearDown() { testDriver.close(); }
+
+}
+
+```
+
+Then we can create our topology:
+
+```java
+private Topology topology = new JsonKStream().createTopology();
+```
+
+And create our input and output topics within the setup class:
+
+```java
+testDriver = newTopologyTestDriver(topology, props);
+	inputTopic = testDriver.createInputTopoic("rides", Serdes.String().serializer(), CustomSerdes.getSerdes(Rides.class).serializer());
+	ouptputTopic = testDriver.createOutputTopic("rides-pulocation-count", Serdes.String().deserializer(), Serdes.Long().deserializer());
+```
+
+Now we will create a folder in the current directory called helper with a file called DataGeneratorHelper.java the following helper class which will generate one example event from each topic:
+
+```java
+package org.example.helper;
+
+import org.example.data.PickupLocation;
+import org.example.data.Ride;
+import org.example.data.VendorInfo;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+public class DataGeneratorHelper {
+    public static Ride generateRide() {
+        var arrivalTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        var departureTime = LocalDateTime.now().minusMinutes(30).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return new Ride(new String[]{"1", departureTime, arrivalTime,"1","1.50","1","N","238","75","2","8","0.5","0.5","0","0","0.3","9.3","0"});
+    }
+
+    public static PickupLocation generatePickUpLocation(long pickupLocationId) {
+        return new PickupLocation(pickupLocationId, LocalDateTime.now());
+    }
+}
+```
+
+Then back in our test class, we can have the following test:
+
+```java
+@Test
+public void testIfOneMessageIsPassedToInputTopicWeGetCountOfOne() {
+	Ride ride = DataGeneratorHelper.generateRide();
+	inputTopic.pipeInput(String.valueOf(ride.DOLocationID), ride);
+
+	assertEquals(outputTopic.getQueueSizer(), 1);
+	assertEquals(outputTopic.readKeyValue(), KeyValue.pair(String.valueOf(ride.DOLocationID), 1));
+	assertTrue(outputTopic.isEmpty());
+}
+```
