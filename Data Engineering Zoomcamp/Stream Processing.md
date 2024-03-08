@@ -1005,7 +1005,7 @@ and our Clicks stream looks like this:
 8: 
 9: G1 G2
 10: 
-11: B
+11: B < - not in 10-second window
 then the inner join result is the following:
 0:
 1: (A, A)
