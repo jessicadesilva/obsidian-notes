@@ -737,7 +737,7 @@ public void testIfOneMessageIsPassedToInputTopicWeGetCountOfOne() {
 	Ride ride = DataGeneratorHelper.generateRide();
 	inputTopic.pipeInput(String.valueOf(ride.DOLocationID), ride);
 
-	assertEquals(outputTopic.getQueueSizer(), 1);
+	assertEquals(outputTopic.getQueueSize(), 1);
 	assertEquals(outputTopic.readKeyValue(), KeyValue.pair(String.valueOf(ride.DOLocationID), 1));
 	assertTrue(outputTopic.isEmpty());
 }
