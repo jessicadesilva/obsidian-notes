@@ -615,4 +615,28 @@ Now when we run the two producers and this new stream we have some messages bein
 
 We have already created a basic Kafka stream example and so now we are going to write unit tests for it. In these examples, we used two classes from Kafka streams: Stream builder and KStreams. In the Stream builder, this is where we tell them which topics to read from, what are the actions on the events we want to do, and where to output and this is called a **topology**. We can test the **topology** with something called a topology driver. To do this, we need to write a function that will return the topology and then test it.
 
-Going back to our count example (JsonKSream.java), we need to write our code in a way so that the topology can be extracted and then test it.
+Going back to our count example (JsonKSream.java), we need to write our code in a way so that the topology can be extracted and then test it. Thus we will make a new class called createTopology which will return a Topology and just has the code in the countPLocation class which sets up the operations we want to do on the topics.
+
+```java
+public Topology createTopology() {
+	StreamsBuilder streamsBuilder = new StreamsBuilder();
+	// returns a kafka stream
+	var ridesStream = streamsBuilder.stream("rides", Consumed.with(Serdes.String(), getJsonSerde()));
+	var puLocationCount = ridesStream.groupByKey().count().toStream();
+	puLocationCount.to("rides-pulocation-count", Produced.with(Serdes.String(), Serdes.Long()));
+	// return topology
+	return streamsBuilder.build();
+}
+```
+
+Then we can update our countPLocation class to create the topology by just calling this class:
+
+```java
+public void countPLocation() {
+	var topology = createTopology();
+	var kStreams = new KafkaStreams(topology, props);
+	kStreams.start()
+
+	Runtime.getRuntime().addShutdownHook(new Thread(kStreams::close));
+}
+```
