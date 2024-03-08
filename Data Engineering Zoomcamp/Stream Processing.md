@@ -702,7 +702,7 @@ private Properties props;
 private static TopologyTestDriver testDriver;
 private TestInputTopic<String, Ride> inputTopic;
 private TestOutputTopic<String, Long> outputTopic;
-private Topology topology = new JsonKStream().createTopology();
+private Topology topology;
 
 @BeforeEach
 public void setup() {
@@ -729,10 +729,10 @@ public static void tearDown() { testDriver.close(); }
 
 ```
 
-Then we can create our topology:
+Then we can create our topology in this setup after we set the properties:
 
 ```java
-private Topology topology = new JsonKStream(Optional.of(props)).createTopology();
+topology = new JsonKStream(Optional.of(props)).createTopology();
 ```
 
 And create our input and output topics within the setup class:
