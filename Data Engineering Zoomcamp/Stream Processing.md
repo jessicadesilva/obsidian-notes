@@ -836,5 +836,91 @@ import java.util.Optional;
 ```
 
 ```java
+// udpate to take in optional props
+public JsonKStreamJoins(Optional<Properties> properties) {
 
+	this.props = properties.orElseGet(() -> {
+	
+		String userName = System.getenv("CLUSTER_API_KEY");
+		String passWord = System.getenv("CLUSTER_API_SECRET");
+		String bootstrapServer = System.getenv("BOOTSTRAP_SERVER");
+		props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
+		props.put("security.protocol", "SASL_SSL");
+		props.put("sasl.jaas.config", String.format("org.apache.kafka.common.security.plain.PlainLoginModule required username='%s' password='%s';", userName, passWord));
+		props.put("sasl.mechanism", "PLAIN");
+		props.put("client.dns.lookup", "use_all_dns_ips");
+		props.put("session.timeout.ms", "45000");
+		// update application id
+		props.put(StreamsConfig.APPLICATION_ID_CONFIG, "kafka_tutorial.kstream.joined.rides.pickuplocation.v1");
+props.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, 0);
+		
+		return props;
+	
+	});
+
+}
+```
+
+Then don't forget to update the main method with:
+
+```java
+var object = new JsonKStreamJoins(Optional.empty());
+```
+
+Now in this file we already separated the creation of the topology into a method. So now we will move on to created the test class called JsonKStreamJoinTest.java:
+
+Imports first:
+
+```java
+package org.example;
+
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.internals.Topic;
+import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.streams.*;
+import org.example.customserdes.CustomSerdes;
+import org.example.data.PickupLocation;
+import org.example.data.Ride;
+import org.example.data.VendorInfo;
+import org.example.helper.DataGeneratorHelper;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import javax.xml.crypto.Data;
+import java.util.Properties;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+```
+
+Now initialize the class:
+
+```java
+class JsonKStreamJoinTest {
+
+private Properties props;
+private static TopologyTestDriver testDriver;
+private TestInputTopic<String, Ride> inputTopic;
+private TestOutputTopic<String, Long> outputTopic;
+private Topology topology;
+
+@BeforeEach
+public void setup() {
+	props = new Properties();
+	props.setProperty(StreamsConfig.APPLICATION_ID_CONFIG, "testing_count_application");
+	props.setProperty(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "dummy:1234");
+	topology = new JsonKStream(Optional.of(props)).createTopology();
+	if (testDriver != null) {
+		testDriver.close();
+	}
+
+	testDriver = new TopologyTestDriver(topology, props);
+	
+	inputTopic = testDriver.createInputTopic("rides", Serdes.String().serializer(), CustomSerdes.getSerde(Ride.class).serializer());
+	
+	outputTopic = testDriver.createOutputTopic("rides-pulocation-count", Serdes.String().deserializer(), Serdes.Long().deserializer());
+}
+
+}
 ```
