@@ -1031,7 +1031,7 @@ Okay let's talk more about KStream windowing:
 	* Example:
 		  ![[Screenshot 2024-03-08 at 12.57.02 PM.png]]
 
-Let's see what this looks like in code. Create a JsonKStreamWindow class by making a copy of our JsonKStream class. Be sure to update the class name and the initializing method accordingly. We will adjust the countPLocation class by renaming it countPLocationWindowed.
+Let's see what this looks like in code. Create a JsonKStreamWindow class by making a copy of our JsonKStream class. Be sure to update the class name and the initializing method accordingly and also the call of the class in the main function. We will adjust the countPLocation class by renaming it countPLocationWindowed.
 
 Add these imports:
 
