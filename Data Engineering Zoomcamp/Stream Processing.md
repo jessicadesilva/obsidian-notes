@@ -911,7 +911,7 @@ class JsonKStreamJoinsTest {
 		props = new Properties();
 		props.setProperty(StreamsConfig.APPLICATION_ID_CONFIG, "testing_count_application");
 		props.setProperty(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "dummy:1234");
-		topology = new JsonKStream(Optional.of(props)).createTopology();
+		topology = new JsonKStreamJoins(Optional.of(props)).createTopology();
 		if (testDriver != null) {
 			testDriver.close();
 		}
@@ -954,3 +954,5 @@ public void testIfJoinWorksOnSameDropOffPickupLocationId() {
 
 }
 ```
+
+And the test passes!
