@@ -611,3 +611,8 @@ Then make sure our main class throws InterruptedException (from joinRidesPickupL
 
 Now when we run the two producers and this new stream we have some messages being produced through out new kafka_tutorial_kstream.joined.rides.pickuplocation.v1 topic.![[Screenshot 2024-03-06 at 8.44.45 AM.png]]
 
+# Kafka Stream Testing
+
+We have already created a basic Kafka stream example and so now we are going to write unit tests for it. In these examples, we used two classes from Kafka streams: Stream builder and KStreams. In the Stream builder, this is where we tell them which topics to read from, what are the actions on the events we want to do, and where to output and this is called a **topology**. We can test the **topology** with something called a topology driver. To do this, we need to write a function that will return the topology and then test it.
+
+Going back to our count example (JsonKSream.java), we need to write our code in a way so that the topology can be extracted and then test it.
