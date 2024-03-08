@@ -959,4 +959,63 @@ And the test passes!
 
 # Kafka Stream Windowing
 
-We will first talk about what a global Ktable is, but you can think of it as being similar to broadcasting. Let's say we have two nodes of the Kafka stream application running and both are reading and creating a KTable internally. The KTable is partitioned based upon the topic. So if the topic has 2 partitions, the KTable will also have two partitions with each part being given to a distinct node. So the nodes only have partial data because of this partitioning. Often this requires reshuffling, but reshuffling is costly and so that's what a Global KTable is trying to avoid. Okay so let's assume that each node has instead of a KTable, a Complete Global KTable. 
+We will first talk about what a global Ktable is, but you can think of it as being similar to broadcasting. Let's say we have two nodes of the Kafka stream application running and both are reading and creating a KTable internally. The KTable is partitioned based upon the topic. So if the topic has 2 partitions, the KTable will also have two partitions with each part being given to a distinct node. So the nodes only have partial data because of this partitioning. Often this requires reshuffling, but reshuffling is costly and so that's what a Global KTable is trying to avoid. Okay so let's assume that each node has instead of a KTable, a Complete Global KTable which means the complete data is available to each node. This avoids reshuffling, but because the whole table is stored on the node itself there can be memory issues. So this Global KTable is best when you have a smaller table. If the data size is too big, you can't use a Global KTable. How we build this Global KTable is very simple:
+
+```java
+streamBuilder.globaltable("topic_name");
+```
+
+Now let's talk about different join types. Kafka Streams supports three kinds of joins:
+* inner
+	* KStream - KStream
+	* KTable - KTable
+	* KStream - KTable
+	* KStream - GlobalKTable
+* left
+	*  KStream - KStream
+	* KTable - KTable
+	* KStream - KTable
+	* KStream - GlobalKTabl
+* outer
+	* KStream - KStream
+	* KTable - KTable
+
+With an inner stream-stream join between views and clicks on a 10-second interval, let's say the Views stream looks like this:
+0: A
+1: B
+2:
+3: C
+4: D
+5:
+6: F1 F2
+7:
+8: G
+9: 
+10: 
+11: 
+and our Clicks stream looks like this:
+0: 
+1: A
+2: C
+3: 
+4: 
+5: E
+6: 
+7: F
+8: 
+9: G1 G2
+10: 
+11: B
+then the inner join result is the following:
+0:
+1: (A, A)
+2:
+3: (C, C)
+4: 
+5: 
+6: 
+7: (F1, F) (F2, F)
+8: 
+9: (G, G1) (G, G2)
+10: 
+11: 
