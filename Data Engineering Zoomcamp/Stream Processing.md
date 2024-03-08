@@ -1030,3 +1030,6 @@ Okay let's talk more about KStream windowing:
 * Session: dynamically-sized, non-overlapping, data-driven windows
 	* Example:
 		  ![[Screenshot 2024-03-08 at 12.57.02 PM.png]]
+
+Let's see what this looks like in code. Create a JsonKStreamWindow class by making a copy of our JsonKStream class.
+
