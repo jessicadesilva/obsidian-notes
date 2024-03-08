@@ -956,3 +956,7 @@ public void testIfJoinWorksOnSameDropOffPickupLocationId() {
 ```
 
 And the test passes!
+
+# Kafka Stream Windowing
+
+We will first talk about what a global Ktable is, but you can think of it as being similar to broadcasting. Let's say we have two nodes of the Kafka stream application running and both are reading and creating a KTable internally. The KTable is partitioned based upon the topic. So if the topic has 2 partitions, the KTable will also have two partitions with each part being given to a distinct node. So the nodes only have partial data because of this partitioning. Often this requires reshuffling, but reshuffling is costly and so that's what a Global KTable is trying to avoid. Okay so let's assume that each node has instead of a KTable, a Complete Global KTable. 
