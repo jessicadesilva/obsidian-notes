@@ -672,8 +672,8 @@ public void setup() {
 	props.setProperty(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "dummy:1234");
 
 	testDriver = newTopologyTestDriver(topology, props);
-	inputTopic = testDriver.createInputTopoic("rides_test", Serdes.String().serializer(), CustomSerdes.getSerdes(Rides.class).serializer());
-	ouptputTopic = testDriver.createOutputTopic("rides_count_test", Serdes.String().deserializer(), Serdes.Long().deserializer());
+	inputTopic = testDriver.createInputTopoic("rides_test", Serdes.String().serializer(), CustomSerdes.getSerde(Rides.class).serializer());
+	outputTopic = testDriver.createOutputTopic("rides_count_test", Serdes.String().deserializer(), Serdes.Long().deserializer());
 
 }
 
