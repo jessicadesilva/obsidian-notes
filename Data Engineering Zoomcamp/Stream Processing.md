@@ -621,7 +621,7 @@ Going back to our count example (JsonKSream.java), we need to write our code in 
 public Topology createTopology() {
 	StreamsBuilder streamsBuilder = new StreamsBuilder();
 	// returns a kafka stream
-	var ridesStream = streamsBuilder.stream("rides", Consumed.with(Serdes.String(), getJsonSerde()));
+	var ridesStream = streamsBuilder.stream("rides", Consumed.with(Serdes.String(), getSerde(Ride.class)));
 	var puLocationCount = ridesStream.groupByKey().count().toStream();
 	puLocationCount.to("rides-pulocation-count", Produced.with(Serdes.String(), Serdes.Long()));
 	// return topology
