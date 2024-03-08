@@ -1060,3 +1060,4 @@ public Topology createTopology() {
 
 And then create the "rides-pulocation-window-count" topic in Confluent Cloud before running this.
 
+Also don't forget to start your JsonProducer, or else no events will be coming in!
