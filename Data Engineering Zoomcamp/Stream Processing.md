@@ -1028,3 +1028,5 @@ Okay let's talk more about KStream windowing:
 		  ![[Screenshot 2024-03-08 at 12.55.46 PM.png]]
 * Sliding: fixed-size overlapping windows that work on differences between record and timestamps
 * Session: dynamically-sized, non-overlapping, data-driven windows
+	* Example:
+		  ![[Screenshot 2024-03-08 at 12.57.02 PM.png]]
