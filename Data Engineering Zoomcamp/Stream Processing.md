@@ -867,7 +867,7 @@ Then don't forget to update the main method with:
 var object = new JsonKStreamJoins(Optional.empty());
 ```
 
-Now in this file we already separated the creation of the topology into a method. So now we will move on to created the test class called JsonKStreamJoinTest.java:
+Now in this file we already separated the creation of the topology into a method. So now we will move on to created the test class called JsonKStreamJoinsTest.java:
 
 Imports first:
 
@@ -897,7 +897,7 @@ import static org.junit.jupiter.api.Assertions.*;
 Now initialize the class:
 
 ```java
-class JsonKStreamJoinTest {
+class JsonKStreamJoinsTest {
 
 	private Properties props;
 	private static TopologyTestDriver testDriver;
@@ -928,7 +928,7 @@ class JsonKStreamJoinTest {
 	@AfterAll
 	public static void shutdown() {
 		if(testDriver != null) {
-			testDriver.close()
+			testDriver.close();
 		}
 	}
 }
