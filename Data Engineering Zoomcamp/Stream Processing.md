@@ -786,7 +786,7 @@ public void testIfOneMessageIsPassedToInputTopicWeGetCountOfOne() {
 
 When we run the test, it passes!
 
-Let's create another test:
+Let's create another test that does counting for two events with two different keys:
 
 ```java
 @Test
@@ -800,9 +800,41 @@ public void testIfTwoMessagesArePassedWithDifferentKey() {
 	ride2.DOLocationID = 200L;
 	inputTopic.pipeInput(String.valueOf(ride2.DOLocationID, ride2));
 
-	assertEquals(outputTopic.readKeyValue(), KeyValue.pair(String.valueOf(ride1.DOLocationID), 1L));
-	assertEquals(outputTopic.readKeyValue(), KeyValue.pair(String.valueOf(ride2.DOLocationID), 1L));
+	assertEquals(outputTopic.readKeyValue(), KeyValue.pair("1", 1L));
+	assertEquals(outputTopic.readKeyValue(), KeyValue.pair("200", 1L));
 	assertTrue(outputTopic.isEmpty());
 
 }
+```
+
+And another that does counting when two events come in with the same key:
+
+```java
+@Test
+public void testIfTwoMessagesArePassedWithSameKey() {
+
+	Ride ride1 = DataGeneratorHelper.generateRide();
+	ride1.DOLocationID = 100L;
+	inputTopic.pipeInput(String.valueOf(ride1.DOLocationID), ride1);
+
+	Ride ride2 = DataGeneratorHelper.generateRide();
+	ride2.DOLocationID = 100L;
+	inputTopic.pipeInput(String.valueOf(ride2.DOLocationID, ride2));
+
+	assertEquals(outputTopic.readKeyValue(), KeyValue.pair("100", 1L));
+	assertEquals(outputTopic.readKeyValue(), KeyValue.pair("100", 2L));
+	assertTrue(outputTopic.isEmpty());
+
+}
+```
+
+Alright! Now we are going to create a test for our JsonKStreamsJoin class. We will need to update the imports of that file as well as taking in the optional properties as we did for JsonKStream class.
+
+```java
+//import updates
+import java.util.Optional;
+```
+
+```java
+
 ```
