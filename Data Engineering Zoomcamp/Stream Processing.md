@@ -1199,7 +1199,7 @@ Our rides_compatible.avsc file will contain the following:
 }
 ```
 
-Our rides_non_compatible.avsc file will containt:
+Our rides_non_compatible.avsc file will contain:
 
 ```avro
 {
@@ -1213,6 +1213,24 @@ Our rides_non_compatible.avsc file will containt:
        ]
 }
 ```
+
+
+In our gradle file, there is an avro plugin we are using. Be sure to also have the gradle brew installed, make the gradle wrapper available locally:
+
+```bash
+brew install gradle
+gradle wrapper
+```
+
+have the gradlew, gradlew.bat, and settings.gradle files and then run the following commands:
+
+```bash
+chmod +x gradlew
+./gradlew clean
+./gradelw build
+```
+
+Now we need to update our getRides method so that it outputs a list of objects of type RideRecord instead of just Ride.
 
 We will start with this. Go to Confluent Cloud and create a new topic called rides_avro (with 2 partitions and retention 1 day).
 
@@ -1247,20 +1265,3 @@ props.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegUrlC
 props.put("basic.auth.credentials.source", "USER_INFO");
 props.put("basic.auth.user.info",schemaRegUserName+":"+schemaRegPassWord);
 ```
-
-In our gradle file, there is an avro plugin we are using. Be sure to also have the gradle brew installed, make the gradle wrapper available locally:
-
-```bash
-brew install gradle
-gradle wrapper
-```
-
-have the gradlew, gradlew.bat, and settings.gradle files and then run the following commands:
-
-```bash
-chmod +x gradlew
-./gradlew clean
-./gradelw build
-```
-
-Now we need to update our getRides method so that it outputs a list of objects of type RideRecord instead of just Ride.
