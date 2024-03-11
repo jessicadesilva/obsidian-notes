@@ -1505,3 +1505,16 @@ if __name__ == '__main__':
 	rides = producer.read_records(resource_path=INPUT_DATA_PATH)
 	producer.publish_rides(topic=KAFKA_TOPIC, messages=rides)
 ```
+
+Now we can run this file using:
+
+```bash
+python producer.py
+```
+
+and we see records are successfully be produced:
+
+![[Screenshot 2024-03-11 at 8.26.35 AM.png]]
+
+Now let's take a look at our consumer, create a consumer.py file with the following content:
+
