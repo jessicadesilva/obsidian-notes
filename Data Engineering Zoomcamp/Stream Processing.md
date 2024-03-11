@@ -1204,3 +1204,15 @@ Go ahead and create the key and export the key and secret as environment variabl
 
 SCHEMA_REGISTRY_KEY
 SCHEMA_REGISTRY_SECRET
+
+Then we add the following to our class intializer:
+
+```java
+String schemaRegUrlConfig = System.getenv("SCHEMA_REGISTRY_URL");
+String schemaRegUserName = System.getenv("SCHEMA_REGISTRY_KEY");
+String schemaRegPassWord = System.getenv("SCHEMA_REGISTRY_SECRET");
+
+props.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegUrlConfig);
+props.put("basic.auth.credentials.source", "USER_INFO");
+props.put("basic.auth.user.info",schemaRegUserName+":"+schemaRegPassWord);
+```
