@@ -2124,5 +2124,18 @@ spark = SparkSession \
 Now we will read from Kafka:
 
 ```python
+# default for startingOffsets is "latest"
+df_kafka_raw = spark \
+    .readStream \
+    .format("kafka") \
+    .option("kafka.bootstrap.servers", "localhost:9092,broker:29092") \
+    .option("subscribe", "rides_csv") \
+    .option("startingOffsets", "earliest") \
+    .option("checkpointLocation", "checkpoint") \
+    .load()
+```
 
+Let's check out the schema:
+```python
+df_kafka_raw.printSchema()
 ```
