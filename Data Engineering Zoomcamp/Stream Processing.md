@@ -1369,3 +1369,5 @@ Now for this first part, we only need the Kafka services up and running. So navi
 ```bash
 docker compose up -d
 ```
+
+In our Kafka docker-compose.yml file, the broker service specifies the KAFKA_LISTENERS and the KAFKA_ADVERTISED_LISTENERS. These two parameters say how Kafka communicates within Docker and how we can access the broker outside Docker. 
