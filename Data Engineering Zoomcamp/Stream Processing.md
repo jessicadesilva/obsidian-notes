@@ -1084,3 +1084,55 @@ Update the auto.offset.reset to Earliest so we get all the event data available:
 ![[Screenshot 2024-03-10 at 7.23.30 PM.png]]
 Now since our data was deleted every 24 hours, we may need to run our JSONProducer again to get data going through the stream.
 
+When we run the query in ksqlDB we get the following output:
+
+![[Screenshot 2024-03-10 at 7.25.09 PM.png]]
+
+Now we can see the RIDE_STREAMS in the Flow tab and it is only generating the data we specifically queried:
+![[Screenshot 2024-03-10 at 7.26.35 PM.png]]
+
+Now if we go back to the editor we can query our new stream:
+
+```SQL
+SELECT *
+FROM ride_streams EMIT CHANGES;
+```
+
+And we can see the data that has been generated thus far through our new stream:
+![[Screenshot 2024-03-10 at 7.29.07 PM.png]]
+
+We can try some other queries:
+
+```SQL
+SELECT COUNT(*)
+FROM ride_streams
+EMIT CHANGES;
+```
+
+![[Screenshot 2024-03-10 at 7.30.54 PM.png]]
+
+And yet another example:
+
+```SQL
+SELECT
+	payment_type,
+	COUNT(*)
+FROM ride_streams
+GROUP BY payment_type
+EMIT CHANGES;
+```
+![[Screenshot 2024-03-10 at 7.32.56 PM.png]]
+
+You can also filter (using the WHERE clause). Now the EMIT CHANGES option will cause for more outputs to be generated if data is being streamed in.
+
+We can create tables and also indicate a window of time where new output will be generated depending on the indicated session:
+
+```SQL
+CREATE TABLE payment_type_sessions AS
+	SELECT payment_type,
+		COUNT(*)
+	FROM ride_streams
+	WINDOW SESSION (60 SECONDS)
+	GROUP BY payment_time
+	EMIT CHANGES;
+```
