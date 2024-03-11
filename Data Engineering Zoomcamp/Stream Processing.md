@@ -1197,4 +1197,6 @@ and change the value serializer to the following:
 props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
 ```
 
-We now have to add some information about our schema registry. 
+We now have to add some information about our schema registry. To add a schema registry in Confluent Cloud, check the bottom left corner:
+
+![[Screenshot 2024-03-10 at 8.29.37 PM.png]]
