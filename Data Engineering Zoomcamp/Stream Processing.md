@@ -2398,6 +2398,8 @@ def op_windowed_groupby(df, window_duration, slide_duration):
     return df_windowed_aggregation
 ```
 
+Note that these returned objects must have a write_query associated with them to actually access the output.
+
 Let's check out our main function:
 
 ```python
