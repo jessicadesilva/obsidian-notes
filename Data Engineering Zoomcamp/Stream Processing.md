@@ -2152,7 +2152,19 @@ df_kafka_encoded.printSchema()
 ```
 ![[Screenshot 2024-03-11 at 1.54.05 PM.png]]
 
-This encoding is what we will use to create a structure streaming DataFrame:
+This encoding is what we will use to create a structure streaming DataFrame with a specified schema:
+
+```python
+ride_schema = T.StructType(
+    [T.StructField("vendor_id", T.IntegerType()),
+     T.StructField("tpep_pickup_datetime", T.TimestampType()),
+     T.StructField("tpep_dropoff_datetime", T.TimestampType()),
+     T.StructField("passenger_count", T.IntegerType()),
+     T.StructField("trip_distance", T.FloatType()),
+     T.StructField("payment_type", T.IntegerType()),
+     T.StructField("total_amount", T.FloatType()),
+    ])
+```
 
 ```python
 def parse_ride_from_kafka_message(df_raw, schema):
@@ -2168,4 +2180,39 @@ def parse_ride_from_kafka_message(df_raw, schema):
 	for idx, field in enumerate(schema):
 		df = df.withColumn(field.name, col.getItem(idx).cast(field.dataType))
 	return df.select([field.name for field in schema])
+```
+
+Let's create a DataFrame with this schema:
+
+```python
+df_rides = parse_ride_from_kafka_messagE(df_raw, schema)
+```
+
+And check that it satisfies our schema:
+```python
+df_rides.printSchema()
+```
+
+![[Screenshot 2024-03-11 at 2.04.50 PM.png]]
+
+Now in order to look at our DataFrame, we have to define our sink operation & streaming query through the writeStream command.
+
+---
+**Output Sink Options**
+* File Sink: store the output to the directory
+* Kafka Sink: stores the output to one or more topics in Kafka
+* Foreach Stink:
+* (for debugging) Console Sink, Memory Sink
+---
+There are three types of **Output Modes**:
+* Complete: the whole result table will be outputted to the sink after every trigger. This is supported for aggregation queries.
+* Append (default): only new rows are added to the result table
+* Update: only updated rows are outputted
+Output mode differs based on the set of transformations applied to the streaming data.
+---
+**Triggers**
+
+
+```python
+df_rides.show()
 ```
