@@ -1341,3 +1341,26 @@ clean and build the cradle, run AvroProducer and then we can see our schema upda
 
 We will be following much of what was done in the Java Steaming videos, but instead now in Python. However, instead of using Confluent Cloud we will use a Docker container that has the Kafka services setup within it.
 
+Once you have all the files in the docker folder provided in the repo, navigate to the docker folder and run the following commands:
+
+```bash
+chmod +x build.sh
+./build.sh
+```
+
+Now we will create a network and volume for our containers:
+
+```bash
+# Create Network
+docker network  create kafka-spark-network
+
+# Create Volume
+docker volume create --name=hadoop-distributed-file-system
+```
+
+Then check to make sure these are both running:
+```bash
+docker volume ls # should list hadoop-distributed-file-system
+docker network ls # should list kafka-spark-network 
+```
+
