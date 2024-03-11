@@ -2486,3 +2486,5 @@ and our second query:
 ![[Screenshot 2024-03-11 at 4.50.18 PM.png]]
 If we run producer.py again, we get the new rows:
 ![[Screenshot 2024-03-11 at 4.51.18 PM.png]]
+
+If you delete the checkpoint folder, it will reset the tables back to nothing.
