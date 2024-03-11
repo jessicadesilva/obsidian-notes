@@ -1061,3 +1061,9 @@ public Topology createTopology() {
 And then create the "rides-pulocation-window-count" topic in Confluent Cloud before running this.
 
 Also don't forget to start your JsonProducer, or else no events will be coming in!
+
+# Kafka ksqldb & Connect
+
+ksqldb is Kafka's way of having SQL to do really quick analysis with respect to your streams coming in. It can be used for analytical/testing processing or even in production (but be careful).
+
+In Confluent Cloud, create a new cluster with global access (you )
