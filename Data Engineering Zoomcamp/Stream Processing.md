@@ -1066,4 +1066,8 @@ Also don't forget to start your JsonProducer, or else no events will be coming i
 
 ksqldb is Kafka's way of having SQL to do really quick analysis with respect to your streams coming in. It can be used for analytical/testing processing or even in production (but be careful).
 
-In Confluent Cloud, create a new cluster with global access (you )
+In Confluent Cloud, navigate to our data-engineering-zoomcamp-cluster cluster and you will see ksqlDB as an option in the menu on the left. Then you can select the button "create  cluster myself" and choose global access with the default name.
+![[Screenshot 2024-03-10 at 7.15.49 PM.png]]
+
+Let's go to topics
+
