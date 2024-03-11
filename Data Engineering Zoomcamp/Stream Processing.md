@@ -1309,3 +1309,10 @@ Get the JsonKStream going and this file so that we can see events populating in 
 
 
 ![[Screenshot 2024-03-10 at 9.29.51 PM.png]]
+
+We can see our schema on the Schema tab:
+
+![[Screenshot 2024-03-10 at 9.33.30 PM.png]]
+
+While we are here, change the compatibility mode to Transitive full:
+![[Screenshot 2024-03-10 at 9.34.35 PM.png]]
