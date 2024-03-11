@@ -1731,17 +1731,6 @@ from settings import RIDE_KEY_SCHEMA_PATH, RIDE_VALUE_SCHEMA_PATH, \
     SCHEMA_REGISTRY_URL, BOOTSTRAP_SERVERS, INPUT_DATA_PATH, KAFKA_TOPIC
 ```
 
-There will also be a delivery report function that will be called every time we try to deliver a message:
-
-```python
-def delivery_report(err, msg):
-    if err is not None:
-        print("Delivery failed for record {}: {}".format(msg.key(), err))
-        return
-    print('Record {} successfully produced to {} [{}] at offset {}'.format(
-        msg.key(), msg.topic(), msg.partition(), msg.offset()))
-```
-
 When we define our RideAvroProducer class, we will make sure to load our schema:
 
 ```python
@@ -1785,6 +1774,19 @@ def read_records(resource_path: str):
 			ride_records.append(RideRecord(arr=[row[0], row[3], row[4], row[9], row[16]))
 			ride_keys.append(RideRecordKey(vendor_id=int(row[8])))
 		return zip(ride_keys, ride_records)
+```
+
+We will have a delivery report method that sends a message to say either the message was delivered or not and there was an error:
+
+```python
+@staticmethod
+def delivery_report(err, msg):
+if err is not None:
+	print("Delivery failed for record {}: {}".format(msg.key(), err))
+	return
+
+print('Record {} successfully produced to {} [{}] at offset {}'.format(
+msg.key(), msg.topic(), msg.partition(), msg.offset()))
 ```
 
 Then we publish our records:
