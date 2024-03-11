@@ -2455,3 +2455,10 @@ spark-submit --master spark://localhost:7077 --num-executors 2 \
              --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1,org.apache.spark:spark-avro_2.12:3.3.1,org.apache.spark:spark-streaming-kafka-0-10_2.12:3.3.1 \
              $PYTHON_JOB
 ```
+
+So we can run the file by sending it to master:
+
+```bash
+chmod +x spark-submit.sh
+./spark-submit.sh streaming.py
+```
