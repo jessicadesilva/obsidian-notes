@@ -1582,3 +1582,57 @@ if __name__ == "__main__":
 Now we can run our consumer.py file and we will see the outputs:
 ![[Screenshot 2024-03-11 at 8.45.31 AM.png]]
 
+Now let's move to the avro example. In our pyspark_streaming_examples folder, create a subfolder called avro_example. In it, we will have the settings.py file:
+
+```python
+INPUT_DATA_PATH = '../resources/rides.csv'
+
+RIDE_KEY_SCHEMA_PATH = '../resources/schemas/taxi_ride_key.avsc'
+RIDE_VALUE_SCHEMA_PATH = '../resources/schemas/taxi_ride_value.avsc'
+
+SCHEMA_REGISTRY_URL = 'http://localhost:8081'
+BOOTSTRAP_SERVERS = 'localhost:9092'
+KAFKA_TOPIC = 'rides_avro'
+```
+
+We will have ride_record.py:
+
+```python
+from typing import List, Dict
+
+
+class RideRecord:
+
+    def __init__(self, arr: List[str]):
+        self.vendor_id = int(arr[0])
+        self.passenger_count = int(arr[1])
+        self.trip_distance = float(arr[2])
+        self.payment_type = int(arr[3])
+        self.total_amount = float(arr[4])
+
+    @classmethod
+    def from_dict(cls, d: Dict):
+        return cls(arr=[
+            d['vendor_id'],
+            d['passenger_count'],
+            d['trip_distance'],
+            d['payment_type'],
+            d['total_amount']
+        ]
+        )
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}: {self.__dict__}'
+
+
+def dict_to_ride_record(obj, ctx):
+    if obj is None:
+        return None
+
+    return RideRecord.from_dict(obj)
+
+
+def ride_record_to_dict(ride_record: RideRecord, ctx):
+    return ride_record.__dict__
+```
+
