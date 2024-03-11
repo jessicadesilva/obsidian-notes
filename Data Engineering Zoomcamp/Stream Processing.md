@@ -2246,6 +2246,8 @@ We can stop writing the query:
 write_query.stop()
 ```
 
+Now here we can try to save the output of the query to a dataframe.
+
 ```python
 def sink_memory(df, query_name, query_template):
 	write_query = df \
@@ -2257,9 +2259,15 @@ def sink_memory(df, query_name, query_template):
 	query_results = spark.sql(query_str)
 	return write_query, query_results
 ```
+Let's see what this looks like:
 
 ```python
 query_name = 'vendor_id_counts'
 query_template = 'select count(distinct(vendor_id)) from {table_name}'
 write_query, df_vendor_id_counts = sink_memory(df=df_rides, query_name=query_name, query_template=query_template)
+
+df_vendor_id_counts.show()
 ```
+
+![[Screenshot 2024-03-11 at 2.22.47 PM.png]]
+
