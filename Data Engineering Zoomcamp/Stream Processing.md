@@ -1468,6 +1468,7 @@ class JsonProducer(KafkaProducer):
 
 ```
 
+Notice in the configuration below, the key is an integer so we convert it into a string before encoding it. Similarly, we convert x into a dictionary and then json.dumps converts it into a string before encoding.
 ```python
 if __name__ == '__main__':
 	# Config should match with the KafkaProducer expectation
