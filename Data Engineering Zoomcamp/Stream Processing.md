@@ -2101,3 +2101,9 @@ if __name__ == '__main__':
 Let's run our consumer and check out the output:
 ![[Screenshot 2024-03-11 at 1.37.48 PM.png]]
 
+Okay now to connect pyspark with Kafka, let's do some prototyping in a notebook before we create our script. Go to localhost:8888 to open JupyterLab. There we can create a new notebook that has the following:
+
+```python
+import os
+os.environ['PYSPARK_SUBMIT_ARGS'] = '--packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1,org.apache.spark:spark-avro_2.12:3.3.1 pyspark-shell'
+```
