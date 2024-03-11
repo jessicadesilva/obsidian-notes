@@ -1183,6 +1183,37 @@ Our rides.avsc file will contain the following:
 }
 ```
 
+Our rides_compatible.avsc file will contain the following:
+
+```avro
+{
+   "type": "record",
+       "name":"RideRecordCompatible",
+       "namespace": "schemaregistry",
+       "fields":[
+         {"name":"vendorId","type":"string"},
+         {"name":"passenger_count","type":"int"},
+         {"name":"trip_distance","type":"double"},
+         {"name":"pu_location_id", "type": [ "null", "long" ], "default": null}
+       ]
+}
+```
+
+Our rides_non_compatible.avsc file will containt:
+
+```avro
+{
+   "type": "record",
+       "name":"RideRecordNoneCompatible",
+       "namespace": "schemaregistry",
+       "fields":[
+         {"name":"vendorId","type":"int"},
+         {"name":"passenger_count","type":"int"},
+         {"name":"trip_distance","type":"double"}
+       ]
+}
+```
+
 We will start with this. Go to Confluent Cloud and create a new topic called rides_avro (with 2 partitions and retention 1 day).
 
 Now make a copy of the JsonProducer, rename it AvroProducer. Add these imports:
