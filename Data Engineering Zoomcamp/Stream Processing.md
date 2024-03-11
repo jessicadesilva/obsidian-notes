@@ -1462,9 +1462,21 @@ class JsonProducer(KafkaProducer):
 
 	@staticmethod
 	def read_records(resource_path: str):
+		records = []
+		with open(resource_path, 'r') as f:
+			reader = csv.reader(f)
+			header = next(reader) # skip the header row
+			for row in reader:
+				records.append(Ride(arr=row))
+		return records
 
 	def publish_rides(self, topic: str, messages: List[Ride]):
-
+		for ride in messages:
+			try:
+				record = self.producer.send(topic=topic, key = ride.pu_location_id, value=ride)
+				print('Record {} successfully produced at offset {}'.format(ride.pu_location_id, record.get().offset()))
+			except KafkaTimeoutError:
+				print(e.__str__())
 
 ```
 
