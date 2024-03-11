@@ -1322,6 +1322,9 @@ Now notice our rides_non_compatible schema has vendorID as type int instead of s
 ```java
 	.setVendorId(Integer.parseInt(row[0]))
 ```
-clean and build the gradle and this is the output we are receiving:
+clean and build the gradle, run this producer and this is the error we are receiving:
 
-
+```
+Schema being registered is incompatible with an earlier schema for subject "rides_avro-value", details: [{errorType:'READER_FIELD_MISSING_DEFAULT_VALUE', description:'The field 'vendor_id' at path '/fields/0' in the old schema has no default value and is missing in the new schema', additionalInfo:'vendor_id'}
+```
+Now if you look at rides_compatible.avsc the types are the same but there is an optional field added. Change the name to RideRecord (keep the rides.avsc name to RideRecordPrevious, revert the rides_non_compatible name to RideRecordNonCompatible). Clean and build the cradle, 
