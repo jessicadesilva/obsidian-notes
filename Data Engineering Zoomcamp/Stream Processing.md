@@ -1216,3 +1216,5 @@ props.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegUrlC
 props.put("basic.auth.credentials.source", "USER_INFO");
 props.put("basic.auth.user.info",schemaRegUserName+":"+schemaRegPassWord);
 ```
+
+Now we need to update our getRides method so that it outputs a list of objects of type RideRecord instead of just Ride.
