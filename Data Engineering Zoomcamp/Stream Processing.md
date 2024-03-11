@@ -1518,3 +1518,13 @@ and we see records are successfully be produced:
 
 Now let's take a look at our consumer, create a consumer.py file with the following content:
 
+Imports first:
+
+```python
+from typing import Dict, List
+from json import loads
+from kafka import KafkaConsumer
+
+from ride import Ride
+from settings import BOOTSTRAP_SERVERS, KAFKA_TOPIC
+```
