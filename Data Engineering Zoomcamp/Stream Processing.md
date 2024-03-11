@@ -1370,4 +1370,10 @@ Now for this first part, we only need the Kafka services up and running. So navi
 docker compose up -d
 ```
 
-In our Kafka docker-compose.yml file, the broker service specifies the KAFKA_LISTENERS and the KAFKA_ADVERTISED_LISTENERS. These two parameters say how Kafka communicates within Docker and how we can access the broker outside Docker. 
+In our Kafka docker-compose.yml file, the broker service specifies the KAFKA_LISTENERS and the KAFKA_ADVERTISED_LISTENERS. These two parameters say how Kafka communicates within Docker and how we can access the broker outside Docker. In our file, it says we can access it at localhost:9092.
+
+Let's start now with the JsonProducer producer.py. The aim is to read a csv file and create a producer that references a csv file on our local machine and publish each row into a specific Kafka topic. Inside our pyspark_streaming_examples folder we will have a subfolder called json_example. Within that is a settings.py file containing the following:
+
+```python
+
+```
