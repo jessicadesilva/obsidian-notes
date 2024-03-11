@@ -1069,5 +1069,18 @@ ksqldb is Kafka's way of having SQL to do really quick analysis with respect to 
 In Confluent Cloud, navigate to our data-engineering-zoomcamp-cluster cluster and you will see ksqlDB as an option in the menu on the left. Then you can select the button "create  cluster myself" and choose global access with the default name.
 ![[Screenshot 2024-03-10 at 7.15.49 PM.png]]
 
-Let's go to topics
+We will focus on the rides topic for now. Once your cluster is done provisioning, in the editor we will have the following kSQL statement:
+
+```SQL
+CREATE STREAM ride_streams (
+	VendorID varchar,
+	trip_distance double,
+	payment_type varchar,
+	passenger_count double
+) WITH (KAFKA_TOPIC='rides',
+		VALUE_FORMAT='json');
+```
+Update the auto.offset.reset to Earliest so we get all the event data available:
+![[Screenshot 2024-03-10 at 7.23.30 PM.png]]
+Now since our data was deleted every 24 hours, we may need to run our JSONProducer again to get data going through the stream.
 
