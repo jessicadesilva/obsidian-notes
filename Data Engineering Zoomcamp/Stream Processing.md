@@ -1133,6 +1133,8 @@ CREATE TABLE payment_type_sessions AS
 		COUNT(*)
 	FROM ride_streams
 	WINDOW SESSION (60 SECONDS)
-	GROUP BY payment_time
+	GROUP BY payment_type
 	EMIT CHANGES;
 ```
+
+Since this table will be updated every 60 seconds, it is a persistent query which means it is running continuously in the background. You can delete persistent queries such as this one using the Persistent queries tab.
