@@ -1316,3 +1316,5 @@ We can see our schema on the Schema tab:
 
 While we are here, change the compatibility mode to Transitive full:
 ![[Screenshot 2024-03-10 at 9.34.35 PM.png]]
+
+Now notice our rides_non_compatible schema has vendorID as type int instead of string. This should make the schema non-compatible.
