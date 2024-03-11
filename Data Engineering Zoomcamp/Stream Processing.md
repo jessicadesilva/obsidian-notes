@@ -1333,4 +1333,6 @@ Now if you look at rides_compatible.avsc the types are the same but there is an 
 .setPuLocationId(Long.parseLong(row[7]))
 ```
 
-clean and build the cradle, 
+clean and build the cradle, run AvroProducer and then we can see our schema updated:
+
+![[Screenshot 2024-03-10 at 10.00.12 PM.png]]
