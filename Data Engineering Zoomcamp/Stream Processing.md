@@ -1217,7 +1217,14 @@ props.put("basic.auth.credentials.source", "USER_INFO");
 props.put("basic.auth.user.info",schemaRegUserName+":"+schemaRegPassWord);
 ```
 
-In our gradle file, there is an avro plugin we are using. Be sure to also have the gradlew file and then run the following commands:
+In our gradle file, there is an avro plugin we are using. Be sure to also have the gradle brew installed, make the gradle wrapper available locally:
+
+```bash
+brew install gradle
+gradle wrapper
+```
+
+have the gradlew, gradlew.bat, and settings.gradle files and then run the following commands:
 
 ```bash
 chmod +x gradlew
