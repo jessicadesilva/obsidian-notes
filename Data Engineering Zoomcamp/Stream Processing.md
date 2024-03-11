@@ -1230,6 +1230,8 @@ chmod +x gradlew
 ./gradelw build
 ```
 
+We can see in our build directory there is now a folder generated-main-avro-java containing files generated based on our schema registry. One is, for example RideRecord from our rides_avro.avsc file. This is created by the plugin.
+
 Now we need to update our getRides method so that it outputs a list of objects of type RideRecord instead of just Ride.
 
 We will start with this. Go to Confluent Cloud and create a new topic called rides_avro (with 2 partitions and retention 1 day).
@@ -1239,6 +1241,7 @@ Now make a copy of the JsonProducer, rename it AvroProducer. Add these imports:
 ```java
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
+import schemaregistry.RideRecord;
 ```
 and change the value serializer to the following:
 
