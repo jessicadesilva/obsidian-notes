@@ -1926,4 +1926,12 @@ We see our messages are being consumed properly:
 
 # PySpark Structured Streaming
 
-In this section, we will see how to communicate between a Spark cluster and a Kafka cluster. Make sure the docker container in the spark folder is up and running. 
+In this section, we will see how to communicate between a Spark cluster and a Kafka cluster. 
+
+In the Spark folder, run the build.sh file:
+```bash
+./build.sh
+```
+
+Then get the docker container in the spark folder is up and running.
+
