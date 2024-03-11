@@ -1336,3 +1336,8 @@ Now if you look at rides_compatible.avsc the types are the same but there is an 
 clean and build the cradle, run AvroProducer and then we can see our schema updated:
 
 ![[Screenshot 2024-03-10 at 10.00.12 PM.png]]
+
+# Streaming with PySpark
+
+We will be following much of what was done in the Java Steaming videos, but instead now in Python. However, instead of using Confluent Cloud we will use a Docker container that has the Kafka services setup within it.
+
