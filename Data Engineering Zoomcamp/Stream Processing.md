@@ -1935,3 +1935,98 @@ In the Spark folder, run the build.sh file:
 
 Then get the docker container in the spark folder is up and running.
 
+In our python_examples folder (renamed from pyspark_streaming_examples), create a folder called streams-example with a subfolder called pyspark.
+
+In the pyspark folder, we will having the following settings.py file:
+
+```python
+import pyspark.sql.types as T
+
+INPUT_DATA_PATH = '../../resources/rides.csv'
+BOOTSTRAP_SERVERS = 'localhost:9092'
+
+TOPIC_WINDOWED_VENDOR_ID_COUNT = 'vendor_counts_windowed'
+
+PRODUCE_TOPIC_RIDES_CSV = CONSUME_TOPIC_RIDES_CSV = 'rides_csv'
+
+RIDE_SCHEMA = T.StructType(
+    [T.StructField("vendor_id", T.IntegerType()),
+     T.StructField('tpep_pickup_datetime', T.TimestampType()),
+     T.StructField('tpep_dropoff_datetime', T.TimestampType()),
+     T.StructField("passenger_count", T.IntegerType()),
+     T.StructField("trip_distance", T.FloatType()),
+     T.StructField("payment_type", T.IntegerType()),
+     T.StructField("total_amount", T.FloatType()),
+     ])
+```
+
+Also in this pyspark folder, we will have a producer.py file with the following content (similar as before, just different encoder/decoder):
+
+Imports first
+```python
+import csv
+from time import sleep
+from typing import Dict
+from kafka import KafkaProducer
+
+from settings import BOOTSTRAP_SERVERS, INPUT_DATA_PATH, PRODUCE_TOPIC_RIDES_CSV
+```
+
+RideCSVProducer class and initializer:
+```python
+class RideCSVProducer:
+    def __init__(self, props: Dict):
+        self.producer = KafkaProducer(**props)
+        # self.producer = Producer(producer_props)
+```
+
+Read records method:
+```python
+@staticmethod
+def read_records(resource_path: str):
+	records, ride_keys = [], []
+	i = 0
+	with open(resource_path, 'r') as f:
+		reader = csv.reader(f)
+		header = next(reader)  # skip the header
+		for row in reader:
+			# vendor_id, passenger_count, trip_distance, payment_type, total_amount
+			records.append(f'{row[0]}, {row[1]}, {row[2]}, {row[3]}, {row[4]}, {row[9]}, {row[16]}')
+			ride_keys.append(str(row[0]))
+			i += 1
+			if i == 5:
+				break
+	return zip(ride_keys, records)
+```
+
+Publish method:
+```python
+def publish(self, topic: str, records: [str, str]):
+	for key_value in records:
+		key, value = key_value
+		try:
+			self.producer.send(topic=topic, key=key, value=value)
+			print(f"Producing record for <key: {key}, value:{value}>")
+		except KeyboardInterrupt:
+			break
+		except Exception as e:
+			print(f"Exception while producing record - {value}: {e}")
+	
+	self.producer.flush()
+	sleep(1)
+```
+
+and main function:
+
+```python
+if __name__ == "__main__":
+    config = {
+        'bootstrap_servers': [BOOTSTRAP_SERVERS],
+        'key_serializer': lambda x: x.encode('utf-8'),
+        'value_serializer': lambda x: x.encode('utf-8')
+    }
+    producer = RideCSVProducer(props=config)
+    ride_records = producer.read_records(resource_path=INPUT_DATA_PATH)
+    print(ride_records)
+    producer.publish(topic=PRODUCE_TOPIC_RIDES_CSV, records=ride_records)
+```
