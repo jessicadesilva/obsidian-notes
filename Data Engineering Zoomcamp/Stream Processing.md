@@ -1487,7 +1487,7 @@ class JsonProducer(KafkaProducer):
 			try:
 				record = self.producer.send(topic=topic, key = ride.pu_location_id, value=ride)
 				print('Record {} successfully produced at offset {}'.format(ride.pu_location_id, record.get().offset)
-			except KafkaTimeoutError:
+			except KafkaTimeoutError as e:
 				print(e.__str__())
 
 ```
@@ -1761,7 +1761,53 @@ class RideAvroProducer:
 		self.producer = Producer(producer_props)
 ```
 
+Now we will create a method that reads the schema definition from the specified place:
 
+```python
+@staticmethod
+def load_schema(schema_path: str):
+	path = os.path.realpath(os.path.dirname(__file__))
+	with open(f"{path}/{schema_path}") as f:
+		schema_str = f.read()
+	return schema_str
+```
+
+Now our static read_records method looks like this:
+
+```python
+@staticmethod
+def read_records(resource_path: str):
+	ride_records, ride_keys = [], []
+	with open(resource_path, 'r') as r:
+		reader = csv.reader(f)
+		header = next(reader) # skip the header
+		for row in reader:
+			ride_records.append(RideRecord(arr=[row[0], row[3], row[4], row[9], row[16]))
+			ride_keys.append(RideRecordKey(vendor_id=int(row[8])))
+		return zip(ride_keys, ride_records)
+```
+
+Then we publish our records:
+
+```python
+def publish(self, topic: str, records: [RideRecordKey, RideRecord]):
+	for key_value in records:
+		key, value = key_value
+		try:
+			self.producer.producer(topic=topic,
+				key=self.key_serializer(key, SerializationContext(topic=topic,
+					field=MessageField.KEY)),
+				value = self.value_serializer(value, SerializationContext(topic=topic, field=MessageField.VALUE)),
+				on_delivery = delivery_report)
+		except KeyboardInterrupt:
+			break
+		except Exception as e:
+			print(f"Exception while producing record - {value}: {e}")
+			
+	self.producer.flush()
+	sleep(1)
+			
+```
 
 
 Our main function specifies the schema registry:
