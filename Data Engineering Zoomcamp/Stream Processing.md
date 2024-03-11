@@ -1667,7 +1667,7 @@ def ride_record_key_to_dict(ride_record_key: RideRecordKey, ctx):
     return ride_record_key.__dict__
 ```
 
-Now in our resources folder, let's create a schema subfolder with two files:
+Now in our resources folder, let's create a schemas subfolder with two files:
 (1) taxi_ride_key.avsc
 ```avro
 {
