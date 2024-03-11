@@ -1268,3 +1268,44 @@ props.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegUrlC
 props.put("basic.auth.credentials.source", "USER_INFO");
 props.put("basic.auth.user.info",schemaRegUserName+":"+schemaRegPassWord);
 ```
+
+Now we are updating our methods as follows:
+
+```java
+public List<RideRecord> getRides() throws IOException, CsvException {
+	var ridesStream = this.getClass().getResource("/rides.csv");
+	var reader = new CSVReader(new FileReader(ridesStream.getFile()));
+	reader.skip(1);
+	return reader.readAll().stream().map(row ->
+		RideRecord.newBuilder().setVendorId(row[0])
+		.setTripDistance(Double.parseDouble(row[4]))
+		.setPassengerCount(Integer.parseInt(row[3]))
+		.build()
+		).collect(Collectors.toList());
+}
+
+  
+
+public void publishRides(List<RideRecord> rides) throws ExecutionException, InterruptedException {
+	KafkaProducer<String, RideRecord> kafkaProducer = new KafkaProducer<String, RideRecord>(props);
+	for(RideRecord ride: rides) {
+		var record = kafkaProducer.send(new ProducerRecord<>("rides_avro", String.valueOf(ride.getVendorId()), ride), (metadata, exception) -> {
+		if(exception != null) {
+		System.out.println(exception.getMessage());
+		}
+		});
+		Thread.sleep(500);
+	}
+}
+
+public static void main(String[] args) throws IOException, CsvException, ExecutionException, InterruptedException {
+	var producer = new AvroProducer();
+	var rideRecords = producer.getRides();
+	producer.publishRides(rideRecords);
+}
+```
+
+Get the JsonKStream going and this file so that we can see events populating in our rides_avro topic:
+
+
+![[Screenshot 2024-03-10 at 9.29.51 PM.png]]
