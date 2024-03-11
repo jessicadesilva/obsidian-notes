@@ -1710,3 +1710,71 @@ Now in our resources folder, let's create a schema subfolder with two files:
   ]
 }
 ```
+
+Okay so now let's take a look at our avro producer (producer.py file):
+
+Imports first:
+```python
+import os
+import csv
+from time import sleep
+from typing import Dict
+
+from confluent_kafka import Producer
+from confluent_kafka.schema_registry import SchemaRegistryClient
+from confluent_kafka.schema_registry.avro import AvroSerializer
+from confluent_kafka.serialization import SerializationContext, MessageField
+
+from ride_record_key import RideRecordKey, ride_record_key_to_dict
+from ride_record import RideRecord, ride_record_to_dict
+from settings import RIDE_KEY_SCHEMA_PATH, RIDE_VALUE_SCHEMA_PATH, \
+    SCHEMA_REGISTRY_URL, BOOTSTRAP_SERVERS, INPUT_DATA_PATH, KAFKA_TOPIC
+```
+
+There will also be a delivery report function:
+
+```python
+def delivery_report(err, msg):
+    if err is not None:
+        print("Delivery failed for record {}: {}".format(msg.key(), err))
+        return
+    print('Record {} successfully produced to {} [{}] at offset {}'.format(
+        msg.key(), msg.topic(), msg.partition(), msg.offset()))
+```
+
+When we define our RideAvroProducer class, we will make sure to load our schema:
+
+```python
+
+class RideAvroProducer:
+	def __init__(self, props: Dict):
+		# schema registry and serializer-deserializer configs
+		key_schema_str = self.load_schema(props['schema.key'])
+		value_schema_str = self.load_schema(props['schema.value'])
+		schema_registry_props = {'url': props['schema_registry.url']}
+		schema_registry_client = SchemaRegistryClient(schema_registry_props)
+		self.key_serializer = AvroSerializer(schema_registry_client, key_schema_str, ride_record_key_to_dict)
+		self.value_serializer = AvroSerializer(schema_registry_client, value_schema_str, ride_record_to_dict)
+
+		# producer config
+		producer_props = {'bootstrap.servers': props['bootstrap.servers']}
+		self.producer = Producer(producer_props)
+```
+
+
+
+
+Our main function specifies the schema registry:
+
+```python
+if __name__ == "__main__":
+    config = {
+        'bootstrap.servers': BOOTSTRAP_SERVERS,
+        'schema_registry.url': SCHEMA_REGISTRY_URL,
+        'schema.key': RIDE_KEY_SCHEMA_PATH,
+        'schema.value': RIDE_VALUE_SCHEMA_PATH
+    }
+    producer = RideAvroProducer(props=config)
+    ride_records = producer.read_records(resource_path=INPUT_DATA_PATH)
+    producer.publish(topic=KAFKA_TOPIC, records=ride_records)
+```
