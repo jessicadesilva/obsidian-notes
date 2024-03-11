@@ -1372,8 +1372,111 @@ docker compose up -d
 
 In our Kafka docker-compose.yml file, the broker service specifies the KAFKA_LISTENERS and the KAFKA_ADVERTISED_LISTENERS. These two parameters say how Kafka communicates within Docker and how we can access the broker outside Docker. In our file, it says we can access it at localhost:9092.
 
-Let's start now with the JsonProducer producer.py. The aim is to read a csv file and create a producer that references a csv file on our local machine and publish each row into a specific Kafka topic. Inside our pyspark_streaming_examples folder we will have a subfolder called json_example. Within that is a settings.py file containing the following:
+Let's start now with the JsonProducer producer.py. The aim is to read a csv file and create a producer that references a csv file on our local machine and publish each row into a specific Kafka topic. Inside our pyspark_streaming_examples folder, make sure rides.csv is uploaded to a subfolder called resources. We will create a subfolder within the pyspark_streaming_examples directory called json_example. Within that is a settings.py file containing the following:
 
 ```python
+INPUT_DATA_PATH = "../resources/rides.csv"
 
+BOOTSTRAP_SERVICES = ["localhost:9092"]
+KAFKA_TOPIC = "rides_json"
+```
+
+Now we will create a ride.py file in this json_example defining the class Ride with the following content:
+
+```python
+from typing import List, Dict
+from decimal import Decimal
+from datetime import datetime
+
+
+class Ride:
+    def __init__(self, arr: List[str]):
+        self.vendor_id = arr[0]
+        self.tpep_pickup_datetime = datetime.strptime(arr[1], "%Y-%m-%d %H:%M:%S"),
+        self.tpep_dropoff_datetime = datetime.strptime(arr[2], "%Y-%m-%d %H:%M:%S"),
+        self.passenger_count = int(arr[3])
+        self.trip_distance = Decimal(arr[4])
+        self.rate_code_id = int(arr[5])
+        self.store_and_fwd_flag = arr[6]
+        self.pu_location_id = int(arr[7])
+        self.do_location_id = int(arr[8])
+        self.payment_type = arr[9]
+        self.fare_amount = Decimal(arr[10])
+        self.extra = Decimal(arr[11])
+        self.mta_tax = Decimal(arr[12])
+        self.tip_amount = Decimal(arr[13])
+        self.tolls_amount = Decimal(arr[14])
+        self.improvement_surcharge = Decimal(arr[15])
+        self.total_amount = Decimal(arr[16])
+        self.congestion_surcharge = Decimal(arr[17])
+
+    @classmethod
+    def from_dict(cls, d: Dict):
+        return cls(arr=[
+            d['vendor_id'],
+            d['tpep_pickup_datetime'][0],
+            d['tpep_dropoff_datetime'][0],
+            d['passenger_count'],
+            d['trip_distance'],
+            d['rate_code_id'],
+            d['store_and_fwd_flag'],
+            d['pu_location_id'],
+            d['do_location_id'],
+            d['payment_type'],
+            d['fare_amount'],
+            d['extra'],
+            d['mta_tax'],
+            d['tip_amount'],
+            d['tolls_amount'],
+            d['improvement_surcharge'],
+            d['total_amount'],
+            d['congestion_surcharge'],
+        ]
+        )
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}: {self.__dict__}'
+```
+
+Then we will create another file in this json_example folder called producer.py with the following content:
+
+* Imports
+
+```python
+import csv
+import json
+from typing import List, Dict
+from kafka import KafkaProducer
+from kafka.errors import KafkaTimeoutError
+
+from ride import Ride
+from settings import BOOTSTRAP_SERVICES, INPUT_DATA_PATH, KAFKA_TOPIC
+```
+
+Then we create our JsonProducer class:
+
+```python
+class JsonProducer(KafkaProducer):
+	def __init__(self, props:Dict):
+		self.producer = KafkaProducer(**props)
+
+	@staticmethod
+	def read_records(resource_path: str):
+
+	def publish_rides(self, topic: str, messages: List[Ride]):
+
+
+```
+
+```python
+if __name__ == '__main__':
+	# Config should match with the KafkaProducer expectation
+	config = {
+		'bootstrap_servers': BOOTSTRAP_SERVERS,
+		'key_serializer': lambda key: str(key).encode(),
+		'value_serializer': lambda x: json.dumps(x.__dict__, default=str).encode('utf-8')
+	}
+	producer = JsonProducer(props=config)
+	rides = producer.read_records(resource_path=INPUT_DATA_PATH)
+	producer.publish_rides(topic=KAFKA_TOPIC, messages=rides)
 ```
