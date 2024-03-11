@@ -2211,8 +2211,49 @@ There are three types of **Output Modes**:
 Output mode differs based on the set of transformations applied to the streaming data.
 ---
 **Triggers**
+The trigger settings of a streaming query define the timing of streaming data processing. Spark streaming support micro-batch streamings schema and you can select from the following options based on requirements:
+* default-micro-batch-mode
+* fixed-interval-micro-batch-mode
+* one-time-micro-batch-mode
+* available-now-micro-batch-mode
+```python
+def sink_console(df, output_mode: str = 'complete', processing_time: str = '5 seconds'):
+	write_query = df.writeStream \
+		.outputMode(output_mode) \
+		.trigger(processingTime=processing_time) \
+		.format("console") \
+		.option("truncate", False) \
+		.start()
+	return write_query # pyspark.sql.streaming.StreamingQuery
+```
 
+Let's apply this to write our query:
 
 ```python
-df_rides.show()
+write_query = sink_console(df_rides, output_mode='append')
+```
+
+and now we can see our data:
+
+![[Screenshot 2024-03-11 at 2.15.04 PM.png]]
+Then if we run producer.py again we will get a second batch only showing us the new records:
+
+![[Screenshot 2024-03-11 at 2.15.56 PM.png]]
+
+We can stop writing the query:
+
+```python
+write_query.stop()
+```
+
+```python
+def sink_memory(df, query_name, query_template):
+	write_query = df \
+		.writeStream \
+		.queryName(query_name) \
+		.format('memory') \
+		.start()
+	query_str = query_template.format(table_name=query_name)
+	query_results = spark.sql(query_str)
+	return write_query, query_results
 ```
