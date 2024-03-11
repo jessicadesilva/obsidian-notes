@@ -1146,3 +1146,10 @@ Now let's take a look at Connectors:
 ![[Screenshot 2024-03-10 at 7.44.19 PM.png]]
 
 Kafka Connect allows you to connect to a variety of sources/sinks where you pull data from or put data into. For example, if we use Elasticsearch Service Sink connector we can select the topics we want to export and it will ask for the API key file / connection URI, etc.
+
+# Kafka Schema registry
+
+Here we will talk about a few special scenarios, for example: What happens if the producers and consumers are not speaking the same language? What if the producers change the format? In the case of streaming, this can happen if you change the type of the message you are producing (e.g., Json with VendorID as string, then change it to Json with VendorID as integer). Schemas prevent us from making mistakes when we have changes we want to make. Schemas are a contract between producers and consumers. Producers generate the schema and then the schema is distributed to the consumer. When producers and consumers have compatible schemas, they can talk to each other. You can have multiple schemas (those are, for example, changes to messages being produced) but they have to be compatible with each other. The **schema registry** is the one that takes care of the compatibility of schemas.
+
+The producer first publishes its schema to the schema registry. The schema registry gives an acknowledgment to mean "go ahead and produce". The schema registry can tell the producer no if the proposed schema is not compatible with the existing schema. In this case, the producer will not be able to produce. The consumers read the schema from the schema registry. 
+
