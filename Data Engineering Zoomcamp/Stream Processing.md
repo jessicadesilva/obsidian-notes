@@ -1923,3 +1923,7 @@ if __name__ == "__main__":
 
 We see our messages are being consumed properly:
 ![[Screenshot 2024-03-11 at 9.43.07 AM.png]]
+
+# PySpark Structured Streaming
+
+In this section, we will see how to communicate between a Spark cluster and a Kafka cluster. Make sure the docker container in the spark folder is up and running. 
