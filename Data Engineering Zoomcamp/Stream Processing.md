@@ -1185,8 +1185,16 @@ Our rides.avsc file will contain the following:
 
 We will start with this. Go to Confluent Cloud and create a new topic called rides_avro (with 2 partitions and retention 1 day).
 
-Now make a copy of the JsonProducer, rename it AvroProducer, change the value serializer to the following:
+Now make a copy of the JsonProducer, rename it AvroProducer. Add these imports:
+
+```java
+import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
+import io.confluent.kafka.serializers.KafkaAvroSerializer;
+```
+and change the value serializer to the following:
 
 ```java
 props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
 ```
+
+We now have to add some information about our schema registry. 
