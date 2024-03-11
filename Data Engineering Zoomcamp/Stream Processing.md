@@ -2257,3 +2257,9 @@ def sink_memory(df, query_name, query_template):
 	query_results = spark.sql(query_str)
 	return write_query, query_results
 ```
+
+```python
+query_name = 'vendor_id_counts'
+query_template = 'select count(distinct(vendor_id)) from {table_name}'
+write_query, df_vendor_id_counts = sink_memory(df=df_rides, query_name=query_name, query_template=query_template)
+```
