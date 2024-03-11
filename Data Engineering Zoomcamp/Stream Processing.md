@@ -1163,3 +1163,26 @@ With respect to compatibilities, we have to think of three different kinds:
 * Forward compatibility: producers can write with an updated version and consumers can read with the previous version (for example, adding an optional field)
 * Backward compatibility: producers can write with the previous version and consumers can read with the new version 
 * Full compatibility: any producer can produce from any version and consumers can consume from any different version
+
+In our main folder within the Java project, let's create a subfolder called **avro** with three files:
+* rides.avsc
+* rides_compatible.avsc
+* rides_non_compatible.avsc
+Our rides.avsc file will contain the following:
+
+```avro
+{
+	"type": "record",
+	"name": "RideRecord",
+	"namespace": "schemaregistry",
+	"fields": [
+		{"name":"vendor_id", "type":"string"},
+		{"name":"passenger_count", "type":"int"},
+		{"name":"trip_distance", "type":"double"},
+	]
+}
+```
+
+We will start with this. Go to Confluent Cloud and create a new topic called rides_avro (with 2 partitions and retention 1 day).
+
+Now make a copy of the JsonProducer, rename it AvroProducer 
