@@ -1636,3 +1636,48 @@ def ride_record_to_dict(ride_record: RideRecord, ctx):
     return ride_record.__dict__
 ```
 
+Now in our resources folder, let's create a schema subfolder with two files:
+(1) taxi_ride_key.avsc
+```avro
+{
+  "namespace": "com.datatalksclub.taxi",
+  "type": "record",
+  "name": "RideRecordKey",
+  "fields": [
+    {
+      "name": "vendor_id",
+      "type": "int"
+    }
+  ]
+}
+```
+(2) taxi_ride_value.avsc
+```avro
+{
+  "namespace": "com.datatalksclub.taxi",
+  "type": "record",
+  "name": "RideRecord",
+  "fields": [
+    {
+      "name": "vendor_id",
+      "type": "int"
+    },
+    {
+      "name": "passenger_count",
+      "type": "int"
+    },
+    {
+      "name": "trip_distance",
+      "type": "float"
+    },
+    {
+      "name": "payment_type",
+      "type": "int"
+    },
+    {
+      "name": "total_amount",
+      "type": "float"
+    }
+  ]
+}
+```
