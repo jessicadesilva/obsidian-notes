@@ -1317,9 +1317,11 @@ We can see our schema on the Schema tab:
 While we are here, change the compatibility mode to Transitive full:
 ![[Screenshot 2024-03-10 at 9.34.35 PM.png]]
 
-Now notice our rides_non_compatible schema has vendorID as type int instead of string which makes the schema non-compatible to the previous version. Change the name to RideRecord, clean and build the gradle and this is the output we are receiving:
+Now notice our rides_non_compatible schema has vendorID as type int instead of string which makes the schema non-compatible to the previous version. Change the name to RideRecord, change the name of rides.avsc to RideRecordPrevious, update this bit in AvroProducer:
 
+```java
+	.setVendorId(Integer.parseInt(row[0]))
 ```
-> Found conflicting definition of type schemaregistry.RideRecord in [src/main/avro/rides.avsc, src/main/avro/rides_non_compatible.avsc]
-```
+clean and build the gradle and this is the output we are receiving:
+
 
