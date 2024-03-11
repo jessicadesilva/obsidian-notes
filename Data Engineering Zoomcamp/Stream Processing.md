@@ -1252,12 +1252,12 @@ props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.clas
 We now have to add some information about our schema registry. To get a key for our Schema Registry, go to Environment on the left, click on Default, and then look in the lower right corner. You will see a section where you can add a key under Credentials in the Stream Governance API section:
 ![[Screenshot 2024-03-10 at 8.34.58 PM.png]]
 
-Go ahead and create the key and export the key and secret as environment variables:
-
+Go ahead and create the key and export the key and secret as environment variables (the first is the Endpoint URL we see here):
+SCHEMA_REGISTRY_URL
 SCHEMA_REGISTRY_KEY
 SCHEMA_REGISTRY_SECRET
 
-Then we add the following to our class intializer:
+Then we add the following to our class initializer:
 
 ```java
 String schemaRegUrlConfig = System.getenv("SCHEMA_REGISTRY_URL");
