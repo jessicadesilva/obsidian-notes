@@ -1155,3 +1155,11 @@ The producer first publishes its schema to the schema registry. The schema regis
 
 We will do an example where we switch from Json to Avro. **Avro** is a data serialization format that is open source and was generated for big data technologies to make producers and consumers compatible. The schema is dictionary format like Json but the data itself is in binary so that it is very efficient compared to Json.
 
+There are lots of benefits for using Avro with respect to Kafka:
+
+![[Screenshot 2024-03-10 at 8.06.52 PM.png]]
+
+With respect to compatibilities, we have to think of three different kinds:
+* Forward compatibility: producers can write with an updated version and consumers can read with the previous version (for example, adding an optional field)
+* Backward compatibility: producers can write with the previous version and consumers can read with the new version 
+* Full compatibility: any producer can produce from any version and consumers can consume from any different version
