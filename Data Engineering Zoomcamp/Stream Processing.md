@@ -1364,3 +1364,8 @@ docker volume ls # should list hadoop-distributed-file-system
 docker network ls # should list kafka-spark-network 
 ```
 
+Now for this first part, we only need the Kafka services up and running. So navigate to the Kafka folder and run:
+
+```bash
+docker compose up -d
+```
