@@ -2139,3 +2139,33 @@ Let's check out the schema:
 ```python
 df_kafka_raw.printSchema()
 ```
+![[Screenshot 2024-03-11 at 1.53.32 PM.png]]
+We can apply a SELECT statement:
+
+```python
+df_kafka_encoded = df_kafka_raw.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
+```
+
+and now the schema should be updated:
+```python
+df_kafka_encoded.printSchema()
+```
+![[Screenshot 2024-03-11 at 1.54.05 PM.png]]
+
+This encoding is what we will use to create a structure streaming DataFrame:
+
+```python
+def parse_ride_from_kafka_message(df_raw, schema):
+	""" take a Spark Streaming df and parse value col based on <schema>, return streaming df cols in schema """
+	assert df_raw.isStreaming is True, "DataFrame doesn't receive streaming data"
+
+	df = df_raw.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
+
+	# split attributes to nested array in one column
+	col = F.split(df['value'], ', ')
+
+	# expand col to multiple top-level columns
+	for idx, field in enumerate(schema):
+		df = df.withColumn(field.name, col.getItem(idx).cast(field.dataType))
+	return df.select([field.name for field in schema])
+```
