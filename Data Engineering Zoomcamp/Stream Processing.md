@@ -2099,3 +2099,5 @@ if __name__ == '__main__':
 ```
 
 Let's run our consumer and check out the output:
+![[Screenshot 2024-03-11 at 1.37.48 PM.png]]
+
