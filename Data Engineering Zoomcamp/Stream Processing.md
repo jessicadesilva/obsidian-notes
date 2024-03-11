@@ -1384,6 +1384,8 @@ to
 from six.moves import range
 ```
 
+We also want to pip install confluent_kafka, requests, and fastavro.
+
 Let's start now with the JsonProducer producer.py. The aim is to read a csv file and create a producer that references a csv file on our local machine and publish each row into a specific Kafka topic. Inside our pyspark_streaming_examples folder, make sure rides.csv is uploaded to a subfolder called resources. We will create a subfolder within the pyspark_streaming_examples directory called json_example. Within that is a settings.py file containing the following:
 
 ```python
@@ -1767,11 +1769,11 @@ Now our static read_records method looks like this:
 @staticmethod
 def read_records(resource_path: str):
 	ride_records, ride_keys = [], []
-	with open(resource_path, 'r') as r:
+	with open(resource_path, 'r') as f:
 		reader = csv.reader(f)
 		header = next(reader) # skip the header
 		for row in reader:
-			ride_records.append(RideRecord(arr=[row[0], row[3], row[4], row[9], row[16]))
+			ride_records.append(RideRecord(arr=[row[0], row[3], row[4], row[9], row[16]]))
 			ride_keys.append(RideRecordKey(vendor_id=int(row[8])))
 		return zip(ride_keys, ride_records)
 ```
