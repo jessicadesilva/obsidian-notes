@@ -1138,3 +1138,11 @@ CREATE TABLE payment_type_sessions AS
 ```
 
 Since this table will be updated every 60 seconds, it is a persistent query which means it is running continuously in the background. You can delete persistent queries such as this one using the Persistent queries tab.
+
+Note that there is a Java client that you can wrap around ksqlDB. The disadvantage to using ksqlDB is that you have to have a separate cluster altogether from what is used to generate the streaming data. But it is good for proof-of-concepts or prototyping, otherwise you should use Kafka Streams.
+
+Now let's take a look at Connectors:
+
+![[Screenshot 2024-03-10 at 7.44.19 PM.png]]
+
+Kafka Connect allows you to connect to a variety of sources/sinks where you pull data from or put data into. For example, if we use Elasticsearch Service Sink connector we can select the topics we want to export and it will ask for the API key file / connection URI, etc.
