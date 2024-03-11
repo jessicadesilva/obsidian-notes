@@ -1327,7 +1327,7 @@ clean and build the gradle, run this producer and this is the error we are recei
 ```
 Schema being registered is incompatible with an earlier schema for subject "rides_avro-value", details: [{errorType:'READER_FIELD_MISSING_DEFAULT_VALUE', description:'The field 'vendor_id' at path '/fields/0' in the old schema has no default value and is missing in the new schema', additionalInfo:'vendor_id'}
 ```
-Now if you look at rides_compatible.avsc the types are the same but there is an optional field added. Change the name to RideRecord (keep the rides.avsc name to RideRecordPrevious, revert the rides_non_compatible name to RideRecordNonCompatible). Add the following to the getRides method in our AvroProducer:
+Now if you look at rides_compatible.avsc the types are the same but there is an optional field added. Change the name to RideRecord (keep the rides.avsc name to RideRecordPrevious, revert the rides_non_compatible name to RideRecordNonCompatible). Revert the VendorId changes back, add the following to the getRides method in our AvroProducer:
 
 ```java
 .setPuLocationId(Long.parseLong(row[7]))
