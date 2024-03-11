@@ -1197,6 +1197,10 @@ and change the value serializer to the following:
 props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
 ```
 
-We now have to add some information about our schema registry. To add a schema registry in Confluent Cloud, check the bottom left corner:
+We now have to add some information about our schema registry. To get a key for our Schema Registry, go to Environment on the left, click on Default, and then look in the lower right corner. You will see a section where you can add a key under Credentials in the Stream Governance API section:
+![[Screenshot 2024-03-10 at 8.34.58 PM.png]]
 
-![[Screenshot 2024-03-10 at 8.29.37 PM.png]]
+Go ahead and create the key and export the key and secret as environment variables:
+
+SCHEMA_REGISTRY_KEY
+SCHEMA_REGISTRY_SECRET
