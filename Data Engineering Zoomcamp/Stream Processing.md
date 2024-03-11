@@ -1933,6 +1933,14 @@ In the Spark folder, run the build.sh file:
 ./build.sh
 ```
 
+Make sure the SPARK_VERSION matches the spark version on your local computer using:
+
+```bash
+spark-submit --version
+```
+
+For me, it is 3.5.1.
+
 Then get the docker container in the spark folder is up and running.
 
 In our python_examples folder (renamed from pyspark_streaming_examples), create a folder called streams-example with a subfolder called pyspark.
@@ -2431,7 +2439,14 @@ if __name__ == "__main__":
     spark.streams.awaitAnyTermination()
 ```
 
-Now to run this file we actually need to submit it as a spark job to the master. There is a spark-submit.sh file we can include to shorten the commands needed for this:
+Now to run this file we actually need to submit it as a spark job to the master.
+Let's double check what our spark version is:
+
+```bash
+spark-submit --version
+```
+
+For me, it is 3.5.1. This means I pip install pyspark version 3.5.1 and then that version is used in the --packages flag in the spark-submit.sh file which will shorten the commands needed to run the streaming.py file with spark:
 
 ```bash
 # Submit Python code to SparkMaster
@@ -2452,7 +2467,7 @@ else
 fi
 spark-submit --master spark://localhost:7077 --num-executors 2 \
 	           --executor-memory $EXEC_MEM --executor-cores 1 \
-             --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1,org.apache.spark:spark-avro_2.12:3.3.1,org.apache.spark:spark-streaming-kafka-0-10_2.12:3.3.1 \
+             --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.1,org.apache.spark:spark-avro_2.12:3.5.1,org.apache.spark:spark-streaming-kafka-0-10_2.12:3.5.1 \
              $PYTHON_JOB
 ```
 
@@ -2462,3 +2477,12 @@ So we can run the file by sending it to master:
 chmod +x spark-submit.sh
 ./spark-submit.sh streaming.py
 ```
+We see the schema printed:
+![[Screenshot 2024-03-11 at 4.49.37 PM.png]]
+
+The result of our query:
+![[Screenshot 2024-03-11 at 4.49.58 PM.png]]
+and our second query:
+![[Screenshot 2024-03-11 at 4.50.18 PM.png]]
+If we run producer.py again, we get the new rows:
+![[Screenshot 2024-03-11 at 4.51.18 PM.png]]
