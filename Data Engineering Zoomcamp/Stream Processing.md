@@ -1731,7 +1731,7 @@ from settings import RIDE_KEY_SCHEMA_PATH, RIDE_VALUE_SCHEMA_PATH, \
     SCHEMA_REGISTRY_URL, BOOTSTRAP_SERVERS, INPUT_DATA_PATH, KAFKA_TOPIC
 ```
 
-There will also be a delivery report function:
+There will also be a delivery report function that will be called every time we try to deliver a message:
 
 ```python
 def delivery_report(err, msg):
