@@ -2271,3 +2271,30 @@ df_vendor_id_counts.show()
 
 ![[Screenshot 2024-03-11 at 2.22.47 PM.png]]
 
+Now we stop the query manually:
+```python
+write_query.stop()
+```
+
+And finally let's see what it looks like when our sink is a Kafka topic:
+
+```python
+def prepare_dataframe_to_kafka_sink(df, value_columns, key_column=None):
+	columns = df.columns
+	df = df.withColumn("value", F.concat_ws(', ',*value_columns))
+	if key_column:
+		df = df.withColumnRenamed(key_column, "key")
+		df = df.withColumn("key", df.key.cast('string'))
+	return df.select(['key', 'value'])
+
+def sink_kafka(df, topic, output_mode='append'):
+	write_query = df.writeStream \
+		.format("kafka") \
+		.option("kafka.bootstrap.servers", "localhost:9092,broker:29092") \
+		.outputMode(output_mode) \
+		.option("topic", topic) \
+		.option("checkpointLocation", "checkpoint") \
+		.start()
+	return write_query
+```
+
