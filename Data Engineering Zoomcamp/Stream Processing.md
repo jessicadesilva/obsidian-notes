@@ -2507,6 +2507,15 @@ rpk version
 
 ## Create a topic
 
+```bash
+rpk topic create test-topic
+>>TOPIC       STATUS
+test-topic  OK
+```
+
+## Connecting to Kafka
+
+
 
 
 
