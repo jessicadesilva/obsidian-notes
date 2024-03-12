@@ -2550,4 +2550,25 @@ rpk topic consume test-topic
 
 ## Sending the taxi data
 
+Create a green-taxi topic in the container:
 
+```bash
+rpk topic create green-trips
+```
+
+Send the data from the green_tripdata csv file to the green-trips topic:
+
+```python
+import pandas as pd
+df_green = pd.read_csv('green_tripdata_2019-10.csv.gz', compression='gzip')
+
+df_green = df_green[['lpep_pickup_datetime',
+	'lpep_dropoff_datetime',
+	'PULocationID',
+	'DOLocationID',
+	'passenger_count',
+	'trip_distance',
+	'tip_amount']]
+
+
+```
