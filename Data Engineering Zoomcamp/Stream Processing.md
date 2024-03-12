@@ -2517,6 +2517,27 @@ test-topic  OK
 
 The output of producer.bootstrap_connected() is ```True```.
 
+## Sending data in the stream
+```python
+t0 = time.time()
+topic_name = 'test-topic'
+
+for i in range(10):
+	message = {'number': i}
+	producer.send(topic_name, value=message)
+	print(f"Sent: {message}")
+	time.sleep(0.05)
+
+t1 = time.time()
+print(f'sending messages took {(t1 - t0):.2f} seconds')
+
+t2 = time.time()
+producer.flush()
+t3 = time.time()
+
+print(f'flushing took {(t3 - t2):.2f} seconds')
+```
+![[Screenshot 2024-03-12 at 4.20.44 PM.png]]
 
 
 
