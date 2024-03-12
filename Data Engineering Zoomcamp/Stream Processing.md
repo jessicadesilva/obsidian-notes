@@ -2539,5 +2539,15 @@ print(f'flushing took {(t3 - t2):.2f} seconds')
 ```
 ![[Screenshot 2024-03-12 at 4.20.44 PM.png]]
 
+## Consuming data
+
+In the container run:
+```bash
+rpk topic consume test-topic
+```
+
+![[Screenshot 2024-03-12 at 4.22.30 PM.png]]
+
+## Sending the taxi data
 
 
