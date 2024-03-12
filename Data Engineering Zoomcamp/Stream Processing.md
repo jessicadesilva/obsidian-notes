@@ -2488,3 +2488,25 @@ If we run producer.py again, we get the new rows:
 ![[Screenshot 2024-03-11 at 4.51.18 PM.png]]
 
 If you delete the checkpoint folder, it will reset the tables back to nothing.
+
+# Homework
+
+## Redpanda version
+
+Check the version of redpanda:
+Get the docker container up and log into the shell:
+```bash
+docker-compose up
+docker exec -it redpanda-1 bash
+```
+
+```bash
+rpk version
+>> v22.3.5 (rev 28b2443)
+```
+
+## Create a topic
+
+
+
+
