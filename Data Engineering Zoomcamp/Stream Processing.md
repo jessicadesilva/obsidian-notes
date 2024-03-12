@@ -2515,6 +2515,7 @@ test-topic  OK
 
 ## Connecting to Kafka
 
+The output of producer.bootstrap_connected() is ```True```.
 
 
 
