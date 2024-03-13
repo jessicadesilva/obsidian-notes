@@ -2570,5 +2570,16 @@ df_green = df_green[['lpep_pickup_datetime',
 	'trip_distance',
 	'tip_amount']]
 
+topic_name = 'green-trips'
+t0 = time.time()
+for row in df_green.itertuples(index=False):
+	row_dict = {col: getattr(row, col) for col in row._fields}
+	producer.send(topic_name, value=row_dict)
+t1 = time.time()
 
+print(f'Sending these messages took {(t1 - t0):.2f} seconds')
 ```
+![[Screenshot 2024-03-12 at 6.00.13 PM.png]]
+
+## PySpark Consumer
+
