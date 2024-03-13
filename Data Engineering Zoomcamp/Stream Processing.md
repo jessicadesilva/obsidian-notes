@@ -2588,5 +2588,53 @@ Here is the new row after the schema:
 ```bash
 Row(lpep_pickup_datetime='2019-10-01 00:26:02', lpep_dropoff_datetime='2019-10-01 00:39:58', PULocationID=112, DOLocationID=196, passenger_count=1.0, trip_distance=5.88, tip_amount=0.0)
 ```
+## Most popular destination
+
+Update our producer to include timestamp:
+
+```python
+for row in df_green.itertuples(index=False):
+	row_dict = {col: getattr(row, col) for col in row._fields}
+	row_dict["timestamp"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+	producer.send(topic_name, value=row_dict)
+```
+
+Update stream read in consumer to be latest:
+
+```python
+.option("startingOffsets", "latest")
+```
+
+Update schema in consumer with the following:
+
+```python
+.add("timestamp", types.TimestampType())
+```
+
+Create query and write it:
+
+```python
+popular_destinations = (
+	green_stream.groupBy(
+		F.window(timeColumn=green_stream.timestamp, windowDuration="5 minutes"),
+		green_stream.DOLocationID,
+	)
+	.count()
+	.orderBy(F.desc("count"))
+)
+
+query = (
+	popular_destinations.writeStream.outputMode("complete")
+	.format("console")
+	.option("truncate", "false")
+	.start()
+)
+
+query.awaitTermination()
+```
+
+Run the producer and here is the output:
 
 ![[Screenshot 2024-03-12 at 8.08.29 PM.png]]
+
+Most population location is that with ID 74.
