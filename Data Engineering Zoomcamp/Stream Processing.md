@@ -2193,7 +2193,7 @@ def parse_ride_from_kafka_message(df_raw, schema):
 Let's create a DataFrame with this schema:
 
 ```python
-df_rides = parse_ride_from_kafka_messagE(df_raw, schema)
+df_rides = parse_ride_from_kafka_message(df_raw, schema)
 ```
 
 And check that it satisfies our schema:
