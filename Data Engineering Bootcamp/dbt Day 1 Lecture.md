@@ -58,4 +58,9 @@ dbt projects are basically **.sql** and **.yml** files in hierarchical folder st
 * Uses Jinja (Python templating library that extends SQL possibilities)
 	* {{ ref() }} and {{ source() }}: Jinja functions used for lineage and dependency management
 	* allows us to create macros
-* 
+* Materializations:
+	* View
+	* Table
+	* Incremental
+	* Ephemeral
+
