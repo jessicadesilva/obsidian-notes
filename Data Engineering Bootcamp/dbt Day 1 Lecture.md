@@ -26,4 +26,27 @@ Data Lineage/Dependency Management
 * dbt does not store data and it has no compute power
 * What dbt can do is what the Data Warehouse can do
 * dbt code can be stored in your git provider for versioning
-* dbt
+* **dbt-core**
+	* open-source code
+	* all core functionalities (developing/testing/documentation)
+	* python package (interact through CLI)
+	* requires more knowledge
+* **dbt cloud**
+	* cloud-managed platform
+	* runs dbt-core
+	* more user-friendly
+	* has its own IDE
+	* handles complex features like CI/CD, FBAC, environments, notifications
+
+There are many dbt adapters, for example: AlloyDB, BigQuery, Databricks, Dremio, Postgres, Redshift, Snowflake, Spark, Starburst/Trino, Microsoft Fabric, Azure Synapse, Teradata, ...
+Some of these are dbt-owned and others are community-provided.
+
+**dbt project structure**
+Resources
+* Sources (references to objects in your data platform)
+* Models (sql code that will create your objects)
+* Tests (sql code that will test your data)
+* Snapshots (SCD type 2)
+* Seeds (csv files)
+* ...
+dbt projects are basically **.sql** and **.yml** files in hierarchical folder structure.
