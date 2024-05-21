@@ -70,3 +70,15 @@ dbt projects are basically **.sql** and **.yml** files in hierarchical folder st
 	* Version
 	* Contracts
 
+**Best practices on models**
+* **staging**
+	* 1:1 with sources
+	* separated by source
+	* light transformation
+	* stg\_\[source\]\_\_\[entity\]s.sql
+* **intermediate**
+	* modular
+	* break down complexity
+	* gropuy by area of concern
+	* 
+* **marts**
