@@ -80,5 +80,5 @@ dbt projects are basically **.sql** and **.yml** files in hierarchical folder st
 	* modular
 	* break down complexity
 	* gropuy by area of concern
-	* 
+	*  w  
 * **marts**
