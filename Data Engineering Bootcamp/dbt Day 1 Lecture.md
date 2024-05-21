@@ -63,4 +63,10 @@ dbt projects are basically **.sql** and **.yml** files in hierarchical folder st
 	* Table
 	* Incremental
 	* Ephemeral
+![[Screenshot 2024-05-20 at 6.27.07 PM.png]]
+
+* Governance
+	* Access
+	* Version
+	* Contracts
 
