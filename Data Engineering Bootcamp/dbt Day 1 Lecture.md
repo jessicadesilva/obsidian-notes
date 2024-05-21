@@ -50,3 +50,9 @@ Resources
 * Seeds (csv files)
 * ...
 dbt projects are basically **.sql** and **.yml** files in hierarchical folder structure.
+
+**Models**
+* Chunks of code that are materialized as an object in your Data Warehouse
+* Select statement
+* Can be written in SQL or Python (limited support)
+* Uses Jinja (Python templating library that extends SQL possibilities)
