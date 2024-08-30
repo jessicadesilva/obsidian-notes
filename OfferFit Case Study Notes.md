@@ -17,6 +17,7 @@ correlation only for numerics
 `sns.histplot(data, x, hue)` both numeric and cat
 
 # Pipeline
+# Preprocessing
 ```
 numeric_features = [...]
 numeric_transformer = Pipeline(steps=[
@@ -31,8 +32,25 @@ categorical_transformer = Pipeline(steps=[
 ])
 
 ordinal_features = [...]
-ordinal_features = Pipeline(steps=[
+categories = [[ordering1...], [ordering2...]]
+ordinal_transformer = Pipeline(steps=[
 ("imputer", SimpleImputer(strategy="most_frequent")),
-("label", LabelEncoder(handle_unknown="ignore"))
+("ordinal", OrdinalEncoder(categories=categories))
 ])
+
+preprocessor = ColumnTransformer(
+transformers = [
+("num", numeric_transformer, numeric_features),
+("cat", categorical_transformer, categorical_features),
+("ord", ordinal_transformer, ordinal_features)
+]
+)
 ```
+
+# Pipeline
+
+```
+pipeline = Pipeline(steps=[('preprocessor', preprocessor),
+('classifier', RandomForestClassifier())])
+```
+
