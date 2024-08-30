@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "147b02430d336098",
+        "id": "b9f53b9ee7026914",
         "type": "tabs",
         "children": [
           {
-            "id": "8c5d3fbd68962c02",
+            "id": "6d29343ab86b97b9",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Data Engineering Zoomcamp/Stream Processing.md",
+                "file": "OfferFit Case Study Notes.md",
                 "mode": "source",
                 "source": false
               }
@@ -69,7 +69,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 543.5
+    "width": 543.5,
+    "collapsed": true
   },
   "right": {
     "id": "0b4de2c0a9bc39db",
@@ -85,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Data Engineering Zoomcamp/Stream Processing.md",
+                "file": "OfferFit Case Study Notes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Data Engineering Zoomcamp/Stream Processing.md",
+                "file": "OfferFit Case Study Notes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Data Engineering Zoomcamp/Stream Processing.md"
+                "file": "OfferFit Case Study Notes.md"
               }
             }
           }
@@ -146,20 +147,20 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "8c5d3fbd68962c02",
+  "active": "6d29343ab86b97b9",
   "lastOpenFiles": [
+    "OfferFit Case Study Notes.md",
+    "Data Engineering Zoomcamp/Stream Processing.md",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 5.42.19 PM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 6.31.51 PM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 5.50.12 PM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 5.45.24 PM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 5.43.37 PM.png",
-    "Data Engineering Zoomcamp/Stream Processing.md",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-12 at 8.08.29 PM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-11 at 9.39.01 AM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-10 at 8.06.52 PM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-11 at 1.54.05 PM.png",
     "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-10 at 7.15.49 PM.png",
-    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-06 at 8.44.45 AM.png",
     "Data Engineering Zoomcamp/Stream Processing with RisingWave.md",
     "Data Engineering Bootcamp/Day 1 Lecture.md",
     "Data Engineering Bootcamp/dbt Day 1 Lecture.md",
