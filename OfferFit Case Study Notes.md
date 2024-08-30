@@ -80,5 +80,8 @@ print("Test Set Recall: ", recall_score(y_test, y_pred)) print(classification_re
 ```
 importances = grid_search.best_estimator_.feature_importances_
 
-feature_names = X_train.columns
+output_features = list(data.select_dtypes("number")) + list(
+final_pipeline["preprocessing"]["cat"]["encoding"].get_feature_names_out(["cat"])
+
+)
 ```
