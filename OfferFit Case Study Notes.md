@@ -54,3 +54,31 @@ pipeline = Pipeline(steps=[('preprocessor', preprocessor),
 ('classifier', RandomForestClassifier())])
 ```
 
+# Splitting Data
+`X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=12)`
+
+# Grid Search via Cross Validation
+```
+parameters = { 'classifier__n_estimators': [100, 200], 'classifier__max_depth': [None, 10, 20], 'classifier__min_samples_split': [2, 5, 10] }
+
+grid_search = GridSearchCV(pipeline, parameters, cv=5, scoring="recall")
+
+grid_search.fit(X_train, y_train)
+
+print("Best parameters found: ", grid_search.best_params_)
+print("Average recall: ", grid_search.best_scores_.mean())
+```
+
+# Test
+```
+y_pred = grid_search.predict(X_test)
+
+print("Test Set Recall: ", recall_score(y_test, y_pred)) print(classification_report(y_test, y_pred))
+```
+
+# Feature Importance
+```
+importances = grid_search.best_estimator_.feature_importances_
+
+feature_names = X_train.columns
+```
