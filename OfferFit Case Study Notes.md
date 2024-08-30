@@ -74,6 +74,16 @@ print("Average recall: ", grid_search.best_scores_.mean())
 y_pred = grid_search.predict(X_test)
 
 print("Test Set Recall: ", recall_score(y_test, y_pred)) print(classification_report(y_test, y_pred))
+
+precision, recall, thresholds = precision_recall_curve(y_test, y_pred)
+
+plt.figure(figsize=(8, 6))
+plt.plot(recall, precision, label='Precision-Recall curve')
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.title('Precision-Recall Curve')
+plt.legend(loc="lower left")
+plt.show()
 ```
 
 # Feature Importance
