@@ -75,7 +75,8 @@ y_pred = grid_search.predict(X_test)
 
 print("Test Set Recall: ", recall_score(y_test, y_pred)) print(classification_report(y_test, y_pred))
 
-precision, recall, thresholds = precision_recall_curve(y_test, y_pred)
+y_scores = grid_search_cv.predict_proba(data)[:, 1]
+precision, recall, thresholds = precision_recall_curve(y_test, y_scores)
 
 plt.figure(figsize=(8, 6))
 plt.plot(recall, precision, label='Precision-Recall curve')
