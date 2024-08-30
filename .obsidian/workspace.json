@@ -4,35 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "4d62f2d0a36951b1",
+        "id": "147b02430d336098",
         "type": "tabs",
         "children": [
           {
-            "id": "880eb2055cdcf5d5",
+            "id": "8c5d3fbd68962c02",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Data Engineering Bootcamp/Day 1 Lecture.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "b4545999578dd6f5",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Data Engineering Bootcamp/dbt Day 1 Lecture.md",
+                "file": "Data Engineering Zoomcamp/Stream Processing.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -82,8 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 543.5
   },
   "right": {
     "id": "0b4de2c0a9bc39db",
@@ -99,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Data Engineering Bootcamp/dbt Day 1 Lecture.md",
+                "file": "Data Engineering Zoomcamp/Stream Processing.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -116,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Data Engineering Bootcamp/dbt Day 1 Lecture.md",
+                "file": "Data Engineering Zoomcamp/Stream Processing.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -139,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Data Engineering Bootcamp/dbt Day 1 Lecture.md"
+                "file": "Data Engineering Zoomcamp/Stream Processing.md"
               }
             }
           }
@@ -160,27 +146,27 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "b4545999578dd6f5",
+  "active": "8c5d3fbd68962c02",
   "lastOpenFiles": [
-    "Data Engineering Bootcamp/attachments/Screenshot 2024-05-20 at 6.27.07 PM.png",
-    "Data Engineering Bootcamp/attachments/Screenshot 2024-05-20 at 6.06.02 PM.png",
-    "Data Engineering Bootcamp/attachments",
+    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 5.42.19 PM.png",
+    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 6.31.51 PM.png",
+    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 5.50.12 PM.png",
+    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 5.45.24 PM.png",
+    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-04 at 5.43.37 PM.png",
+    "Data Engineering Zoomcamp/Stream Processing.md",
+    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-12 at 8.08.29 PM.png",
+    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-11 at 9.39.01 AM.png",
+    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-10 at 8.06.52 PM.png",
+    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-11 at 1.54.05 PM.png",
+    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-10 at 7.15.49 PM.png",
+    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-06 at 8.44.45 AM.png",
+    "Data Engineering Zoomcamp/Stream Processing with RisingWave.md",
     "Data Engineering Bootcamp/Day 1 Lecture.md",
     "Data Engineering Bootcamp/dbt Day 1 Lecture.md",
+    "Data Engineering Bootcamp/attachments",
     "Data Engineering Bootcamp",
     "Data Engineering Zoomcamp/Data Ingestion with dlt.md",
     "Data Engineering Zoomcamp/Data Warehouse.md",
-    "Data Engineering Zoomcamp/Stream Processing.md",
-    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-12 at 8.08.29 PM.png",
-    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-12 at 6.00.13 PM.png",
-    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-12 at 4.22.30 PM.png",
-    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-12 at 4.20.44 PM.png",
-    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-11 at 4.51.18 PM.png",
-    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-11 at 4.50.18 PM.png",
-    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-11 at 4.49.58 PM.png",
-    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-11 at 4.49.37 PM.png",
-    "Data Engineering Zoomcamp/attachments/Screenshot 2024-03-11 at 2.22.47 PM.png",
-    "Data Engineering Zoomcamp/Stream Processing with RisingWave.md",
     "Data Engineering Zoomcamp/Orchestration.md",
     "Data Engineering Zoomcamp/Analytics Engineering.md",
     "Data Engineering Zoomcamp/Batch Processing with Spark.md",
