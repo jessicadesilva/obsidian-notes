@@ -78,10 +78,30 @@ print("Test Set Recall: ", recall_score(y_test, y_pred)) print(classification_re
 
 # Feature Importance
 ```
-importances = grid_search.best_estimator_.feature_importances_
+best_pipeline = grid_search.best_estimator_
 
-output_features = list(data.select_dtypes("number")) + list(
-final_pipeline["preprocessing"]["cat"]["encoding"].get_feature_names_out(["cat"])
+best_model = best_pipeline.named_steps["classifier"]
 
-)
+importances = best_model.feature_importances_
+
+preprocessor = best_pipeline.named_steps["preprocessor"]
+numerical_feature_names = preprocessor.transformers_[0][1].get_feature_names_out() # For numerical features categorical_feature_names = preprocessor.transformers_[1][1].get_feature_names_out() # For categorical features orginal_feature_names = preprocessor.transformers_[2][1].get_feature_names_out() # For ordinal features
+
+feature_names = list(numerical_feature_names) + list(categorical_feature_names) + list(ordinal_feature_names)
+
+feature_importances = pd.Series(importances, index = feature_names).sort_values(ascending=False)
+
+print(feature_importances)
+
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(#, #)) 
+
+feature_importances.plot(kind='bar')
+
+plt.title('Feature Importances in Random Forest') 
+
+plt.xlabel('Features') plt.ylabel('Importance Score')
+
+plt.show()
 ```
